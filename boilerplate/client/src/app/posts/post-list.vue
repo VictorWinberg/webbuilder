@@ -66,20 +66,20 @@ export default {
         await this.refreshPosts();
       }
     },
-    showPost(index) {
+    showPost(id) {
       this.$router.push({
         name: "post-show",
-        params: { index }
+        params: { id }
       });
     },
-    editPost(index) {
+    editPost(id) {
       this.$router.push({
         name: "post-edit",
-        params: { index }
+        params: { id }
       });
     },
-    async removePost(index) {
-      const res = await fetch(`/api/posts/${index}`, {
+    async removePost(id) {
+      const res = await fetch(`/api/posts/${id}`, {
         method: "DELETE"
       });
       if (res.err) {

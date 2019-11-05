@@ -3,7 +3,7 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="editPost(index)">EDIT</button>
+    <button v-on:click="editPost(id)">EDIT</button>
   </div>
 </template>
 
@@ -11,12 +11,12 @@
 export default {
   name: "post-show",
   props: {
-    index: { required: true }
+    id: { required: true }
   },
   asyncComputed: {
     post: {
       async get() {
-        const res = await fetch(`/api/posts/${this.index}`);
+        const res = await fetch(`/api/posts/${this.id}`);
         if (res.err) {
           console.error(res.err);
           return;
@@ -28,14 +28,14 @@ export default {
     }
   },
   methods: {
-    editPost(index) {
+    editPost(id) {
       this.$router.push({
         name: "post-edit",
-        params: { index }
+        params: { id }
       });
     },
     back() {
-      this.$router.push("/posts");
+      this.$router.push({ name: "post-list" });
     }
   }
 };

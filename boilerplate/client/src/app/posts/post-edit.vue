@@ -6,8 +6,8 @@
     <textarea v-model="post.content" />
     <br />
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="showPost(index)">SHOW</button>
-    <button v-on:click="editPost(index)">SAVE</button>
+    <button v-on:click="showPost(id)">SHOW</button>
+    <button v-on:click="editPost(id)">SAVE</button>
   </div>
 </template>
 
@@ -15,12 +15,12 @@
 export default {
   name: "post-edit",
   props: {
-    index: { required: true }
+    id: { required: true }
   },
   asyncComputed: {
     post: {
       async get() {
-        const res = await fetch(`/api/posts/${this.index}`);
+        const res = await fetch(`/api/posts/${this.id}`);
         const json = await res.json();
         return json;
       },
@@ -28,9 +28,9 @@ export default {
     }
   },
   methods: {
-    async editPost(index) {
+    async editPost(id) {
       if (this.valid()) {
-        const res = await fetch(`/api/posts/${index}`, {
+        const res = await fetch(`/api/posts/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -50,14 +50,14 @@ export default {
     valid() {
       return this.title !== "" && this.content !== "";
     },
-    showPost(index) {
+    showPost(id) {
       this.$router.push({
         name: "post-show",
-        params: { index }
+        params: { id }
       });
     },
     back() {
-      this.$router.push("/posts");
+      this.$router.push({ name: "post-list" });
     }
   }
 };
