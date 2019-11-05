@@ -6,7 +6,8 @@
     <textarea v-model="post.content" />
     <br />
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="editPost(index)">SPARA</button>
+    <button v-on:click="showPost(index)">SHOW</button>
+    <button v-on:click="editPost(index)">SAVE</button>
   </div>
 </template>
 
@@ -49,8 +50,14 @@ export default {
     valid() {
       return this.title !== "" && this.content !== "";
     },
+    showPost(index) {
+      this.$router.push({
+        name: "post-show",
+        params: { index }
+      });
+    },
     back() {
-      this.$router.push("/");
+      this.$router.push("/posts");
     }
   }
 };

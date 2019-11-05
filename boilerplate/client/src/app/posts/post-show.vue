@@ -3,6 +3,7 @@
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <button v-on:click="back()">GO BACK</button>
+    <button v-on:click="editPost(index)">EDIT</button>
   </div>
 </template>
 
@@ -27,8 +28,14 @@ export default {
     }
   },
   methods: {
+    editPost(index) {
+      this.$router.push({
+        name: "post-edit",
+        params: { index }
+      });
+    },
     back() {
-      this.$router.push("/");
+      this.$router.push("/posts");
     }
   }
 };
