@@ -1,3 +1,5 @@
+const { omit } = require("lodash/fp");
+
 module.exports = (app, db) => {
   app.get("/api/posts", (req, res) => {
     return db.Post.findAll()
@@ -9,8 +11,7 @@ module.exports = (app, db) => {
   });
 
   app.post("/api/posts", (req, res) => {
-    const { title, content } = req.body;
-    return db.Post.create({ title, content })
+    return db.Post.create(omit('id', req.body))
       .then(post => res.send(post))
       .catch(err => {
         console.log("Error creating a post", JSON.stringify(post));
@@ -31,9 +32,8 @@ module.exports = (app, db) => {
   app.put("/api/posts/:id", (req, res) => {
     const { id } = req.params;
     return db.Post.findById(id).then(post => {
-      const { firstName, lastName, phone } = req.body;
       return post
-        .update({ firstName, lastName, phone })
+        .update(omit('id', req.body))
         .then(() => res.send(post))
         .catch(err => {
           console.log("Error updating post", JSON.stringify(err));

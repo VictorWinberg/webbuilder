@@ -1,3 +1,5 @@
+const { omit } = require("lodash/fp");
+
 module.exports = (app, db) => {
   app.get("/api/posts/:postId/comments", (req, res) => {
     const { postId } = req.params;
@@ -15,9 +17,8 @@ module.exports = (app, db) => {
 
   app.post("/api/posts/:postId/comments", (req, res) => {
     const { postId } = req.params;
-    const { comment } = req.body;
     return db.PostComment.create({
-      comment,
+      ...omit('id', req.body),
       postId
     })
       .then(postComment => res.send(postComment))
@@ -44,9 +45,8 @@ module.exports = (app, db) => {
     const { id, postId } = req.params;
     return db.PostComment.findOne({ where: { id, postId } }).then(
       postComment => {
-        const { comment } = req.body;
         return postComment
-          .update({ comment })
+          .update(omit('id', req.body))
           .then(() => res.send(postComment))
           .catch(err => {
             console.log("Error updating postComment", JSON.stringify(err));
