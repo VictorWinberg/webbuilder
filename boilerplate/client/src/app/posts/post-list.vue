@@ -3,7 +3,7 @@
     <span>Title</span>
     <input type="text" v-model="title" />
     <br />
-    <textarea v-model="textField" />
+    <textarea v-model="content" />
     <br />
     <button v-on:click="addPost()">CREATE</button>
     <ul>
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       title: "",
-      textField: "",
+      content: "",
       posts: [],
       loading: false
     };
@@ -52,7 +52,7 @@ export default {
           },
           body: JSON.stringify({
             title: this.title,
-            content: this.textField
+            content: this.content
           })
         });
 
@@ -62,7 +62,7 @@ export default {
         }
 
         this.title = "";
-        this.textField = "";
+        this.content = "";
         await this.refreshPosts();
       }
     },
@@ -89,7 +89,7 @@ export default {
       await this.refreshPosts();
     },
     valid() {
-      return this.title !== "" && this.textField !== "";
+      return this.title !== "" && this.content !== "";
     }
   }
 };
