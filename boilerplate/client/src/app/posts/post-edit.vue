@@ -17,17 +17,19 @@ export default {
   props: {
     id: { required: true }
   },
-  asyncComputed: {
-    post: {
-      async get() {
-        const res = await fetch(`/api/posts/${this.id}`);
-        const json = await res.json();
-        return json;
-      },
-      default: {}
-    }
+  data() {
+    return {
+      post: {}
+    };
+  },
+  created() {
+    this.fetchPost();
   },
   methods: {
+    async fetchPost() {
+      const res = await fetch(`/api/posts/${this.id}`);
+      this.post = await res.json();
+    },
     async editPost(id) {
       if (this.valid()) {
         const res = await fetch(`/api/posts/${id}`, {
@@ -36,8 +38,8 @@ export default {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            title: this.title,
-            content: this.content
+            title: this.post.title,
+            content: this.post.content
           })
         });
         if (res.err) {
