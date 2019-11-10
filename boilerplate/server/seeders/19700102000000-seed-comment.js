@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      "PostComments",
+      "Comments",
       [
         {
           comment: "Yes, this is Hello World!",
@@ -47,6 +47,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("PostComments", null, {});
+    return queryInterface.bulkDelete("Comments", null, {});
   }
 };

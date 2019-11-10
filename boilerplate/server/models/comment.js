@@ -1,18 +1,18 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const PostComment = sequelize.define(
-    "PostComment",
+  const Comment = sequelize.define(
+    "Comment",
     {
       comment: DataTypes.TEXT,
       postId: DataTypes.INTEGER
     },
     {}
   );
-  PostComment.associate = function(models) {
-    PostComment.belongsTo(models.Post, {
+  Comment.associate = function(models) {
+    Comment.belongsTo(models.Post, {
       foreignKey: "postId",
       as: "post"
     });
   };
-  return PostComment;
+  return Comment;
 };

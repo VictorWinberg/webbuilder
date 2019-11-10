@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Post.associate = function(models) {
-    Post.hasMany(models.PostComment, { as: "comments" });
+    Post.hasMany(models.Comment, { as: "comments" });
   };
   return Post;
 };
