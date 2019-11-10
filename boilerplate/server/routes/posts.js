@@ -1,55 +1,58 @@
 const { omit } = require("lodash/fp");
 
 module.exports = (app, db) => {
-  app.get("/api/posts", (req, res) => {
-    return db.Post.findAll()
-      .then(posts => res.send(posts))
-      .catch(err => {
-        console.log("Error querying posts", JSON.stringify(err));
-        return res.send(err);
-      });
+  app.get("/api/posts", async (req, res) => {
+    try {
+      const posts = await db.Post.findAll();
+      return res.send(posts);
+    } catch (err) {
+      console.log("Error querying posts", JSON.stringify(err));
+      return res.send(err);
+    }
   });
 
-  app.post("/api/posts", (req, res) => {
-    return db.Post.create(omit('id', req.body))
-      .then(post => res.send(post))
-      .catch(err => {
-        console.log("Error creating a post", JSON.stringify(post));
-        return res.status(400).send(err);
-      });
+  app.post("/api/posts", async (req, res) => {
+    try {
+      const post = await db.Post.create(omit("id", req.body));
+      return res.send(post);
+    } catch (err) {
+      console.log("Error creating a post", JSON.stringify(err));
+      return res.status(400).send(err);
+    }
   });
 
-  app.get("/api/posts/:id", (req, res) => {
+  app.get("/api/posts/:id", async (req, res) => {
     const { id } = req.params;
-    return db.Post.findById(id)
-      .then(post => res.send(post))
-      .catch(err => {
-        console.log("Error querying posts", JSON.stringify(err));
-        return res.send(err);
-      });
+    try {
+      const post = await db.Post.findById(id, { include: [{ all: true }] });
+      return res.send(post);
+    } catch (err) {
+      console.log("Error querying posts", JSON.stringify(err));
+      return res.send(err);
+    }
   });
 
-  app.put("/api/posts/:id", (req, res) => {
+  app.put("/api/posts/:id", async (req, res) => {
     const { id } = req.params;
-    return db.Post.findById(id).then(post => {
-      return post
-        .update(omit('id', req.body))
-        .then(() => res.send(post))
-        .catch(err => {
-          console.log("Error updating post", JSON.stringify(err));
-          res.status(400).send(err);
-        });
-    });
+    try {
+      const post = await db.Post.findById(id);
+      await post.update(omit("id", req.body));
+      return res.send(post);
+    } catch (err) {
+      console.log("Error updating post", JSON.stringify(err));
+      res.status(400).send(err);
+    }
   });
 
-  app.delete("/api/posts/:id", (req, res) => {
+  app.delete("/api/posts/:id", async (req, res) => {
     const { id } = req.params;
-    return db.Post.findById(id)
-      .then(post => post.destroy({ force: true }))
-      .then(() => res.send({ id }))
-      .catch(err => {
-        console.log("Error deleting post", JSON.stringify(err));
-        res.status(400).send(err);
-      });
+    try {
+      const post = await db.Post.findById(id);
+      await post.destroy({ force: true });
+      return res.send({ id });
+    } catch (err) {
+      console.log("Error deleting post", JSON.stringify(err));
+      res.status(400).send(err);
+    }
   });
 };

@@ -15,13 +15,13 @@ const postRoutes = [
       },
       {
         name: "post-show",
-        path: "show/:id",
+        path: ":id",
         component: PostShow,
         props: true
       },
       {
         name: "post-edit",
-        path: "edit/:id",
+        path: ":id/edit",
         component: PostEdit,
         props: true
       }
