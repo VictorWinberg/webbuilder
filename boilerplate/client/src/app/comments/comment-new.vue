@@ -39,7 +39,7 @@ export default {
 
         this.postId = "";
         this.comment = "";
-        await this.refreshComments();
+        await this.$store.dispatch("comment/refresh");
       }
     },
     valid() {

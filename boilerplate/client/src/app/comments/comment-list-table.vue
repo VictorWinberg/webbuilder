@@ -27,13 +27,13 @@ export default {
   },
   computed: {
     comments() {
-      return this.$store.state.comments;
+      return this.$store.state.comment.list;
     }
   },
   methods: {
     async refreshComments() {
       this.loading = true;
-      await this.$store.dispatch("refreshComments");
+      await this.$store.dispatch("comment/refresh");
       this.loading = false;
     },
     showComment(id) {

@@ -39,7 +39,7 @@ export default {
 
         this.title = "";
         this.content = "";
-        await this.$store.dispatch("refreshPosts");
+        await this.$store.dispatch("post/refresh");
       }
     },
     valid() {

@@ -27,13 +27,13 @@ export default {
   },
   computed: {
     posts() {
-      return this.$store.state.posts;
+      return this.$store.state.post.list;
     }
   },
   methods: {
     async refreshPosts() {
       this.loading = true;
-      await this.$store.dispatch("refreshPosts");
+      await this.$store.dispatch("post/refresh");
       this.loading = false;
     },
     showPost(id) {
