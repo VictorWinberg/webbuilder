@@ -1,0 +1,72 @@
+[
+  {
+    "name": "customer",
+    "views": [
+      {
+        "name": "create",
+        "features": []
+      },
+      {
+        "name": "list",
+        "features": []
+      },
+      {
+        "name": "read",
+        "features": []
+      },
+      {
+        "name": "update",
+        "features": []
+      },
+      {
+        "name": "delete",
+        "features": []
+      }
+    ]
+  },
+  {
+    "name": "product",
+    "views": [
+      {
+        "name": "create",
+        "features": []
+      },
+      {
+        "name": "list",
+        "features": []
+      },
+      {
+        "name": "read",
+        "features": []
+      },
+      {
+        "name": "update",
+        "features": []
+      },
+      {
+        "name": "delete",
+        "features": []
+      }
+    ]
+  },
+  {
+    "name": "order",
+    "views": [
+      {
+        "name": "create"
+      },
+      {
+        "name": "list"
+      },
+      {
+        "name": "read"
+      },
+      {
+        "name": "update"
+      },
+      {
+        "name": "delete"
+      }
+    ]
+  }
+]
