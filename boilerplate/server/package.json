@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "sequelize db:migrate",
     "start": "nodemon index",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "seed": "sequelize db:seed:all"
   },
   "author": "",
@@ -19,5 +19,9 @@
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.0.0",
     "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "nyc": "^14.1.1"
   }
 }

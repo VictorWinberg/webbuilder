@@ -10,7 +10,9 @@
     "build-client": "cd client && npm run build",
     "start-client": "cd client && npm run serve",
     "start-server": "cd server && npm start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm-run-all -s test-server test-client",
+    "test-client": "cd client && npm test",
+    "test-server": "cd server && npm test"
   },
   "author": "",
   "license": "ISC",

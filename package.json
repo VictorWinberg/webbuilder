@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "postinstall": "cd boilerplate && npm install",
+    "test": "cd boilerplate && npm test",
+    "coverage": "nyc npm test"
+  },
   "dependencies": {
     "string-template": "^1.0.0"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "nyc": "^14.1.1"
   },
   "repository": {
     "type": "git",
