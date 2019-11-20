@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "jest"
+    "test": "nyc jest"
   },
   "dependencies": {
     "core-js": "^3.3.2",
@@ -24,6 +24,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "jest": "^24.9.0",
+    "nyc": "^14.1.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

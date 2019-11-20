@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install": "cd boilerplate && npm install",
-    "test": "cd boilerplate && npm test"
+    "postinstall": "cd boilerplate && npm install",
+    "test": "cd boilerplate && nyc npm test"
   },
   "dependencies": {
     "string-template": "^1.0.0"
