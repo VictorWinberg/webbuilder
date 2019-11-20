@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "cd boilerplate && npm install",
-    "test": "cd boilerplate && nyc npm test"
+    "test": "cd boilerplate && npm test",
+    "coverage": "nyc npm test"
   },
   "dependencies": {
     "string-template": "^1.0.0"

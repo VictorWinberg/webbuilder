@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "sequelize db:migrate",
     "start": "nodemon index",
-    "test": "nyc jest",
+    "test": "jest",
     "seed": "sequelize db:seed:all"
   },
   "author": "",
