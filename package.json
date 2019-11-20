@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "string-template": "^1.0.0"
-  },
-  "devDependencies": {},
   "scripts": {
     "install": "cd boilerplate && npm install",
     "test": "cd boilerplate && npm test"
+  },
+  "dependencies": {
+    "string-template": "^1.0.0"
+  },
+  "devDependencies": {
+    "nyc": "^14.1.1"
   },
   "repository": {
     "type": "git",
