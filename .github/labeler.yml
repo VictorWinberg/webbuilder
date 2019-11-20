@@ -1,0 +1,7 @@
+frontend:
+  - client/**/*
+  - boilerplate/client/**/*
+backend:
+  - server/**/*
+  - boilerplate/server/**/*
+  
