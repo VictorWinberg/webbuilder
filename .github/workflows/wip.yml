@@ -2,7 +2,6 @@ on: [pull_request]
 name: "Set status on pull_request"
 
 jobs:
-  wip:
   name: "Set status"
   runs-on: ubuntu-latest
   steps:
