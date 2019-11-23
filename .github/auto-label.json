@@ -1,0 +1,5 @@
+{
+  "rules": {
+    "package.json": ["package.json", "package-lock.json",]
+  }
+}
