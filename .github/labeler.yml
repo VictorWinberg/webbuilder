@@ -1,7 +1,8 @@
 frontend:
-  - client/**/*
-  - boilerplate/client/**/*
+  - client
+  - boilerplate/client
 backend:
-  - server/**/*
-  - boilerplate/server/**/*
-  
+  - server
+  - boilerplate/server
+github:
+  - .github
