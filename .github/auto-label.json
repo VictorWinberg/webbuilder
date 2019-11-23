@@ -1,5 +1,5 @@
 {
   "rules": {
-    "package.json": ["package.json", "package-lock.json",]
+    "package.json2": ["package.json", "package-lock.json",]
   }
 }
