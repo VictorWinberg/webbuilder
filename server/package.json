@@ -1,0 +1,27 @@
+{
+  "name": "webbuilder-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "sequelize db:migrate && cd boilerplate && npm install",
+    "start": "nodemon index",
+    "test": "jest",
+    "seed": "sequelize db:seed:all"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "lodash": "^4.17.15",
+    "nodemon": "^2.0.0",
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.0.0",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "24.9.0",
+    "nyc": "14.1.1"
+  }
+}
