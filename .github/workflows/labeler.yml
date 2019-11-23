@@ -20,6 +20,7 @@ jobs:
     name: "Pattern Labeler"
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
       - uses: banyan/auto-label@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
