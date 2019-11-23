@@ -1,7 +1,8 @@
+name: Automatic Rebase
 on: 
   issue_comment:
     types: [created]
-name: Automatic Rebase
+
 jobs:
   rebase:
     name: Rebase
@@ -13,7 +14,6 @@ jobs:
       uses: cirrus-actions/rebase@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # https://github.community/t5/GitHub-Actions/Workflow-is-failing-if-no-job-can-be-ran-due-to-condition/m-p/38186#M3250
   always_job:
     name: Aways run job
     runs-on: ubuntu-latest
