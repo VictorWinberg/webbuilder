@@ -7,3 +7,10 @@ backend:
 github:
   - .github/*
   - .github/**/*
+package.json:
+  - package.json
+  - package-lock.json
+  - */package.json
+  - */package-lock.json
+  - */**/package.json
+  - */**/package-lock.json
