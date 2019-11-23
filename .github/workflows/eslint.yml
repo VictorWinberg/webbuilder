@@ -10,5 +10,7 @@ jobs:
     steps:
     - name: ESLint checks
       uses: gimenete/eslint-action@1.0
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Run ESLint
       uses: stefanoeb/eslint-action@1.0.0
