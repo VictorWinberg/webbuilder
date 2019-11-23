@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "sequelize db:migrate && cd boilerplate && npm install",
+    "postinstall": "cd boilerplate && npm install",
     "start": "nodemon index",
     "test": "jest",
     "seed": "sequelize db:seed:all"

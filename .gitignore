@@ -105,3 +105,6 @@ dist
 
 # Mac OS metadata
 .DS_Store
+
+# Project specific ignores
+entities.json
