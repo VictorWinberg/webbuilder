@@ -1,3 +1,3 @@
-const build = require("./simpleBuild");
+const build = require("./build");
 
 module.exports = { build };

@@ -2,7 +2,7 @@ const format = require("string-template");
 
 const { readFile, writeFile, exists, mkdir } = require("../utils");
 
-const simpleBuild = async entities => {
+const build = async entities => {
   const ENTITIES_PATH = "../client/src/app/entities";
   if (!exists(ENTITIES_PATH)) {
     await mkdir(ENTITIES_PATH);
@@ -23,4 +23,4 @@ const simpleBuild = async entities => {
   );
 };
 
-module.exports = simpleBuild;
+module.exports = build;
