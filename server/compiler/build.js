@@ -35,7 +35,8 @@ const build = async entities => {
   // BUILD ENTITIES
   entities.forEach(async ({name, fields}) => {
     const ENTITY_FOLDER = app(name);
-    const TEMPLATE_FOLDER = template("entity");
+    const TEMPLATE_FOLDER = `./templates/entity`;
+    console.log(name);
     
     const templates = readdir(TEMPLATE_FOLDER);
     console.log(templates);
