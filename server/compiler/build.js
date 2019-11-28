@@ -1,16 +1,10 @@
 const format = require("string-template");
 
-const {
-  readFile, 
-  writeFile, 
-  exists, 
-  mkdir, 
-  readdir
-} = require("../utils");
+const { readFile, writeFile, exists, mkdir, readdir } = require("../utils");
 
 const APP_PATH = "../client/src/app";
-const app = (name) => `${APP_PATH}/${name}`;
-const template = (name) => `./templates/${name}`;
+const app = name => `${APP_PATH}/${name}`;
+const template = name => `./templates/${name}`;
 
 const build = async entities => {
   // ENTITIES ROUTE
@@ -20,31 +14,32 @@ const build = async entities => {
   }
 
   const template = await readFile("./templates/entities/entities.vue");
-  const contents = format(template, { entities });
-  await writeFile(
-    ENTITIES_PATH + "/entities.vue", 
-    contents
-  );
+  const contents = format(template, { entities: JSON.stringify(entities) });
+  await writeFile(ENTITIES_PATH + "/entities.vue", contents);
 
-  const entitiesRoutes = await readFile("./templates/entities/entities.routes.js");
-  await writeFile(
-    ENTITIES_PATH + "/entities.routes.js",
-    entitiesRoutes
+  const entitiesRoutes = await readFile(
+    "./templates/entities/entities.routes.js"
   );
+  await writeFile(ENTITIES_PATH + "/entities.routes.js", entitiesRoutes);
 
   // BUILD ENTITIES
-  entities.forEach(async ({name, fields}) => {
-    const ENTITY_FOLDER = app(name);
+  entities.forEach(async ({ name, fields }) => {
     const TEMPLATE_FOLDER = `./templates/entity`;
-    console.log(name);
-    
+
+    const ENTITY_FOLDER = app(name);
+    if (!exists(ENTITY_FOLDER)) {
+      await mkdir(ENTITY_FOLDER);
+    }
+
+    // TODO: Optimization: Templates should be read once into a map that then can be used
     const templates = readdir(TEMPLATE_FOLDER);
-    console.log(templates);
-    
+
     templates.forEach(async template => {
-      const contents = await readFile(`${TEMPLATE_FOLDER}/${template}`)
-      await writeFile(`${ENTITY_FOLDER}/${template}`, contents);
-    })
+      const temp = await readFile(`${TEMPLATE_FOLDER}/${template}`);
+      const contents = format(temp, { name });
+
+      await writeFile(`${ENTITY_FOLDER}/${name}-${template}`, contents);
+    });
   });
 };
 
