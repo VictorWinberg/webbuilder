@@ -1,22 +1,22 @@
 <template>
   <div>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
+    <h1>{{ <%component%>.title }}</h1>
+    <p>{{ <%component%>.content }}</p>
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="editPost(id)">EDIT</button>
+    <button v-on:click="edit<%Component%>(id)">EDIT</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "post-show",
+  name: "<%component%>-show",
   props: {
     id: { required: true }
   },
   asyncComputed: {
-    post: {
+    <%component%>: {
       async get() {
-        const res = await fetch(`/api/posts/${this.id}`);
+        const res = await fetch(`/api/<%components%>/${this.id}`);
         if (res.err) {
           console.error(res.err);
           return;
@@ -28,14 +28,14 @@ export default {
     }
   },
   methods: {
-    editPost(id) {
+    edit<%Component%>(id) {
       this.$router.push({
-        name: "post-edit",
+        name: "<%component%>-edit",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "post-list" });
+      this.$router.push({ name: "<%component%>-list" });
     }
   }
 };

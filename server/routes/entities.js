@@ -1,25 +1,26 @@
-const { readFile, writeFile } = require("../utils");
-
-const ENTITIES_PATH = "../entities.json";
+const { readFile, writeFile, exists, ENTITIES_JSON } = require("../utils");
 
 module.exports = (app, db) => {
   app.get("/api/entities", async (req, res) => {
     try {
-      const entities = await readFile(ENTITIES_PATH, "utf8");
+      if (!exists(ENTITIES_JSON)) {
+        await writeFile(ENTITIES_JSON, "[]");
+      }
+      const entities = await readFile(ENTITIES_JSON, "utf8");
       return res.send(JSON.parse(entities));
     } catch (err) {
-      console.log("Error reading entities.json", JSON.stringify(err));
+      console.error("Error reading entities.json", err);
       return res.send(err);
     }
   });
 
   app.post("/api/entities", async (req, res) => {
     try {
-      await writeFile(ENTITIES_PATH, JSON.stringify(req.body), "utf8");
-      const entities = await readFile(ENTITIES_PATH, "utf8");
+      await writeFile(ENTITIES_JSON, JSON.stringify(req.body), "utf8");
+      const entities = await readFile(ENTITIES_JSON, "utf8");
       return res.send(JSON.parse(entities));
     } catch (err) {
-      console.log("Error creating entities.json", JSON.stringify(err));
+      console.error("Error creating entities.json", err);
       return res.status(400).send(err);
     }
   });

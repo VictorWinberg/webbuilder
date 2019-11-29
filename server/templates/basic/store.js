@@ -1,19 +1,19 @@
 export default {
-  comment: {
+  <%component%>: {
     namespaced: true,
     state: {
       list: []
     },
     mutations: {
-      setComments: (state, list) => {
+      set<%Components%>: (state, list) => {
         state.list = list;
       }
     },
     actions: {
       async refresh({ commit }) {
-        const response = await fetch("/api/comments");
+        const response = await fetch("/api/<%components%>");
         if (response.ok) {
-          commit("setComments", await response.json());
+          commit("set<%Components%>", await response.json());
         } else {
           console.error(response);
         }

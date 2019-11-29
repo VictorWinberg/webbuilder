@@ -13,6 +13,10 @@ app.use(express.static(__dirname + "/static"));
 
 require("./routes")(app, db);
 
+app.get("/api/*", (req, res) => {
+  res.status(400).send("Not Found");
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html"));
 });

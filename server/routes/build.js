@@ -1,16 +1,14 @@
 const { build } = require("../compiler");
-const { readFile, writeFile } = require("../utils");
-
-const ENTITIES_PATH = "../entities.json";
+const { readFile, writeFile, ENTITIES_JSON } = require("../utils");
 
 module.exports = (app, db) => {
   app.get("/api/build", async (req, res) => {
     try {
-      const entities = await readFile(ENTITIES_PATH, "utf8");
-      await build(entities);
+      const entities = await readFile(ENTITIES_JSON, "utf8");
+      await build(JSON.parse(entities));
       return res.send(JSON.parse(entities));
     } catch (err) {
-      console.log("Error building entities.json", JSON.stringify(err));
+      console.error("Error building entities.json", err);
       return res.send(err);
     }
   });

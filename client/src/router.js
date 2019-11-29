@@ -7,10 +7,10 @@ const req = require.context("./app", true, /routes\.js$/);
 const routes = req.keys().flatMap(filename => req(filename).default);
 
 const defaultRoutes = [
-  {
-    path: "/",
-    redirect: "/posts"
-  }
+  // {
+  //   path: "/",
+  //   redirect: "/somewhere"
+  // },
   // {
   //   path: '*',
   //   name: 'page-not-found',
