@@ -1,5 +1,5 @@
 export default {
-  post: {
+  <%name%>: {
     namespaced: true,
     state: {
       list: []
@@ -11,8 +11,12 @@ export default {
     },
     actions: {
       async refresh({ commit }) {
-        const posts = await fetch("/api/posts");
-        commit("set<%Names%>", await posts.json());
+        const response = await fetch("/api/<%names%>");
+        if (response.ok) {
+          commit("set<%Names%>", await response.json());
+        } else {
+          console.error(response);
+        }
       }
     }
   }
