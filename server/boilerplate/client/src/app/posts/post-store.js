@@ -11,8 +11,12 @@ export default {
     },
     actions: {
       async refresh({ commit }) {
-        const posts = await fetch("/api/posts");
-        commit("setPosts", await posts.json());
+        const response = await fetch("/api/posts");
+        if (response.ok) {
+          commit("setPosts", await response.json());
+        } else {
+          console.error(response);
+        }
       }
     }
   }

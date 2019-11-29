@@ -1,19 +1,19 @@
 <template>
   <div>
-    <<%name%>-new></<%name%>-new>
-    <<%name%>-list-table></<%name%>-list-table>
+    <<%component%>-new></<%component%>-new>
+    <<%component%>-list-table></<%component%>-list-table>
   </div>
 </template>
 
 <script>
-import <%Name%>New from "./<%name%>-new";
-import <%Name%>ListTable from "./<%name%>-list-table";
+import <%Component%>New from "./<%component%>-new";
+import <%Component%>ListTable from "./<%component%>-list-table";
 
 export default {
-  name: "<%name%>-list",
+  name: "<%component%>-list",
   components: {
-    <%Name%>New,
-    <%Name%>ListTable
+    <%Component%>New,
+    <%Component%>ListTable
   }
 };
 </script>

@@ -1,32 +1,32 @@
-import <%Name%> from "./<%name%>-index";
-import <%Name%>List from "./<%name%>-list";
-import <%Name%>Show from "./<%name%>-show";
-import <%Name%>Edit from "./<%name%>-edit";
+import <%Component%> from "./<%component%>-index";
+import <%Component%>List from "./<%component%>-list";
+import <%Component%>Show from "./<%component%>-show";
+import <%Component%>Edit from "./<%component%>-edit";
 
-const <%name%>Routes = [
+const <%component%>Routes = [
   {
-    path: "/<%names%>",
-    component: <%Name%>,
+    path: "/<%components%>",
+    component: <%Component%>,
     children: [
       {
-        name: "<%name%>-list",
+        name: "<%component%>-list",
         path: "",
-        component: <%Name%>List
+        component: <%Component%>List
       },
       {
-        name: "<%name%>-show",
+        name: "<%component%>-show",
         path: ":id",
-        component: <%Name%>Show,
+        component: <%Component%>Show,
         props: true
       },
       {
-        name: "<%name%>-edit",
+        name: "<%component%>-edit",
         path: ":id/edit",
-        component: <%Name%>Edit,
+        component: <%Component%>Edit,
         props: true
       }
     ]
   }
 ];
 
-export default <%name%>Routes;
+export default <%component%>Routes;

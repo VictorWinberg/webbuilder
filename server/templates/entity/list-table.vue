@@ -1,14 +1,14 @@
 <template>
   <ul>
-    <li v-for="<%name%> in <%names%>" v-bind:key="<%name%>.id">
+    <li v-for="<%component%> in <%components%>" v-bind:key="<%component%>.id">
       <hr />
-      <b>{{ <%name%>.title }}</b>
+      <b>{{ <%component%>.title }}</b>
       <br />
-      {{ <%name%>.content }}
+      {{ <%component%>.content }}
       <br />
-      <button v-on:click="show<%Name%>(<%name%>.id)">SHOW</button>
-      <button v-on:click="edit<%Name%>(<%name%>.id)">EDIT</button>
-      <button v-on:click="remove<%Name%>(<%name%>.id)">REMOVE</button>
+      <button v-on:click="show<%Component%>(<%component%>.id)">SHOW</button>
+      <button v-on:click="edit<%Component%>(<%component%>.id)">EDIT</button>
+      <button v-on:click="remove<%Component%>(<%component%>.id)">REMOVE</button>
     </li>
     <hr />
   </ul>
@@ -16,47 +16,47 @@
 
 <script>
 export default {
-  name: "<%name%>-list-table",
+  name: "<%component%>-list-table",
   data() {
     return {
       loading: false
     };
   },
   created() {
-    this.refresh<%Names%>();
+    this.refresh<%Components%>();
   },
   computed: {
-    <%names%>() {
-      return this.$store.state.<%name%>.list;
+    <%components%>() {
+      return this.$store.state.<%component%>.list;
     }
   },
   methods: {
-    async refresh<%Names%>() {
+    async refresh<%Components%>() {
       this.loading = true;
-      await this.$store.dispatch("<%name%>/refresh");
+      await this.$store.dispatch("<%component%>/refresh");
       this.loading = false;
     },
-    show<%Name%>(id) {
+    show<%Component%>(id) {
       this.$router.push({
-        name: "<%name%>-show",
+        name: "<%component%>-show",
         params: { id }
       });
     },
-    edit<%Name%>(id) {
+    edit<%Component%>(id) {
       this.$router.push({
-        name: "<%name%>-edit",
+        name: "<%component%>-edit",
         params: { id }
       });
     },
-    async remove<%Name%>(id) {
-      const res = await fetch(`/api/<%names%>/${id}`, {
+    async remove<%Component%>(id) {
+      const res = await fetch(`/api/<%components%>/${id}`, {
         method: "DELETE"
       });
       if (res.err) {
         console.error(res.err);
         return;
       }
-      await this.refresh<%Names%>();
+      await this.refresh<%Components%>();
     }
   }
 };

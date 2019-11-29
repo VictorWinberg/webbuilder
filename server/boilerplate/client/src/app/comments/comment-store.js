@@ -11,8 +11,12 @@ export default {
     },
     actions: {
       async refresh({ commit }) {
-        const comments = await fetch("/api/comments");
-        commit("setComments", await comments.json());
+        const response = await fetch("/api/comments");
+        if (response.ok) {
+          commit("setComments", await response.json());
+        } else {
+          console.error(response);
+        }
       }
     }
   }

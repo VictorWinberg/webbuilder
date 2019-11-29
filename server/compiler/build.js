@@ -1,5 +1,3 @@
-const { capitalize } = require("lodash/fp");
-const pluralize = require("pluralize");
 const { readFile, writeFile, exists, mkdir, readdir, format } = require("../utils");
 
 const APP_PATH = "../client/src/app";
@@ -14,7 +12,7 @@ const build = async entities => {
   }
 
   const template = await readFile("./templates/entities/entities.vue");
-  const contents = format(template, { entities: JSON.stringify(entities) });
+  const contents = format(template, "entities", { entities: JSON.stringify(entities) });
   await writeFile(ENTITIES_PATH + "/entities.vue", contents);
 
   const entitiesRoutes = await readFile(
@@ -36,12 +34,7 @@ const build = async entities => {
 
     templates.forEach(async template => {
       const temp = await readFile(`${TEMPLATE_FOLDER}/${template}`);
-      const contents = format(temp, { 
-        name, 
-        Name: capitalize(name), 
-        names: pluralize(name), 
-        Names: pluralize(capitalize(name)) 
-      });
+      const contents = format(temp, name);
 
       await writeFile(`${ENTITY_FOLDER}/${name}-${template}`, contents);
     });

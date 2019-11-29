@@ -5,13 +5,13 @@
     <br />
     <textarea v-model="content" />
     <br />
-    <button v-on:click="add<%Name%>()">CREATE</button>
+    <button v-on:click="add<%Component%>()">CREATE</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "<%name%>-new",
+  name: "<%component%>-new",
   data() {
     return {
       title: "",
@@ -19,9 +19,9 @@ export default {
     };
   },
   methods: {
-    async add<%Name%>() {
+    async add<%Component%>() {
       if (this.valid()) {
-        const res = await fetch("/api/<%names%>", {
+        const res = await fetch("/api/<%components%>", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -39,7 +39,7 @@ export default {
 
         this.title = "";
         this.content = "";
-        await this.$store.dispatch("<%name%>/refresh");
+        await this.$store.dispatch("<%component%>/refresh");
       }
     },
     valid() {

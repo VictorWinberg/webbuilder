@@ -1,19 +1,19 @@
 export default {
-  <%name%>: {
+  <%component%>: {
     namespaced: true,
     state: {
       list: []
     },
     mutations: {
-      set<%Names%>: (state, list) => {
+      set<%Components%>: (state, list) => {
         state.list = list;
       }
     },
     actions: {
       async refresh({ commit }) {
-        const response = await fetch("/api/<%names%>");
+        const response = await fetch("/api/<%components%>");
         if (response.ok) {
-          commit("set<%Names%>", await response.json());
+          commit("set<%Components%>", await response.json());
         } else {
           console.error(response);
         }

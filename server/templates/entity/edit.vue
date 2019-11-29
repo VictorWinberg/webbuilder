@@ -1,45 +1,45 @@
 <template>
   <div>
     <span>Title</span>
-    <input type="text" v-model="<%name%>.title" />
+    <input type="text" v-model="<%component%>.title" />
     <br />
-    <textarea v-model="<%name%>.content" />
+    <textarea v-model="<%component%>.content" />
     <br />
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="show<%Name%>(id)">SHOW</button>
-    <button v-on:click="edit<%Name%>(id)">SAVE</button>
+    <button v-on:click="show<%Component%>(id)">SHOW</button>
+    <button v-on:click="edit<%Component%>(id)">SAVE</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "<%name%>-edit",
+  name: "<%component%>-edit",
   props: {
     id: { required: true }
   },
   data() {
     return {
-      <%name%>: {}
+      <%component%>: {}
     };
   },
   created() {
-    this.fetch<%Name%>();
+    this.fetch<%Component%>();
   },
   methods: {
-    async fetch<%Name%>() {
-      const res = await fetch(`/api/<%names%>/${this.id}`);
-      this.<%name%> = await res.json();
+    async fetch<%Component%>() {
+      const res = await fetch(`/api/<%components%>/${this.id}`);
+      this.<%component%> = await res.json();
     },
-    async edit<%Name%>(id) {
+    async edit<%Component%>(id) {
       if (this.valid()) {
-        const res = await fetch(`/api/<%names%>/${id}`, {
+        const res = await fetch(`/api/<%components%>/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            title: this.<%name%>.title,
-            content: this.<%name%>.content
+            title: this.<%component%>.title,
+            content: this.<%component%>.content
           })
         });
         if (res.err) {
@@ -52,14 +52,14 @@ export default {
     valid() {
       return this.title !== "" && this.content !== "";
     },
-    show<%Name%>(id) {
+    show<%Component%>(id) {
       this.$router.push({
-        name: "<%name%>-show",
+        name: "<%component%>-show",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "<%name%>-list" });
+      this.$router.push({ name: "<%component%>-list" });
     }
   }
 };
