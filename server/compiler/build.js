@@ -1,6 +1,6 @@
-const format = require("string-template");
-
-const { readFile, writeFile, exists, mkdir, readdir } = require("../utils");
+const { capitalize } = require("lodash/fp");
+const pluralize = require("pluralize");
+const { readFile, writeFile, exists, mkdir, readdir, format } = require("../utils");
 
 const APP_PATH = "../client/src/app";
 const app = name => `${APP_PATH}/${name}`;
@@ -36,7 +36,12 @@ const build = async entities => {
 
     templates.forEach(async template => {
       const temp = await readFile(`${TEMPLATE_FOLDER}/${template}`);
-      const contents = format(temp, { name });
+      const contents = format(temp, { 
+        name, 
+        Name: capitalize(name), 
+        names: pluralize(name), 
+        Names: pluralize(capitalize(name)) 
+      });
 
       await writeFile(`${ENTITY_FOLDER}/${name}-${template}`, contents);
     });

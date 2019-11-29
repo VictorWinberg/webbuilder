@@ -1,32 +1,32 @@
-import Post from "./post";
-import PostList from "./post-list";
-import PostShow from "./post-show";
-import PostEdit from "./post-edit";
+import <%Name%> from "./<%name%>-index";
+import <%Name%>List from "./<%name%>-list";
+import <%Name%>Show from "./<%name%>-show";
+import <%Name%>Edit from "./<%name%>-edit";
 
-const postRoutes = [
+const <%name%>Routes = [
   {
-    path: "/posts",
-    component: Post,
+    path: "/<%names%>",
+    component: <%Name%>,
     children: [
       {
-        name: "post-list",
+        name: "<%name%>-list",
         path: "",
-        component: PostList
+        component: <%Name%>List
       },
       {
-        name: "post-show",
+        name: "<%name%>-show",
         path: ":id",
-        component: PostShow,
+        component: <%Name%>Show,
         props: true
       },
       {
-        name: "post-edit",
+        name: "<%name%>-edit",
         path: ":id/edit",
-        component: PostEdit,
+        component: <%Name%>Edit,
         props: true
       }
     ]
   }
 ];
 
-export default postRoutes;
+export default <%name%>Routes;

@@ -6,7 +6,9 @@
 export default {
   name: "entities",
   data() {
-    return { entities: {entities} };
+    return {
+      entities: <%&entities%>
+    };
   }
 };
 </script>

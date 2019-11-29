@@ -1,45 +1,45 @@
 <template>
   <div>
     <span>Title</span>
-    <input type="text" v-model="post.title" />
+    <input type="text" v-model="<%name%>.title" />
     <br />
-    <textarea v-model="post.content" />
+    <textarea v-model="<%name%>.content" />
     <br />
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="showPost(id)">SHOW</button>
-    <button v-on:click="editPost(id)">SAVE</button>
+    <button v-on:click="show<%Name%>(id)">SHOW</button>
+    <button v-on:click="edit<%Name%>(id)">SAVE</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "post-edit",
+  name: "<%name%>-edit",
   props: {
     id: { required: true }
   },
   data() {
     return {
-      post: {}
+      <%name%>: {}
     };
   },
   created() {
-    this.fetchPost();
+    this.fetch<%Name%>();
   },
   methods: {
-    async fetchPost() {
-      const res = await fetch(`/api/posts/${this.id}`);
-      this.post = await res.json();
+    async fetch<%Name%>() {
+      const res = await fetch(`/api/<%names%>/${this.id}`);
+      this.<%name%> = await res.json();
     },
-    async editPost(id) {
+    async edit<%Name%>(id) {
       if (this.valid()) {
-        const res = await fetch(`/api/posts/${id}`, {
+        const res = await fetch(`/api/<%names%>/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            title: this.post.title,
-            content: this.post.content
+            title: this.<%name%>.title,
+            content: this.<%name%>.content
           })
         });
         if (res.err) {
@@ -52,14 +52,14 @@ export default {
     valid() {
       return this.title !== "" && this.content !== "";
     },
-    showPost(id) {
+    show<%Name%>(id) {
       this.$router.push({
-        name: "post-show",
+        name: "<%name%>-show",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "post-list" });
+      this.$router.push({ name: "<%name%>-list" });
     }
   }
 };

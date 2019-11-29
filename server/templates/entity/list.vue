@@ -1,19 +1,19 @@
 <template>
   <div>
-    <post-new></post-new>
-    <post-list-table></post-list-table>
+    <<%name%>-new></<%name%>-new>
+    <<%name%>-list-table></<%name%>-list-table>
   </div>
 </template>
 
 <script>
-import PostNew from "./post-new";
-import PostListTable from "./post-list-table";
+import <%Name%>New from "./<%name%>-new";
+import <%Name%>ListTable from "./<%name%>-list-table";
 
 export default {
-  name: "post-list",
+  name: "<%name%>-list",
   components: {
-    PostNew,
-    PostListTable
+    <%Name%>New,
+    <%Name%>ListTable
   }
 };
 </script>
