@@ -47,7 +47,7 @@ const build = async entities => {
       entityFields
     );
     await buildTemplate(
-      "server-api",
+      "server-routes",
       "../server/routes",
       entity,
       entityFields,
