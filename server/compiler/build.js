@@ -1,28 +1,65 @@
-const { readFile, writeFile, exists, mkdir, readdir, format } = require("../utils");
+const path = require("path");
 
-const APP_PATH = "../client/src/app";
-const app = name => `${APP_PATH}/${name}`;
-const template = name => `./templates/${name}`;
+const {
+  readFile,
+  writeFile,
+  exists,
+  mkdir,
+  readdirRec,
+  format
+} = require("../utils");
 
-const build = async entities => {
-  // TODO: Add more templates and "template-choosing"
-  const TEMPLATE_FOLDER = `./templates/basic`;
-  const templates = await Promise.all(
-    readdir(TEMPLATE_FOLDER)
-      .map(async component => ({ component, file: await readFile(`${TEMPLATE_FOLDER}/${component}`) }))
+const readTemplates = async template =>
+  await Promise.all(
+    readdirRec(path.join("templates", template)).map(async filePath => ({
+      filePath,
+      fileContents: await readFile(path.join("templates", template, filePath))
+    }))
   );
 
-  entities.forEach(async ({ name, fields }) => {
-    const ENTITY_FOLDER = app(name);
-    if (!exists(ENTITY_FOLDER)) {
-      await mkdir(ENTITY_FOLDER);
-    }
+const buildTemplate = async (
+  template,
+  rootPath,
+  entity,
+  entityFields,
+  flat = false
+) => {
+  const templateFiles = await readTemplates(template);
+  templateFiles.forEach(async ({ filePath, fileContents }) => {
+    const contents = format(fileContents, entity);
+    const componentPath = path.join(
+      rootPath,
+      flat ? "" : entity,
+      `${entity}-${filePath}`
+    );
 
-    templates.forEach(async ({ component, file }) => {
-      const contents = format(file, name);
+    await mkdir(path.dirname(componentPath), { recursive: true }, err => {});
+    await writeFile(componentPath, contents);
+  });
+};
 
-      await writeFile(`${ENTITY_FOLDER}/${name}-${component}`, contents);
-    });
+const build = async entities => {
+  entities.forEach(async ({ name: entity, fields: entityFields }) => {
+    await buildTemplate(
+      "client-scaffold",
+      "../client/src/app",
+      entity,
+      entityFields
+    );
+    await buildTemplate(
+      "server-routes",
+      "../server/routes",
+      entity,
+      entityFields,
+      true
+    );
+    await buildTemplate(
+      "server-model",
+      "../server/models",
+      entity,
+      entityFields,
+      true
+    );
   });
 };
 

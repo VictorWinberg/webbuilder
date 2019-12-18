@@ -21,6 +21,13 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html"));
 });
 
+/*
+ * Alters tables to fit models
+ * Not recommended for production use
+ * Deletes data in columns that were removed or had their type changed in the model
+ */
+db.sequelize.sync({ alter: true });
+
 app.listen(3000, () => {
   console.log("Server is up on port 3000");
 });
