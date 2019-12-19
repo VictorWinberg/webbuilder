@@ -1,13 +1,13 @@
-const path = require("path");
+import path from "path";
 
-const {
+import {
   readFile,
   writeFile,
   exists,
   mkdir,
   readdirRec,
   format
-} = require("../utils");
+} from "../utils";
 
 const readTemplates = async template =>
   await Promise.all(
@@ -63,4 +63,4 @@ const build = async entities => {
   });
 };
 
-module.exports = build;
+export default build;
