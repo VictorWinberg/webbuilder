@@ -34,6 +34,7 @@
     "@types/mustache": "^0.8.32",
     "@types/node": "^12.12.21",
     "@types/pluralize": "0.0.29",
+    "@types/sequelize": "^4.28.8",
     "jest": "24.9.0",
     "nyc": "14.1.1",
     "typescript": "^3.7.3"

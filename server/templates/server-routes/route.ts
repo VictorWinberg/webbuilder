@@ -1,7 +1,7 @@
 import { Express, Request, Response } from "express";
 import { omit } from "lodash/fp";
 
-export default (app: Express, db) => {
+export default (app: Express, db: any) => {
   app.get("/api/<%components%>", async (req: Request, res: Response) => {
     try {
       const results = await db.<%Component%>.findAll();

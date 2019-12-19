@@ -1,16 +1,16 @@
 import fs from "fs";
 import path from "path";
-import Sequelize from "sequelize";
+import sequelize from "sequelize";
 
 var basename = path.basename(__filename);
 var env = process.env.NODE_ENV || "development";
 var config = require(__dirname + "/../../config/config.json")[env];
-var db = {};
+var db: any = {};
 
 if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  var _sequelize = new sequelize(process.env[config.use_env_variable], config);
 } else {
-  var sequelize = new Sequelize(
+  var _sequelize = new sequelize(
     config.database,
     config.username,
     config.password,
@@ -23,7 +23,7 @@ fs.readdirSync(__dirname)
     return file.indexOf(".") !== 0 && file !== basename;
   })
   .forEach(file => {
-    var model = sequelize["import"](path.join(__dirname, file));
+    var model = _sequelize["import"](path.join(__dirname, file));
     db[model.name] = model;
   });
 
@@ -33,4 +33,6 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-export default { Sequelize, sequelize };
+db.sequelize = _sequelize;
+
+export default db;
