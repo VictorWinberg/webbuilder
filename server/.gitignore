@@ -2,4 +2,4 @@ node_modules
 database.sqlite3
 
 models/*-model.ts
-routes/*-route.js
+routes/*-route.ts

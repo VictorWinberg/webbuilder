@@ -2,7 +2,13 @@ import { capitalize } from "lodash/fp";
 import mustache from "mustache";
 import pluralize from "pluralize";
 
-const format = (template, component, view, partial, tags = ["<%", "%>"]) =>
+const format = (
+  template: string,
+  component: string,
+  view: any,
+  partial?: any,
+  tags: string[] = ["<%", "%>"]
+) =>
   mustache.render(
     template,
     {

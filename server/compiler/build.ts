@@ -1,13 +1,13 @@
 import path from "path";
 
-import {
+const {
   readFile,
   writeFile,
   exists,
   mkdir,
   readdirRec,
   format
-} from "../utils";
+} = require("../utils").default;
 
 const readTemplates = async template =>
   await Promise.all(

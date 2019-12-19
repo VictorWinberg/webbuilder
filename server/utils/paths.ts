@@ -1,5 +1,5 @@
-const path = require("path");
+import path from "path";
 
-const ENTITIES_JSON = path.resolve(__dirname, "../entities.json");
+const ENTITIES_JSON = path.resolve(__dirname, "../../entities.json");
 
 export default { ENTITIES_JSON };

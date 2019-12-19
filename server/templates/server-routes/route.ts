@@ -1,7 +1,8 @@
-const { omit } = require("lodash/fp");
+import { Express, Request, Response } from "express";
+import { omit } from "lodash/fp";
 
-module.exports = (app, db) => {
-  app.get("/api/<%components%>", async (req, res) => {
+export default (app: Express, db) => {
+  app.get("/api/<%components%>", async (req: Request, res: Response) => {
     try {
       const results = await db.<%Component%>.findAll();
       return res.send(results);
@@ -11,7 +12,7 @@ module.exports = (app, db) => {
     }
   });
 
-  app.post("/api/<%components%>", async (req, res) => {
+  app.post("/api/<%components%>", async (req: Request, res: Response) => {
     try {
       const result = await db.<%Component%>.create(omit("id", req.body));
       return res.send(result);
@@ -21,7 +22,7 @@ module.exports = (app, db) => {
     }
   });
 
-  app.get("/api/<%components%>/:id", async (req, res) => {
+  app.get("/api/<%components%>/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
       const result = await db.<%Component%>.findByPk(id, { include: [{ all: true }] });
@@ -32,7 +33,7 @@ module.exports = (app, db) => {
     }
   });
 
-  app.put("/api/<%components%>/:id", async (req, res) => {
+  app.put("/api/<%components%>/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
       const result = await db.<%Component%>.findByPk(id);
@@ -44,7 +45,7 @@ module.exports = (app, db) => {
     }
   });
 
-  app.delete("/api/<%components%>/:id", async (req, res) => {
+  app.delete("/api/<%components%>/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
       const result = await db.<%Component%>.findByPk(id);

@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { Express, Request, Response } from "express";
 
 import { build } from "../compiler";
-import { readFile, writeFile, ENTITIES_JSON } from "../utils";
+const { readFile, writeFile, ENTITIES_JSON } = require("../utils").default;
 
-module.exports = (app, db) => {
+export default (app: Express, db) => {
   app.get("/api/build", async (req: Request, res: Response) => {
     try {
       const entities = await readFile(ENTITIES_JSON, "utf8");
