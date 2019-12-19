@@ -1,5 +1,5 @@
 node_modules
 database.sqlite3
 
-models
-routes
+models/*-model.ts
+routes/*-route.js

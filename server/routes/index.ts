@@ -1,10 +1,9 @@
-"use strict";
+import fs from "fs";
+import path from "path";
 
-var fs = require("fs");
-var path = require("path");
-var basename = path.basename(__filename);
+const basename = path.basename(__filename);
 
-module.exports = function(app, db) {
+export default function(app, db) {
   fs.readdirSync(__dirname)
     .filter(file => {
       return (
@@ -15,4 +14,4 @@ module.exports = function(app, db) {
       var route = file.substr(0, file.indexOf("."));
       require("./" + route)(app, db);
     });
-};
+}

@@ -1,9 +1,9 @@
-// server.js
-
 import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
+
 import db from "./models";
+import routes from "./routes";
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.use(express.static(path.resolve(__dirname, "..", "client", "dist")));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/static"));
 
-require("./routes")(app, db);
+routes(app, db);
 
 app.get("/api/*", (req, res) => {
   res.status(400).send("Not Found");
