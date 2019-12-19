@@ -1,9 +1,9 @@
 // server.js
 
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const db = require("./models");
+import express from "express";
+import path from "path";
+import bodyParser from "body-parser";
+import db from "./models";
 
 const app = express();
 
@@ -29,5 +29,6 @@ app.get("*", (req, res) => {
 db.sequelize.sync({ alter: true });
 
 app.listen(3000, () => {
+  // tslint:disable-next-line:no-console
   console.log("Server is up on port 3000");
 });
