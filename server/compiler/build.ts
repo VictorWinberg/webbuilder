@@ -9,23 +9,25 @@ const {
   format
 } = require("../utils").default;
 
-const readTemplates = async template =>
+const readTemplates = async (template: string) =>
   await Promise.all(
-    readdirRec(path.join("templates", template)).map(async filePath => ({
-      filePath,
-      fileContents: await readFile(path.join("templates", template, filePath))
-    }))
+    readdirRec(path.join("templates", template)).map(
+      async (filePath: string) => ({
+        filePath,
+        fileContents: await readFile(path.join("templates", template, filePath))
+      })
+    )
   );
 
 const buildTemplate = async (
-  template,
-  rootPath,
-  entity,
-  entityFields,
+  template: string,
+  rootPath: string,
+  entity: string,
+  entityFields: any,
   flat = false
 ) => {
   const templateFiles = await readTemplates(template);
-  templateFiles.forEach(async ({ filePath, fileContents }) => {
+  templateFiles.forEach(async ({ filePath, fileContents }: any) => {
     const contents = format(fileContents, entity);
     const componentPath = path.join(
       rootPath,
@@ -33,12 +35,12 @@ const buildTemplate = async (
       `${entity}-${filePath}`
     );
 
-    await mkdir(path.dirname(componentPath), { recursive: true }, err => {});
+    await mkdir(path.dirname(componentPath), { recursive: true }, () => {});
     await writeFile(componentPath, contents);
   });
 };
 
-const build = async entities => {
+const build = async (entities: [{ name: string; fields: any }]) => {
   entities.forEach(async ({ name: entity, fields: entityFields }) => {
     await buildTemplate(
       "client-scaffold",

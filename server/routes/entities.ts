@@ -7,7 +7,7 @@ const {
   ENTITIES_JSON
 } = require("../utils").default;
 
-export default (app: Express, _) => {
+export default (app: Express, _: any) => {
   app.get("/api/entities", async (req: Request, res: Response) => {
     try {
       if (!exists(ENTITIES_JSON)) {

@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
 
 Vue.use(VueRouter);
 
-const req = require.context("./app", true, /routes\.js$/);
+const req = require.context("../app", true, /routes\.js$/);
 const routes = req.keys().flatMap(filename => req(filename).default);
 
 const defaultRoutes: RouteConfig[] = [
@@ -23,9 +23,9 @@ const defaultRoutes: RouteConfig[] = [
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes: [...routes, ...defaultRoutes],
+  routes: [...routes, ...defaultRoutes]
 });
 
 export default router;

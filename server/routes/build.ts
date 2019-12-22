@@ -3,7 +3,7 @@ import { Express, Request, Response } from "express";
 import { build } from "../compiler";
 const { readFile, ENTITIES_JSON } = require("../utils").default;
 
-export default (app: Express, _) => {
+export default (app: Express, _: any) => {
   app.get("/api/build", async (req: Request, res: Response) => {
     try {
       const entities = await readFile(ENTITIES_JSON, "utf8");

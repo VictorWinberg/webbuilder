@@ -4,7 +4,7 @@ import path from "path";
 
 const basename = path.basename(__filename);
 
-export default function(app: Express, db) {
+export default function(app: Express, db: any) {
   fs.readdirSync(__dirname)
     .filter(file => {
       return file.indexOf(".") !== 0 && file !== basename;

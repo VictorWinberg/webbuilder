@@ -1,22 +1,19 @@
 import fs from "fs";
 import path from "path";
-import sequelize from "sequelize";
+import { Sequelize } from "sequelize";
 
-var basename = path.basename(__filename);
-var env = process.env.NODE_ENV || "development";
-var config = require(__dirname + "/../../config/config.json")[env];
-var db: any = {};
+const env = process.env.NODE_ENV || "development";
+const config = require("../config/config.json")[env];
+const basename = path.basename(__filename);
 
-if (config.use_env_variable) {
-  var _sequelize = new sequelize(process.env[config.use_env_variable], config);
-} else {
-  var _sequelize = new sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
-}
+const db: any = {};
+
+var _sequelize = new Sequelize(
+  config.database,
+  config.username,
+  config.password,
+  config
+);
 
 fs.readdirSync(__dirname)
   .filter(file => {
