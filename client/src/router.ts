@@ -1,17 +1,19 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
+import Home from "@/components/Home.vue";
+
 Vue.use(VueRouter);
 
 const req = require.context("./app", true, /routes\.js$/);
 const routes = req.keys().flatMap(filename => req(filename).default);
 
 const defaultRoutes: RouteConfig[] = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: Home,
-  // },
+  {
+    path: "/",
+    name: "home",
+    component: Home
+  }
   // {
   //   path: '/about',
   //   name: 'about',
