@@ -11,12 +11,11 @@ export default {
     },
     actions: {
       async refresh({ commit }) {
-        const response = await fetch("/api/<%components%>");
-        if (response.ok) {
-          commit("set<%Components%>", await response.json());
-        } else {
-          console.error(response);
+        const res = await fetch("/api/<%components%>");
+        if (res.err) {
+          throw new Error(res.err);
         }
+        commit("set<%Components%>", await response.json());
       }
     }
   }

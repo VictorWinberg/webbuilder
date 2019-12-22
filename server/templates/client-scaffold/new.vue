@@ -33,8 +33,7 @@ export default {
         });
 
         if (res.err) {
-          console.error(res.err);
-          return;
+          throw new Error(res.err);
         }
 
         this.title = "";

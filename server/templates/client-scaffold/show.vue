@@ -18,8 +18,7 @@ export default {
       async get() {
         const res = await fetch(`/api/<%components%>/${this.id}`);
         if (res.err) {
-          console.error(res.err);
-          return;
+          throw new Error(res.err);
         }
         const json = await res.json();
         return json;
