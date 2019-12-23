@@ -4,11 +4,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "<%component%>"
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped lang="scss"></style>

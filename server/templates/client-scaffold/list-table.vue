@@ -14,55 +14,53 @@
   </ul>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   name: "<%component%>-list-table",
   data() {
     return {
       loading: false
     };
   },
-  created() {
-    this.refresh<%Components%>();
-  },
   computed: {
     <%components%>() {
-      return this.$store.state.<%component%>.list;
+      return this.$store.state.<%component%>.all;
     }
   },
   methods: {
     async refresh<%Components%>() {
       this.loading = true;
-      await this.$store.dispatch("<%component%>/refresh");
+      await this.$store.dispatch("<%component%>/list");
       this.loading = false;
     },
-    show<%Component%>(id) {
+    show<%Component%>(id: string) {
       this.$router.push({
         name: "<%component%>-show",
         params: { id }
       });
     },
-    edit<%Component%>(id) {
+    edit<%Component%>(id: string) {
       this.$router.push({
         name: "<%component%>-edit",
         params: { id }
       });
     },
-    async remove<%Component%>(id) {
-      const res = await fetch(`/api/<%components%>/${id}`, {
-        method: "DELETE"
-      });
-      if (res.err) {
-        console.error(res.err);
-        return;
-      }
+    async remove<%Component%>(id: string) {
+      this.loading = true;
+      await this.$store.dispatch("<%component%>/remove", id);
       await this.refresh<%Components%>();
+      this.loading = false;
     }
+  },
+  created() {
+    this.refresh<%Components%>();
   }
-};
+});
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 ul {
   list-style: none;
   padding: 0;

@@ -11,48 +11,45 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   name: "<%component%>-edit",
   props: {
     id: { required: true }
   },
   data() {
     return {
-      <%component%>: {}
+      loading: false
     };
   },
-  created() {
-    this.fetch<%Component%>();
+  computed: {
+    <%component%>() {
+      return this.$store.state.<%component%>.current;
+    }
   },
   methods: {
-    async fetch<%Component%>() {
-      const res = await fetch(`/api/<%components%>/${this.id}`);
-      this.<%component%> = await res.json();
+    async refresh<%Component%>() {
+      this.loading = true;
+      await this.$store.dispatch("<%component%>/read", this.id);
+      this.loading = false;
     },
-    async edit<%Component%>(id) {
+    async edit<%Component%>(id: string) {
       if (this.valid()) {
-        const res = await fetch(`/api/<%components%>/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            title: this.<%component%>.title,
-            content: this.<%component%>.content
-          })
+        await this.$store.dispatch("<%component%>/update", {
+          id,
+          title: this.<%component%>.title,
+          content: this.<%component%>.content
         });
-        if (res.err) {
-          console.error(res.err);
-          return;
-        }
+
         this.back();
       }
     },
-    valid() {
-      return this.title !== "" && this.content !== "";
+    valid(): boolean {
+      return this.<%component%>.title !== "" && this.<%component%>.content !== "";
     },
-    show<%Component%>(id) {
+    show<%Component%>(id: string) {
       this.$router.push({
         name: "<%component%>-show",
         params: { id }
@@ -61,8 +58,11 @@ export default {
     back() {
       this.$router.push({ name: "<%component%>-list" });
     }
+  },
+  created() {
+    this.refresh<%Component%>();
   }
-};
+});
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
