@@ -15,7 +15,7 @@ export default {
         if (res.err) {
           throw new Error(res.err);
         }
-        commit("set<%Components%>", await response.json());
+        commit("set<%Components%>", await res.json());
       }
     }
   }
