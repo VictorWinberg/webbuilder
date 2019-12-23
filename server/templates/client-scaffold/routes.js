@@ -1,32 +1,25 @@
-import <%Component%> from "./<%component%>-index";
-import <%Component%>List from "./<%component%>-list";
-import <%Component%>Show from "./<%component%>-show";
-import <%Component%>Edit from "./<%component%>-edit";
-
-const <%component%>Routes = [
+export default [
   {
     path: "/<%components%>",
-    component: <%Component%>,
+    component: () => import("./<%component%>-index.vue"),
     children: [
       {
         name: "<%component%>-list",
         path: "",
-        component: <%Component%>List
+        component: () => import("./<%component%>-list.vue")
       },
       {
         name: "<%component%>-show",
         path: ":id",
-        component: <%Component%>Show,
+        component: () => import("./<%component%>-show.vue"),
         props: true
       },
       {
         name: "<%component%>-edit",
         path: ":id/edit",
-        component: <%Component%>Edit,
+        component: () => import("./<%component%>-edit.vue"),
         props: true
       }
     ]
   }
 ];
-
-export default <%component%>Routes;

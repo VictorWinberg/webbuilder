@@ -6,8 +6,6 @@
   "scripts": {
     "postinstall": "cd boilerplate && npm install",
     "start": "nodemon --exec ts-node index",
-    "start-node": "nodemon dist/index",
-    "start-ts": "tsc --watch",
     "test": "jest",
     "seed": "sequelize db:seed:all"
   },
