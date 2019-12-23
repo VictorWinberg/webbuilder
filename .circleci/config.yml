@@ -30,15 +30,18 @@ jobs: # a collection of steps
       - save_cache: # special step to save the dependency cache
           key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
+            - ./node_modules
             - ~/.npm
             - ~/.cache
       - persist_to_workspace:
           root: ~/
           paths:
+            - .npm
             - .cache
             - tmp
       - attach_workspace:
           at: ~/
+      - run: "./node_modules/.bin/cypress run" 
       - run: $(npm bin)/cypress run
       - run: # run tests
           name: test-coverage
