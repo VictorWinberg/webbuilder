@@ -5,6 +5,10 @@ jobs: # a collection of steps
     docker: # run the steps with Docker
       - image: circleci/node:10.16.3 # ...with this image as the primary container; this is where all `steps` will run
       # - image: mongo:4.2.0 # and this image as the secondary service container
+      - image: cypress/base:8
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
       - run:
@@ -12,14 +16,22 @@ jobs: # a collection of steps
           command: "sudo npm install -g npm@latest"
       - restore_cache: # special step to restore the dependency cache
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          keys: 
+            - dependency-cache-{{ checksum "package-lock.json" }}
+            - dependency-cache-{{ checksum "package.json" }}
+            - dependency-cache
       - run:
           name: install-npm-wee
           command: npm install
+      - run:
+          name: install-ci-deps
+          command: npm ci
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+            - ~/.npm
+            - ~/.cache
       - run: # run tests
           name: test-coverage
           command: npm run coverage
