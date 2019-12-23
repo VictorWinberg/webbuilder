@@ -6,7 +6,7 @@ jobs: # a collection of steps
     docker: # run the steps with Docker
       - image: circleci/node:10.16.3 # ...with this image as the primary container; this is where all `steps` will run
       # - image: mongo:4.2.0 # and this image as the secondary service container
-      - image: cypress/base:10
+      - image: cypress/base:13.3.0
         environment:
           ## this enables colors in the output
           TERM: xterm
