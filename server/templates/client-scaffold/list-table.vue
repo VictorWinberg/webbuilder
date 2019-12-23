@@ -21,14 +21,18 @@ export default Vue.extend({
   name: "<%component%>-list-table",
   data() {
     return {
-      loading: false,
-      <%components%>: []
+      loading: false
     };
+  },
+  computed: {
+    <%components%>() {
+      return this.$store.state.<%component%>.all;
+    }
   },
   methods: {
     async refresh<%Components%>() {
       this.loading = true;
-      this.<%components%> = await this.$store.dispatch("<%component%>/list");
+      await this.$store.dispatch("<%component%>/list");
       this.loading = false;
     },
     show<%Component%>(id: string) {
@@ -44,13 +48,10 @@ export default Vue.extend({
       });
     },
     async remove<%Component%>(id: string) {
-      const res = await fetch(`/api/<%components%>/${id}`, {
-        method: "DELETE"
-      });
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
+      this.loading = true;
+      await this.$store.dispatch("<%component%>/remove", id);
       await this.refresh<%Components%>();
+      this.loading = false;
     }
   },
   created() {

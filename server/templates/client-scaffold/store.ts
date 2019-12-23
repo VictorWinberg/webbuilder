@@ -1,11 +1,21 @@
 export default {
   <%component%>: {
     namespaced: true,
-    state: {},
-    mutations: {},
+    state: {
+      current: {},
+      all: []
+    },
+    mutations: {
+      set<%Component%>: (state: any, current: any) => {
+        state.current = current;
+      },
+      set<%Components%>: (state: any, all: []) => {
+        state.all = all;
+      }
+    },
     actions: {
       async create(_: any, payload: any) {
-        const res = await fetch("/api/products", {
+        const res = await fetch("/api/<%components%>>", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -17,21 +27,21 @@ export default {
           throw new Error(res.statusText);
         }
       },
-      async list(_: any) {
+      async list({ commit }: any) {
         const res = await fetch("/api/<%components%>");
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        return await res.json();
+        commit("set<%Components%>", await res.json());
       },
-      async read(_: any, id: string) {
+      async read({ commit }: any, id: string) {
         const res = await fetch(`/api/<%components%>/${id}`);
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        return await res.json();
+        commit("set<%Component%>", await res.json());
       },
-      async update(_: any, { id = null, ...payload }) {
+      async update({ commit }: any, { id = null, ...payload }) {
         const res = await fetch(`/api/<%components%>/${id}`, {
           method: "PUT",
           headers: {
@@ -42,7 +52,15 @@ export default {
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        return await res.json();
+        commit("set<%Component%>", await res.json());
+      },
+      async remove({ commit }: any, id: string) {
+        const res = await fetch(`/api/<%components%>/${id}`, {
+          method: "DELETE"
+        });
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
       }
     }
   }

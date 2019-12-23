@@ -17,14 +17,18 @@ export default Vue.extend({
   },
   data() {
     return {
-      loading: false,
-      <%component%>: []
+      loading: false
     };
   },
+  computed: {
+    <%component%>() {
+      return this.$store.state.<%component%>.current;
+    }
+  },
   methods: {
-    async fetch<%Component%>() {
+    async refresh<%Component%>() {
       this.loading = true;
-      this.<%component%> = await this.$store.dispatch("<%component%>/read", this.id);
+      await this.$store.dispatch("<%component%>/read", this.id);
       this.loading = false;
     },
     edit<%Component%>(id: string) {
@@ -38,7 +42,7 @@ export default Vue.extend({
     }
   },
   created() {
-    this.fetchProduct();
+    this.refresh<%Component%>();
   }
 });
 </script>

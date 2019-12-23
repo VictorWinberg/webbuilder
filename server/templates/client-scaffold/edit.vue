@@ -13,10 +13,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-type <%Component%> = {
-  title: string,
-  content: string
-}
 
 export default Vue.extend({
   name: "<%component%>-edit",
@@ -25,13 +21,19 @@ export default Vue.extend({
   },
   data() {
     return {
-      <%component%>: {} as <%Component%>
+      loading: false
     };
   },
+  computed: {
+    <%component%>() {
+      return this.$store.state.<%component%>.current;
+    }
+  },
   methods: {
-    async fetch<%Component%>() {
-      const res = await fetch(`/api/<%components%>/${this.id}`);
-      this.<%component%> = await res.json();
+    async refresh<%Component%>() {
+      this.loading = true;
+      await this.$store.dispatch("<%component%>/read", this.id);
+      this.loading = false;
     },
     async edit<%Component%>(id: string) {
       if (this.valid()) {
@@ -58,7 +60,7 @@ export default Vue.extend({
     }
   },
   created() {
-    this.fetch<%Component%>();
+    this.refresh<%Component%>();
   }
 });
 </script>
