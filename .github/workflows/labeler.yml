@@ -16,8 +16,3 @@ jobs:
       - uses: TimonVS/pr-labeler-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  wip:
-    name: "WIP Labeler"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: wip/action@master

@@ -1,5 +1,6 @@
-"use strict";
-module.exports = (sequelize, DataTypes) => {
+import { DataTypes } from "sequelize";
+
+export default (sequelize: any) => {
   const <%Component%> = sequelize.define(
     "<%Component%>",
     {

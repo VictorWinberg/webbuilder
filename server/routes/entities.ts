@@ -1,7 +1,14 @@
-const { readFile, writeFile, exists, ENTITIES_JSON } = require("../utils");
+import { Express, Request, Response } from "express";
 
-module.exports = (app, db) => {
-  app.get("/api/entities", async (req, res) => {
+const {
+  readFile,
+  writeFile,
+  exists,
+  ENTITIES_JSON
+} = require("../utils").default;
+
+export default (app: Express, _: any) => {
+  app.get("/api/entities", async (req: Request, res: Response) => {
     try {
       if (!exists(ENTITIES_JSON)) {
         await writeFile(ENTITIES_JSON, "[]");
@@ -14,7 +21,7 @@ module.exports = (app, db) => {
     }
   });
 
-  app.post("/api/entities", async (req, res) => {
+  app.post("/api/entities", async (req: Request, res: Response) => {
     try {
       await writeFile(ENTITIES_JSON, JSON.stringify(req.body), "utf8");
       const entities = await readFile(ENTITIES_JSON, "utf8");

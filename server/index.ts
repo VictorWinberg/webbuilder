@@ -1,9 +1,9 @@
-// server.js
+import express from "express";
+import path from "path";
+import bodyParser from "body-parser";
 
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const db = require("./models");
+import db from "./models";
+import routes from "./routes";
 
 const app = express();
 
@@ -11,13 +11,13 @@ app.use(express.static(path.resolve(__dirname, "..", "client", "dist")));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/static"));
 
-require("./routes")(app, db);
+routes(app, db);
 
-app.get("/api/*", (req, res) => {
+app.get("/api/*", (_, res) => {
   res.status(400).send("Not Found");
 });
 
-app.get("*", (req, res) => {
+app.get("*", (_, res) => {
   res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html"));
 });
 
@@ -29,5 +29,6 @@ app.get("*", (req, res) => {
 db.sequelize.sync({ alter: true });
 
 app.listen(3000, () => {
+  // tslint:disable-next-line:no-console
   console.log("Server is up on port 3000");
 });

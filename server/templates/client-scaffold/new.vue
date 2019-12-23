@@ -9,8 +9,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   name: "<%component%>-new",
   data() {
     return {
@@ -21,32 +23,21 @@ export default {
   methods: {
     async add<%Component%>() {
       if (this.valid()) {
-        const res = await fetch("/api/<%components%>", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            title: this.title,
-            content: this.content
-          })
+        await this.$store.dispatch("<%component%>/create", {
+          title: this.title,
+          content: this.content
         });
-
-        if (res.err) {
-          console.error(res.err);
-          return;
-        }
 
         this.title = "";
         this.content = "";
-        await this.$store.dispatch("<%component%>/refresh");
+        await this.$store.dispatch("<%component%>/list");
       }
     },
-    valid() {
+    valid(): boolean {
       return this.title !== "" && this.content !== "";
     }
   }
-};
+});
 </script>
 
-<style></style>
+<style scoped lang="scss"></style>
