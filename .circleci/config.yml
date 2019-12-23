@@ -16,7 +16,10 @@ jobs: # a collection of steps
           command: "sudo npm install -g npm@latest"
       - restore_cache: # special step to restore the dependency cache
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          keys:
+            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-deps-{{ .Branch }}
+            - v1-deps
       - run:
           name: install-npm-wee
           command: npm install
@@ -24,9 +27,8 @@ jobs: # a collection of steps
           name: install-ci-deps
           command: npm ci
       - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - ./node_modules
             - ~/.npm
             - ~/.cache
       - run: $(npm bin)/cypress run
