@@ -5,7 +5,7 @@ import Home from "@/components/Home.vue";
 
 Vue.use(VueRouter);
 
-const req = require.context("./app", true, /routes\.js$/);
+const req = require.context("./app", true, /routes\.ts$/);
 const routes = req.keys().flatMap(filename => req(filename).default);
 
 const defaultRoutes: RouteConfig[] = [
