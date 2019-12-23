@@ -14,7 +14,7 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "<%component%>-list-table",
   data() {
@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 ul {
   list-style: none;
   padding: 0;

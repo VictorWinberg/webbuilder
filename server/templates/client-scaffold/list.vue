@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import <%Component%>New from "./<%component%>-new";
 import <%Component%>ListTable from "./<%component%>-list-table";
 
@@ -18,4 +18,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

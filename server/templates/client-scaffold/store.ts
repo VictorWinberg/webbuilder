@@ -5,15 +5,15 @@ export default {
       list: []
     },
     mutations: {
-      set<%Components%>: (state, list) => {
+      set<%Components%>: (state: any, list: []) => {
         state.list = list;
       }
     },
     actions: {
-      async refresh({ commit }) {
+      async refresh({ commit }: any) {
         const res = await fetch("/api/<%components%>");
-        if (res.err) {
-          throw new Error(res.err);
+        if (!res.ok) {
+          throw new Error(res.statusText);
         }
         commit("set<%Components%>", await res.json());
       }

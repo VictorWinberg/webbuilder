@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "<%component%>-new",
   data() {
@@ -48,4 +48,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="scss"></style>

@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "<%component%>-show",
   props: {
@@ -40,5 +40,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped lang="scss"></style>
