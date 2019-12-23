@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-import <%Component%>New from "./<%component%>-new";
-import <%Component%>ListTable from "./<%component%>-list-table";
+import <%Component%>New from "./<%component%>-new.vue";
+import <%Component%>ListTable from "./<%component%>-list-table.vue";
 
 export default {
   name: "<%component%>-list",

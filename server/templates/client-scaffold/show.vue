@@ -8,26 +8,26 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "<%component%>-show",
   props: {
-    id: { required: true }
+    id: { type: String, required: true }
   },
-  asyncComputed: {
-    <%component%>: {
-      async get() {
-        const res = await fetch(`/api/<%components%>/${this.id}`);
-        if (res.err) {
-          throw new Error(res.err);
-        }
-        const json = await res.json();
-        return json;
-      },
-      default: {}
-    }
+  data() {
+    return {
+      loading: false,
+      <%component%>: []
+    };
   },
   methods: {
-    edit<%Component%>(id) {
+    async fetch<%Component%>() {
+      this.loading = true;
+      this.<%component%> = await this.$store.dispatch("<%component%>/read", this.id);
+      this.loading = false;
+    },
+    edit<%Component%>(id: string) {
       this.$router.push({
         name: "<%component%>-edit",
         params: { id }
@@ -36,8 +36,11 @@ export default {
     back() {
       this.$router.push({ name: "<%component%>-list" });
     }
+  },
+  created() {
+    this.fetchProduct();
   }
-};
+});
 </script>
 
 <style scoped lang="scss"></style>

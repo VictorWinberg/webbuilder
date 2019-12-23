@@ -12,46 +12,42 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from "vue";
+type <%Component%> = {
+  title: string,
+  content: string
+}
+
+export default Vue.extend({
   name: "<%component%>-edit",
   props: {
     id: { required: true }
   },
   data() {
     return {
-      <%component%>: {}
+      <%component%>: {} as <%Component%>
     };
-  },
-  created() {
-    this.fetch<%Component%>();
   },
   methods: {
     async fetch<%Component%>() {
       const res = await fetch(`/api/<%components%>/${this.id}`);
       this.<%component%> = await res.json();
     },
-    async edit<%Component%>(id) {
+    async edit<%Component%>(id: string) {
       if (this.valid()) {
-        const res = await fetch(`/api/<%components%>/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            title: this.<%component%>.title,
-            content: this.<%component%>.content
-          })
+        await this.$store.dispatch("<%component%>/update", {
+          id,
+          title: this.<%component%>.title,
+          content: this.<%component%>.content
         });
-        if (res.err) {
-          throw new Error(res.err);
-        }
+
         this.back();
       }
     },
-    valid() {
-      return this.title !== "" && this.content !== "";
+    valid(): boolean {
+      return this.<%component%>.title !== "" && this.<%component%>.content !== "";
     },
-    show<%Component%>(id) {
+    show<%Component%>(id: string) {
       this.$router.push({
         name: "<%component%>-show",
         params: { id }
@@ -60,8 +56,11 @@ export default {
     back() {
       this.$router.push({ name: "<%component%>-list" });
     }
+  },
+  created() {
+    this.fetch<%Component%>();
   }
-};
+});
 </script>
 
 <style scoped lang="scss"></style>

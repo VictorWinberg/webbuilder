@@ -15,50 +15,48 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "<%component%>-list-table",
   data() {
     return {
-      loading: false
+      loading: false,
+      <%components%>: []
     };
-  },
-  created() {
-    this.refresh<%Components%>();
-  },
-  computed: {
-    <%components%>() {
-      return this.$store.state.<%component%>.list;
-    }
   },
   methods: {
     async refresh<%Components%>() {
       this.loading = true;
-      await this.$store.dispatch("<%component%>/refresh");
+      this.<%components%> = await this.$store.dispatch("<%component%>/list");
       this.loading = false;
     },
-    show<%Component%>(id) {
+    show<%Component%>(id: string) {
       this.$router.push({
         name: "<%component%>-show",
         params: { id }
       });
     },
-    edit<%Component%>(id) {
+    edit<%Component%>(id: string) {
       this.$router.push({
         name: "<%component%>-edit",
         params: { id }
       });
     },
-    async remove<%Component%>(id) {
+    async remove<%Component%>(id: string) {
       const res = await fetch(`/api/<%components%>/${id}`, {
         method: "DELETE"
       });
-      if (res.err) {
-        throw new Error(res.err);
+      if (!res.ok) {
+        throw new Error(res.statusText);
       }
       await this.refresh<%Components%>();
     }
+  },
+  created() {
+    this.refresh<%Components%>();
   }
-};
+});
 </script>
 
 <style scoped lang="scss">
