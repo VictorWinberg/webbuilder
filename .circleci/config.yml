@@ -26,10 +26,10 @@ jobs: # a collection of steps
             - ~/.cache
       - run: # run tests
           name: Tests
-          command: npm run test
+          command: $(npm bin)/nyc npm test
       - run: # run coverage report
           name: Coverage report
-          command: "./node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov"
+          command: $(npm bin)/nyc report --reporter=text-lcov > coverage.lcov
       - run: # upload coverage report to codecov
           name: Codecov
           command: bash <(curl -s https://codecov.io/bash)

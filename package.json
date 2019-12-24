@@ -17,7 +17,6 @@
     "test-server": "cd server && npm test",
     "test-cypress": "start-server-and-test build-start-server http://localhost:3000 cy:run",
     "cypress": "start-server-and-test build-start-server http://localhost:3000 cy:open",
-    "coverage": "nyc npm test",
     "cy:run": "cypress run",
     "cy:open": "cypress open"
   },
