@@ -2,6 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
+      - image: circleci/node:10
       - image: cypress/base:10
         environment:
           ## this enables colors in the output
@@ -10,12 +11,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache3-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: dependency-cache4-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
           command: npm ci
       - save_cache:
-          key: dependency-cache3-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: dependency-cache4-{{ .Branch }}-{{ checksum "package-lock.json" }}
           # cache NPM modules and the folder with the Cypress binary
           paths:
             - ~/.npm
