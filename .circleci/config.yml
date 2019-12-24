@@ -5,36 +5,30 @@ jobs:
     docker: # run the steps with Docker
       - image: circleci/node:10.16.3 # ...with this image as the primary container; this is where all `steps` will run
       # - image: mongo:4.2.0 # and this image as the secondary service container
-      - image: cypress/base:10
+      - image: cypress/base:8
         environment:
           TERM: xterm
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
-      - restore_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install Dependencies
-          command: npm ci
-      - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          # cache NPM modules and the folder with the Cypress binary
-          paths:
-            - ~/.npm
-            - ~/.cache
-      - run: $(npm bin)/cypress run
       # - run:
       #     name: update-npm
       #     command: "sudo npm install -g npm@latest"
-      # - restore_cache: # special step to restore the dependency cache
-      #     # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-      #     key: v1-deps-{{ checksum "package-lock.json" }}
+      - restore_cache: # special step to restore the dependency cache
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: v3-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install Dependencies
+          command: npm ci
       # - run:
       #     name: install-npm-wee
       #     command: npm install
-      # - save_cache: # special step to save the dependency cache
-      #     key: v1-deps-{{ checksum "package-lock.json" }}
-      #     paths:
+      - save_cache: # special step to save the dependency cache
+          key: v3-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
       #       - ./node_modules
+      - run: $(npm bin)/cypress run
       # - run: # run tests
       #     name: test-coverage
       #     command: npm run coverage
