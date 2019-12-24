@@ -6,8 +6,8 @@ jobs:
       - image: circleci/node:10.16.3 # ...with this image as the primary container; this is where all `steps` will run
       # - image: mongo:4.2.0 # and this image as the secondary service container
       - image: cypress/base:10
-      environment:
-        TERM: xterm
+        environment:
+          TERM: xterm
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
       - restore_cache:
@@ -19,8 +19,8 @@ jobs:
           key: dependency-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
           # cache NPM modules and the folder with the Cypress binary
           paths:
-          - ~/.npm
-          - ~/.cache
+            - ~/.npm
+            - ~/.cache
       - run: $(npm bin)/cypress run
       # - run:
       #     name: update-npm
