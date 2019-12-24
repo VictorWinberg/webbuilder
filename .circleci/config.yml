@@ -11,12 +11,12 @@ jobs:
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
       - restore_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
           command: npm ci
       - save_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: v1-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
           # cache NPM modules and the folder with the Cypress binary
           paths:
             - ~/.npm
@@ -27,12 +27,12 @@ jobs:
       #     command: "sudo npm install -g npm@latest"
       # - restore_cache: # special step to restore the dependency cache
       #     # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-      #     key: dependency-cache-{{ checksum "package-lock.json" }}
+      #     key: v1-deps-{{ checksum "package-lock.json" }}
       # - run:
       #     name: install-npm-wee
       #     command: npm install
       # - save_cache: # special step to save the dependency cache
-      #     key: dependency-cache-{{ checksum "package-lock.json" }}
+      #     key: v1-deps-{{ checksum "package-lock.json" }}
       #     paths:
       #       - ./node_modules
       # - run: # run tests
