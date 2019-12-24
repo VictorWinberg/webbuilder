@@ -12,12 +12,11 @@
     "start-client": "cd client && npm run serve",
     "start-server": "cd server && npm start",
     "build-start-server": "npm-run-all -s build-client start-server",
-    "test": "npm-run-all -s test-server test-client test-cypress",
+    "test": "npm-run-all -s test-client test-server test-cypress",
     "test-client": "cd client && npm test",
     "test-server": "cd server && npm test",
     "test-cypress": "start-server-and-test build-start-server http://localhost:3000 cy:run",
     "cypress": "start-server-and-test build-start-server http://localhost:3000 cy:open",
-    "coverage": "nyc npm test",
     "cy:run": "cypress run",
     "cy:open": "cypress open"
   },

@@ -23,6 +23,11 @@ export default (app: Express, _: any) => {
 
   app.post("/api/entities", async (req: Request, res: Response) => {
     try {
+      // TODO: Add better typecheck and error message
+      if (!Array.isArray(req.body)) {
+        throw new Error("Request should be of type Array");
+      }
+
       await writeFile(ENTITIES_JSON, JSON.stringify(req.body), "utf8");
       const entities = await readFile(ENTITIES_JSON, "utf8");
       return res.send(JSON.parse(entities));

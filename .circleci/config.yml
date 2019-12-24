@@ -11,7 +11,7 @@ jobs: # a collection of steps
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
       - run:
-          name: update-npm
+          name: Update NPM
           command: "npm install -g npm@latest"
       - restore_cache: # special step to restore the dependency cache
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
@@ -25,11 +25,11 @@ jobs: # a collection of steps
             - ~/.npm
             - ~/.cache
       - run: # run tests
-          name: test-coverage
-          command: npm run coverage
-      - run: # run coverage report
-          name: code-coverage
-          command: "./node_modules/.bin/nyc report --reporter=text-lcov"
+          name: Tests
+          command: npm test
+      - run: # upload coverage report to codecov
+          name: Codecov
+          command: bash <(curl -s https://codecov.io/bash)
       - store_artifacts: # special step to save test results as as artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: test-results.xml
