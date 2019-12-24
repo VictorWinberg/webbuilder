@@ -26,8 +26,8 @@
   "devDependencies": {
     "cypress": "3.8.0",
     "nyc": "14.1.1",
-    "start-server-and-test": "^1.10.6",
-    "wait-on": "^3.3.0"
+    "start-server-and-test": "1.10.6",
+    "wait-on": "3.3.0"
   },
   "repository": {
     "type": "git",
