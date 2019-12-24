@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon --exec ts-node index",
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "seed": "sequelize db:seed:all"
+    "test:watch": "jest --watch"
   },
   "author": "",
   "license": "ISC",
