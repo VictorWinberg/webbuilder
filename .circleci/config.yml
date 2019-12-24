@@ -16,8 +16,10 @@ jobs:
           command: npm ci
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          # cache NPM modules and the folder with the Cypress binary
           paths:
             - ~/.npm
             - ~/.cache
+     - run: # run tests
+         name: test-coverage
+         command: npm run coverage
       - run: $(npm bin)/cypress run
