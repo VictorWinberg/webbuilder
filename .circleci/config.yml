@@ -6,7 +6,7 @@ jobs:
       - image: cypress/base:10 # ...with this image as the primary container; this is where all `steps` will run
         environment:
           TERM: xterm
-      - image: circleci/node:10.16.3 # and this image as the secondary service container
+      # - image: circleci/node:10.16.3 # and this image as the secondary service container
       # - image: mongo:4.2.0
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
