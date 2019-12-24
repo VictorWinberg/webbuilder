@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd boilerplate && npm install",
     "start": "nodemon --exec ts-node index",
     "test": "jest",
     "seed": "sequelize db:seed:all"
