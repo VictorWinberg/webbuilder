@@ -108,3 +108,7 @@ dist
 
 # Project specific ignores
 entities.json
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
