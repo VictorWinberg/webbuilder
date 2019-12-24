@@ -4,29 +4,29 @@ jobs:
     working_directory: ~/app # directory where steps will run
     docker: # run the steps with Docker
       # - image: mongo:4.2.0 # and this image as the secondary service container
-      - image: cypress/base:10
-        environment:
-          TERM: xterm
+      # - image: cypress/base:10
+      #   environment:
+      #     TERM: xterm
       - image: circleci/node:10.16.3 # ...with this image as the primary container; this is where all `steps` will run
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
-      # - run:
-      #     name: update-npm
-      #     command: "sudo npm install -g npm@latest"
-      - restore_cache: # special step to restore the dependency cache
-          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: dependency-cache-8-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run:
+          name: update-npm
+          command: "sudo npm install -g npm@latest"
+      # - restore_cache: # special step to restore the dependency cache
+      #     # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+      #     key: dependency-cache-8-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
           command: npm install
       # - run:
       #     name: install-npm-wee
       #     command: npm install
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-8-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
-            - ~/.npm
-            - ~/.cache
+      # - save_cache: # special step to save the dependency cache
+      #     key: dependency-cache-8-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      #     paths:
+      #       - ~/.npm
+      #       - ~/.cache
       #       - ./node_modules
       # - run: $(npm bin)/cypress run
       - run: # run tests
