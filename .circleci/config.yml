@@ -1,8 +1,8 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
-      - image: cypress/base:8
+      - image: cypress/base:10
         environment:
           ## this enables colors in the output
           TERM: xterm
@@ -10,15 +10,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
-            - v1-deps-{{ .Branch }}
-            - v1-deps
+          key: dependency-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
           command: npm ci
       - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          key: dependency-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
           # cache NPM modules and the folder with the Cypress binary
           paths:
             - ~/.npm
