@@ -12,3 +12,9 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - name: Added label
+        if: github.event.action == 'labeled'
+        run: echo "Added label"
+      - name: Removed label
+        if: github.event.action == 'unlabeled'
+        run: echo "Removed label"
