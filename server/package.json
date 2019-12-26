@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node index",
+    "start": "nodemon -e ts --exec ts-node index",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },

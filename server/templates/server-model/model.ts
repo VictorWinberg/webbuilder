@@ -9,10 +9,23 @@ export default (sequelize: any) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4
       },
-      title: DataTypes.STRING,
-      content: DataTypes.TEXT
+      <%#fields%>
+      <%^hasRelation%>
+      <%name%>: DataTypes.<%TYPE%>,
+      <%/hasRelation%>
+      <%/fields%>
     },
     {}
   );
+  <%Component%>.associate = function(models: any) {
+    <%#fields%>
+    <%#hasRelation%>
+    <%Component%>.<%type%>(models.<%relation.Entity%>, {
+      as: "<%name%>",
+      constraints: false
+    });
+    <%/hasRelation%>
+    <%/fields%>
+  };
   return <%Component%>;
 };

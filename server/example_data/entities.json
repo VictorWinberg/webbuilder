@@ -1,6 +1,6 @@
 [
   {
-    "name": "customer",
+    "component": "customer",
     "fields": [
       {
         "name": "name",
@@ -16,7 +16,7 @@
     ]
   },
   {
-    "name": "product",
+    "component": "product",
     "fields": [
       {
         "name": "name",
@@ -27,7 +27,7 @@
     ]
   },
   {
-    "name": "order",
+    "component": "order",
     "fields": [
       {
         "name": "customer",
@@ -40,7 +40,7 @@
             "value": true
           }
         ],
-        "type": "relation_one"
+        "type": "belongsTo"
       },
       {
         "name": "products",
@@ -57,7 +57,7 @@
             "value": 1
           }
         ],
-        "type": "relation_many"
+        "type": "hasMany"
       },
       {
         "name": "delivered",

@@ -3,10 +3,9 @@ import path from "path";
 const {
   readFile,
   writeFile,
-  exists,
   mkdir,
   readdirRec,
-  format
+  templating
 } = require("../utils").default;
 
 const readTemplates = async (template: string) =>
@@ -22,17 +21,16 @@ const readTemplates = async (template: string) =>
 const buildTemplate = async (
   template: string,
   rootPath: string,
-  entity: string,
-  entityFields: any,
+  entity: { component: string; fields: [] },
   flat = false
 ) => {
   const templateFiles = await readTemplates(template);
   templateFiles.forEach(async ({ filePath, fileContents }: any) => {
-    const contents = format(fileContents, entity);
+    const contents = templating(fileContents, entity);
     const componentPath = path.join(
       rootPath,
-      flat ? "" : entity,
-      `${entity}-${filePath}`
+      flat ? "" : entity.component,
+      `${entity.component}-${filePath}`
     );
 
     await mkdir(path.dirname(componentPath), { recursive: true }, () => {});
@@ -40,28 +38,22 @@ const buildTemplate = async (
   });
 };
 
-const build = async (entities: [{ name: string; fields: any }]) => {
-  entities.forEach(async ({ name: entity, fields: entityFields }) => {
-    await buildTemplate(
-      "client-scaffold",
-      "../client/src/app",
-      entity,
-      entityFields
-    );
-    await buildTemplate(
-      "server-routes",
-      "../server/routes",
-      entity,
-      entityFields,
-      true
-    );
-    await buildTemplate(
-      "server-model",
-      "../server/models",
-      entity,
-      entityFields,
-      true
-    );
+const build = async (entities: [{ component: string; fields: any }]) => {
+  entities.forEach(async entity => {
+    // await buildTemplate(
+    //   "client-scaffold",
+    //   "../client/src/app",
+    //   entity,
+    //   entityFields
+    // );
+    // await buildTemplate(
+    //   "server-routes",
+    //   "../server/routes",
+    //   entity,
+    //   entityFields,
+    //   true
+    // );
+    await buildTemplate("server-model", "../server/models", entity, true);
   });
 };
 
