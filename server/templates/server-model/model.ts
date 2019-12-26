@@ -20,10 +20,7 @@ export default (sequelize: any) => {
   <%Component%>.associate = function(models: any) {
     <%#fields%>
     <%#hasRelation%>
-    <%Component%>.<%type%>(models.<%relation.Entity%>, {
-      as: "<%name%>",
-      constraints: false
-    });
+    <%Component%>.<%type%>(models.<%relation.Entity%>, {});
     <%/hasRelation%>
     <%/fields%>
   };
