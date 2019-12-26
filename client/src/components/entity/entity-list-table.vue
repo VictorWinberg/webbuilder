@@ -1,0 +1,165 @@
+<template>
+    <div class="list-table">
+        <div class="entity" v-for="entity in entities" v-bind:key="entity.id">
+            <div class="entity-header">
+                <h2>{{ entity.name }}</h2>
+                <div class="buttons">
+                    <v-btn class="ma-2" fab dark x-small v-on:click="editEntity(entity.id)">
+                        <v-icon>fa-edit</v-icon>
+                    </v-btn>
+                    <v-btn class="ma-2" fab dark x-small v-on:click="removeEntity(entity.id)">
+                        <v-icon>fa-trash</v-icon>
+                    </v-btn>
+                </div>
+            </div>
+            <div class="entity-data" v-for="field in entity.fields" v-bind:key="field.name">
+                <div class="entity-field">
+                    <h3>Name:</h3>
+                    <p>{{ field.name }}</p>
+                </div>
+                <div class="entity-field">
+                    <h3>Validation:</h3>
+                    <div v-if="field.validations.length > 0">
+                        <div v-for="validation in field.validations" v-bind:key="validation.key">
+                            <div class="validation-field">
+                                <h4>Key:</h4>
+                                <p>{{ validation.key }}</p>
+                            </div>
+                            <div class="validation-field">
+                                <h4>Value:</h4>
+                                <p>{{ validation.value }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <p class="faded-light">No validation</p>
+                    </div>
+                </div>
+                <div class="entity-field">
+                    <h3>Type:</h3>
+                    <p>{{ field.type }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+    name: 'entity-list-table',
+    data() {
+        return {
+            loading: false
+        };
+    },
+    computed: {
+        entities() {
+            return this.$store.state.entity.all;
+        }
+    },
+    methods: {
+        async refreshEntities() {
+            this.loading = true;
+            await this.$store.dispatch('entity/list');
+            this.loading = false;
+        },
+        showEntity(id: string) {
+            this.$router.push({
+                name: 'entity-show',
+                params: { id }
+            });
+        },
+        editEntity(id: string) {
+            this.$router.push({
+                name: 'entity-edit',
+                params: { id }
+            });
+        },
+        async removeEntity(id: string) {
+            this.loading = true;
+            await this.$store.dispatch('entity/remove', id);
+            await this.refreshEntities();
+            this.loading = false;
+        }
+    },
+    created() {
+        this.refreshEntities();
+    }
+});
+</script>
+
+<style scoped lang="scss">
+.list-table {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: left;
+}
+
+.buttons {
+    display: inline-block;
+    float: right;
+}
+
+button {
+    margin-left: 1rem;
+}
+
+.entity {
+    background: white;
+    border-radius: 10px;
+}
+
+.entity-header {
+    border-bottom: solid aliceblue 5px;
+    padding: 0.5rem 1rem;
+}
+
+.entity-data {
+    margin: 0 1rem 1rem 1rem;
+}
+
+.entity-field {
+    padding: 0.5rem 0;
+}
+
+.validation-field {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.entity-data:not(:last-of-type) {
+    border-bottom: solid #ddd 1px;
+}
+
+.entity:last-of-type .entity-data:last-of-type {
+    margin-bottom: 0;
+}
+
+h2 {
+    margin: 0;
+    display: inline-block;
+}
+
+h3 {
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    display: inline-block;
+}
+h4 {
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    display: inline-block;
+}
+
+p {
+    margin: 0;
+    display: inline-block;
+
+    &.faded-light {
+        color: #888;
+    }
+}
+</style>
