@@ -8,15 +8,13 @@ const {
   templating
 } = require("../utils").default;
 
-const readTemplates = async (template: string) =>
-  await Promise.all(
-    readdirRec(path.join("templates", template)).map(
-      async (filePath: string) => ({
-        filePath,
-        fileContents: await readFile(path.join("templates", template, filePath))
-      })
-    )
-  );
+const build = async (entities: [{ component: string; fields: any }]) => {
+  entities.forEach(async entity => {
+    await buildTemplate("client-scaffold", "../client/src/app", entity);
+    await buildTemplate("server-routes", "../server/routes", entity, true);
+    await buildTemplate("server-model", "../server/models", entity, true);
+  });
+};
 
 const buildTemplate = async (
   template: string,
@@ -38,23 +36,14 @@ const buildTemplate = async (
   });
 };
 
-const build = async (entities: [{ component: string; fields: any }]) => {
-  entities.forEach(async entity => {
-    // await buildTemplate(
-    //   "client-scaffold",
-    //   "../client/src/app",
-    //   entity,
-    //   entityFields
-    // );
-    // await buildTemplate(
-    //   "server-routes",
-    //   "../server/routes",
-    //   entity,
-    //   entityFields,
-    //   true
-    // );
-    await buildTemplate("server-model", "../server/models", entity, true);
-  });
-};
+const readTemplates = async (template: string) =>
+  await Promise.all(
+    readdirRec(path.join("templates", template)).map(
+      async (filePath: string) => ({
+        filePath,
+        fileContents: await readFile(path.join("templates", template, filePath))
+      })
+    )
+  );
 
 export default build;
