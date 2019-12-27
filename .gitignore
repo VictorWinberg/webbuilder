@@ -22,9 +22,6 @@ lib-cov
 coverage
 *.lcov
 
-# nyc test coverage
-.nyc_output
-
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -105,3 +102,10 @@ dist
 
 # Mac OS metadata
 .DS_Store
+
+# Project specific ignores
+entities.json
+
+# Cypress
+cypress/videos/
+cypress/screenshots/

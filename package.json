@@ -4,15 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd boilerplate && npm install",
-    "test": "cd boilerplate && npm test",
-    "coverage": "nyc npm test"
+    "postinstall": "npm-run-all -p install-client install-server",
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "start": "npm-run-all -p start-client start-server",
+    "build-client": "cd client && npm run build",
+    "start-client": "cd client && npm run serve",
+    "start-server": "cd server && npm start",
+    "build-start-server": "npm-run-all -s build-client start-server",
+    "test": "npm-run-all -s test-client test-server test-cypress",
+    "test-client": "cd client && npm test",
+    "test-server": "cd server && npm test",
+    "test-cypress": "start-server-and-test build-start-server http://localhost:3000 cy:run",
+    "cypress": "start-server-and-test build-start-server http://localhost:3000 cy:open",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
   },
   "dependencies": {
-    "string-template": "^1.0.0"
+    "npm-run-all": "4.1.5"
   },
   "devDependencies": {
-    "nyc": "14.1.1"
+    "cypress": "3.8.0",
+    "start-server-and-test": "1.10.6"
   },
   "repository": {
     "type": "git",
