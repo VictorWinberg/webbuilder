@@ -1,23 +1,23 @@
 export default [
   {
-    path: "/<%components%>",
-    component: () => import("./<%component%>-index.vue"),
+    path: "/<%entities%>",
+    component: () => import("./<%entity%>-index.vue"),
     children: [
       {
-        name: "<%component%>-list",
+        name: "<%entity%>-list",
         path: "",
-        component: () => import("./<%component%>-list.vue")
+        component: () => import("./<%entity%>-list.vue")
       },
       {
-        name: "<%component%>-show",
+        name: "<%entity%>-show",
         path: ":id",
-        component: () => import("./<%component%>-show.vue"),
+        component: () => import("./<%entity%>-show.vue"),
         props: true
       },
       {
-        name: "<%component%>-edit",
+        name: "<%entity%>-edit",
         path: ":id/edit",
-        component: () => import("./<%component%>-edit.vue"),
+        component: () => import("./<%entity%>-edit.vue"),
         props: true
       }
     ]

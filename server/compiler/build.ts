@@ -8,13 +8,13 @@ const {
   templating
 } = require("../utils").default;
 
-const build = async (entities: [{ component: string; fields: any }]) => {
-  entities.forEach(async entity => {
-    await buildTemplate("client", "scaffold", "src/app", entity);
-    await buildTemplate("server", "route", "routes", entity, {
+const build = async (entities: [{ entity: string; fields: any }]) => {
+  entities.forEach(async obj => {
+    await buildTemplate("client", "scaffold", "src/app", obj);
+    await buildTemplate("server", "route", "routes", obj, {
       withFolder: false
     });
-    await buildTemplate("server", "model", "models", entity, {
+    await buildTemplate("server", "model", "models", obj, {
       withFolder: false
     });
   });
@@ -24,7 +24,7 @@ const buildTemplate = async (
   root: string,
   template: string,
   dest: string,
-  entity: { component: string; fields: [] },
+  obj: { entity: string; fields: [] },
   options = { withFolder: true }
 ) => {
   const templateFiles = await readTemplates(
@@ -32,15 +32,17 @@ const buildTemplate = async (
     path.join("..", root, "templates")
   );
   templateFiles.forEach(async ({ filePath, fileContents }: any) => {
-    const contents = templating(fileContents, entity);
-    const componentPath = path.join(
-      path.join("..", root, dest),
-      options.withFolder ? entity.component : "",
-      `${entity.component}-${filePath}`
+    const contents = templating(fileContents, obj);
+    const entityPath = path.join(
+      "..",
+      root,
+      dest,
+      options.withFolder ? obj.entity : "",
+      `${obj.entity}-${filePath}`
     );
 
-    await mkdir(path.dirname(componentPath), { recursive: true }, () => {});
-    await writeFile(componentPath, contents);
+    await mkdir(path.dirname(entityPath), { recursive: true }, () => {});
+    await writeFile(entityPath, contents);
   });
 };
 

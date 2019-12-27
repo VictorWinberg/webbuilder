@@ -1,6 +1,6 @@
 [
   {
-    "component": "customer",
+    "entity": "customer",
     "fields": [
       {
         "name": "name",
@@ -16,7 +16,7 @@
     ]
   },
   {
-    "component": "product",
+    "entity": "product",
     "fields": [
       {
         "name": "name",
@@ -27,7 +27,7 @@
     ]
   },
   {
-    "component": "order",
+    "entity": "order",
     "fields": [
       {
         "name": "customer",

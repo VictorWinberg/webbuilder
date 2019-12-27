@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>{{ <%component%>.title }}</h1>
-    <p>{{ <%component%>.content }}</p>
+    <h1>{{ <%entity%>.title }}</h1>
+    <p>{{ <%entity%>.content }}</p>
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="edit<%Component%>(id)">EDIT</button>
+    <button v-on:click="edit<%Entity%>(id)">EDIT</button>
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "<%component%>-show",
+  name: "<%entity%>-show",
   props: {
     id: { type: String, required: true }
   },
@@ -21,28 +21,28 @@ export default Vue.extend({
     };
   },
   computed: {
-    <%component%>() {
-      return this.$store.state.<%component%>.current;
+    <%entity%>() {
+      return this.$store.state.<%entity%>.current;
     }
   },
   methods: {
-    async refresh<%Component%>() {
+    async refresh<%Entity%>() {
       this.loading = true;
-      await this.$store.dispatch("<%component%>/read", this.id);
+      await this.$store.dispatch("<%entity%>/read", this.id);
       this.loading = false;
     },
-    edit<%Component%>(id: string) {
+    edit<%Entity%>(id: string) {
       this.$router.push({
-        name: "<%component%>-edit",
+        name: "<%entity%>-edit",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "<%component%>-list" });
+      this.$router.push({ name: "<%entity%>-list" });
     }
   },
   created() {
-    this.refresh<%Component%>();
+    this.refresh<%Entity%>();
   }
 });
 </script>

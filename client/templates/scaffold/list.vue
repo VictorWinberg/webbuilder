@@ -1,19 +1,19 @@
 <template>
   <div>
-    <<%component%>-new></<%component%>-new>
-    <<%component%>-list-table></<%component%>-list-table>
+    <<%entity%>-new></<%entity%>-new>
+    <<%entity%>-list-table></<%entity%>-list-table>
   </div>
 </template>
 
 <script lang="ts">
-import <%Component%>New from "./<%component%>-new.vue";
-import <%Component%>ListTable from "./<%component%>-list-table.vue";
+import <%Entity%>New from "./<%entity%>-new.vue";
+import <%Entity%>ListTable from "./<%entity%>-list-table.vue";
 
 export default {
-  name: "<%component%>-list",
+  name: "<%entity%>-list",
   components: {
-    <%Component%>New,
-    <%Component%>ListTable
+    <%Entity%>New,
+    <%Entity%>ListTable
   }
 };
 </script>

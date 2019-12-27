@@ -1,13 +1,13 @@
 <template>
   <div>
     <span>Title</span>
-    <input type="text" v-model="<%component%>.title" />
+    <input type="text" v-model="<%entity%>.title" />
     <br />
-    <textarea v-model="<%component%>.content" />
+    <textarea v-model="<%entity%>.content" />
     <br />
     <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="show<%Component%>(id)">SHOW</button>
-    <button v-on:click="edit<%Component%>(id)">SAVE</button>
+    <button v-on:click="show<%Entity%>(id)">SHOW</button>
+    <button v-on:click="edit<%Entity%>(id)">SAVE</button>
   </div>
 </template>
 
@@ -15,7 +15,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "<%component%>-edit",
+  name: "<%entity%>-edit",
   props: {
     id: { required: true }
   },
@@ -25,42 +25,42 @@ export default Vue.extend({
     };
   },
   computed: {
-    <%component%>() {
-      return this.$store.state.<%component%>.current;
+    <%entity%>() {
+      return this.$store.state.<%entity%>.current;
     }
   },
   methods: {
-    async refresh<%Component%>() {
+    async refresh<%Entity%>() {
       this.loading = true;
-      await this.$store.dispatch("<%component%>/read", this.id);
+      await this.$store.dispatch("<%entity%>/read", this.id);
       this.loading = false;
     },
-    async edit<%Component%>(id: string) {
+    async edit<%Entity%>(id: string) {
       if (this.valid()) {
-        await this.$store.dispatch("<%component%>/update", {
+        await this.$store.dispatch("<%entity%>/update", {
           id,
-          title: this.<%component%>.title,
-          content: this.<%component%>.content
+          title: this.<%entity%>.title,
+          content: this.<%entity%>.content
         });
 
         this.back();
       }
     },
     valid(): boolean {
-      return this.<%component%>.title !== "" && this.<%component%>.content !== "";
+      return this.<%entity%>.title !== "" && this.<%entity%>.content !== "";
     },
-    show<%Component%>(id: string) {
+    show<%Entity%>(id: string) {
       this.$router.push({
-        name: "<%component%>-show",
+        name: "<%entity%>-show",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "<%component%>-list" });
+      this.$router.push({ name: "<%entity%>-list" });
     }
   },
   created() {
-    this.refresh<%Component%>();
+    this.refresh<%Entity%>();
   }
 });
 </script>

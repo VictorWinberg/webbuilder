@@ -1,14 +1,14 @@
 <template>
   <ul>
-    <li v-for="<%component%> in <%components%>" v-bind:key="<%component%>.id">
+    <li v-for="<%entity%> in <%entities%>" v-bind:key="<%entity%>.id">
       <hr />
-      <b>{{ <%component%>.title }}</b>
+      <b>{{ <%entity%>.title }}</b>
       <br />
-      {{ <%component%>.content }}
+      {{ <%entity%>.content }}
       <br />
-      <button v-on:click="show<%Component%>(<%component%>.id)">SHOW</button>
-      <button v-on:click="edit<%Component%>(<%component%>.id)">EDIT</button>
-      <button v-on:click="remove<%Component%>(<%component%>.id)">REMOVE</button>
+      <button v-on:click="show<%Entity%>(<%entity%>.id)">SHOW</button>
+      <button v-on:click="edit<%Entity%>(<%entity%>.id)">EDIT</button>
+      <button v-on:click="remove<%Entity%>(<%entity%>.id)">REMOVE</button>
     </li>
     <hr />
   </ul>
@@ -18,44 +18,44 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "<%component%>-list-table",
+  name: "<%entity%>-list-table",
   data() {
     return {
       loading: false
     };
   },
   computed: {
-    <%components%>() {
-      return this.$store.state.<%component%>.all;
+    <%entities%>() {
+      return this.$store.state.<%entity%>.all;
     }
   },
   methods: {
-    async refresh<%Components%>() {
+    async refresh<%Entities%>() {
       this.loading = true;
-      await this.$store.dispatch("<%component%>/list");
+      await this.$store.dispatch("<%entity%>/list");
       this.loading = false;
     },
-    show<%Component%>(id: string) {
+    show<%Entity%>(id: string) {
       this.$router.push({
-        name: "<%component%>-show",
+        name: "<%entity%>-show",
         params: { id }
       });
     },
-    edit<%Component%>(id: string) {
+    edit<%Entity%>(id: string) {
       this.$router.push({
-        name: "<%component%>-edit",
+        name: "<%entity%>-edit",
         params: { id }
       });
     },
-    async remove<%Component%>(id: string) {
+    async remove<%Entity%>(id: string) {
       this.loading = true;
-      await this.$store.dispatch("<%component%>/remove", id);
-      await this.refresh<%Components%>();
+      await this.$store.dispatch("<%entity%>/remove", id);
+      await this.refresh<%Entities%>();
       this.loading = false;
     }
   },
   created() {
-    this.refresh<%Components%>();
+    this.refresh<%Entities%>();
   }
 });
 </script>

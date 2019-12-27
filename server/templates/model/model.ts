@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 
 export default (sequelize: any) => {
-  const <%Component%> = sequelize.define(
-    "<%Component%>",
+  const <%Entity%> = sequelize.define(
+    "<%Entity%>",
     {
       id: {
         primaryKey: true,
@@ -17,12 +17,12 @@ export default (sequelize: any) => {
     },
     {}
   );
-  <%Component%>.associate = function(models: any) {
+  <%Entity%>.associate = function(models: any) {
     <%#fields%>
     <%#hasRelation%>
-    <%Component%>.<%type%>(models.<%relation.Entity%>, {});
+    <%Entity%>.<%type%>(models.<%relation.Entity%>, {});
     <%/hasRelation%>
     <%/fields%>
   };
-  return <%Component%>;
+  return <%Entity%>;
 };
