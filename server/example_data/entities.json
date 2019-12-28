@@ -11,6 +11,12 @@
             "value": true
           }
         ],
+        "type": "string"
+      },
+      {
+        "name": "info",
+        "relation": {},
+        "validations": [],
         "type": "text"
       }
     ]
@@ -22,7 +28,7 @@
         "name": "name",
         "relation": {},
         "validations": [],
-        "type": "text"
+        "type": "string"
       }
     ]
   },
