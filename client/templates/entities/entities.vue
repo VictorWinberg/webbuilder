@@ -1,5 +1,5 @@
 <template>
-  <div>{{ JSON.stringify(entities) }}</div>
+  <div>\{{ JSON.stringify(entities) }}</div>
 </template>
 
 <script lang="ts">

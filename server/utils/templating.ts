@@ -1,5 +1,5 @@
 import { capitalize, toUpper, isEmpty, transform, merge } from "lodash";
-import mustache from "mustache";
+import handlebars from "handlebars";
 import pluralize from "pluralize";
 
 function mustachify(obj: any) {
@@ -23,11 +23,7 @@ function mustachify(obj: any) {
   return transform(obj, iteratee);
 }
 
-const templating = (
-  template: string,
-  entity: any,
-  partial?: any,
-  tags: string[] = ["<%", "%>"]
-) => mustache.render(template, mustachify(entity), partial, tags);
+const templating = (template: string, entity: any) =>
+  handlebars.compile(template)(mustachify(entity));
 
 export default { templating };

@@ -5,7 +5,7 @@
     <br />
     <textarea v-model="content" />
     <br />
-    <button v-on:click="add<%Entity%>()">CREATE</button>
+    <button v-on:click="add{{Entity}}()">CREATE</button>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "<%entity%>-new",
+  name: "{{entity}}-new",
   data() {
     return {
       title: "",
@@ -21,16 +21,16 @@ export default Vue.extend({
     };
   },
   methods: {
-    async add<%Entity%>() {
+    async add{{Entity}}() {
       if (this.valid()) {
-        await this.$store.dispatch("<%entity%>/create", {
+        await this.$store.dispatch("{{entity}}/create", {
           title: this.title,
           content: this.content
         });
 
         this.title = "";
         this.content = "";
-        await this.$store.dispatch("<%entity%>/list");
+        await this.$store.dispatch("{{entity}}/list");
       }
     },
     valid(): boolean {
