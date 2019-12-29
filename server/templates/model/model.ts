@@ -10,18 +10,18 @@ export default (sequelize: any) => {
         defaultValue: DataTypes.UUIDV4
       },
       {{#fields}}
-      {{^hasRelation}}
+      {{#unless relation.Entity}}
       {{name}}: DataTypes.{{TYPE}},
-      {{/hasRelation}}
+      {{/unless}}
       {{/fields}}
     },
     {}
   );
   {{Entity}}.associate = function(models: any) {
     {{#fields}}
-    {{#hasRelation}}
-    {{Entity}}.{{type}}(models.{{relation.Entity}}, {});
-    {{/hasRelation}}
+    {{#if relation.Entity}}
+    {{@root.Entity}}.{{type}}(models.{{relation.Entity}}, {});
+    {{/if}}
     {{/fields}}
   };
   return {{Entity}};

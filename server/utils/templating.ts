@@ -2,6 +2,25 @@ import { capitalize, toUpper, isEmpty, transform, merge } from "lodash";
 import handlebars from "handlebars";
 import pluralize from "pluralize";
 
+handlebars.registerHelper("switch", function(this: any, value, options) {
+  this.switch_value = value;
+  this.switch_break = false;
+  return options.fn(this);
+});
+
+handlebars.registerHelper("case", function(this: any, value, options) {
+  if (value == this.switch_value) {
+    this.switch_break = true;
+    return options.fn(this);
+  }
+});
+
+handlebars.registerHelper("default", function(this: any, value, options) {
+  if (this.switch_break == false) {
+    return value;
+  }
+});
+
 function mustachify(obj: any) {
   function iteratee(result: any, value: any, key: string) {
     if (typeof value === "object") {
