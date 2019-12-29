@@ -26,9 +26,9 @@
     {{/switch}}
     <br />
     {{/fields}}
-    <button @:click="back()">GO BACK</button>
-    <button @:click="show{{Entity}}(id)">SHOW</button>
-    <button @:click="edit{{Entity}}(id)">SAVE</button>
+    <button @click="back()">GO BACK</button>
+    <button @click="show{{Entity}}(id)">SHOW</button>
+    <button @click="edit{{Entity}}(id)">SAVE</button>
   </div>
 </template>
 
@@ -59,7 +59,7 @@ export default Vue.extend({
       if (this.valid()) {
         this.{{entity}} = await this.$store.dispatch("{{entity}}/update", [id, this.{{entity}}]);
 
-        // TODO: Some check?
+        // TODO: Some check if success?
         this.back();
       }
     },
@@ -79,4 +79,8 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.error {
+  color: red;
+}
+</style>

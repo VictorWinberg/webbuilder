@@ -26,12 +26,13 @@
     {{/switch}}
     <br />
     {{/fields}}
-    <button @:click="add{{Entity}}()">CREATE</button>
+    <button @click="add{{Entity}}()">CREATE</button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { bus } from "@/main";
 
 export default Vue.extend({
   name: "{{Entity}}New",
@@ -46,7 +47,7 @@ export default Vue.extend({
         await this.$store.dispatch("{{entity}}/create", this.{{entity}});
 
         this.{{entity}} = {};
-        await this.$store.dispatch("{{entity}}/list");
+        bus.$emit("refresh");
       }
     },
     valid(): boolean {

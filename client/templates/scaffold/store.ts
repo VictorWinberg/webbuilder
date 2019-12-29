@@ -4,7 +4,7 @@ export default {
     state: {},
     mutations: {},
     actions: {
-      async create(_: any, payload: any) {
+      async create(_: {}, payload: {}): Promise<void> {
         const res = await fetch("/api/{{entities}}", {
           method: "POST",
           headers: {
@@ -17,7 +17,7 @@ export default {
           throw new Error(res.statusText);
         }
       },
-      async list({ commit }: any) {
+      async list(): Promise<[]> {
         const res = await fetch("/api/{{entities}}");
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -25,7 +25,7 @@ export default {
         const json = await res.json();
         return json;
       },
-      async read({ commit }: any, [id]: [string]) {
+      async read(_: {}, [id]: [string]): Promise<{}> {
         const res = await fetch(`/api/{{entities}}/${id}`);
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -33,7 +33,7 @@ export default {
         const json = await res.json();
         return json;
       },
-      async update({ commit }: any, [id, payload]: [string, any]) {
+      async update(_: {}, [id, payload]: [string, {}]): Promise<{}> {
         const res = await fetch(`/api/{{entities}}/${id}`, {
           method: "PUT",
           headers: {
@@ -47,7 +47,7 @@ export default {
         const json = await res.json();
         return json;
       },
-      async remove({ commit }: any, [id]: [string]) {
+      async remove(_: {}, [id]: [string]): Promise<void> {
         const res = await fetch(`/api/{{entities}}/${id}`, {
           method: "DELETE"
         });

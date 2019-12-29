@@ -19,8 +19,8 @@
     {{/switch}}
     <br />
     {{/fields}}
-    <button @:click="back()">GO BACK</button>
-    <button @:click="edit{{Entity}}(id)">EDIT</button>
+    <button @click="back()">GO BACK</button>
+    <button @click="edit{{Entity}}(id)">EDIT</button>
   </div>
 </template>
 
@@ -60,4 +60,8 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.error {
+  color: red;
+}
+</style>

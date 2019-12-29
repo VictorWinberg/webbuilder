@@ -21,9 +21,9 @@
       {{/switch}}
       <br />
       {{/fields}}
-      <button @:click="show{{Entity}}({{entity}}.id)">SHOW</button>
-      <button @:click="edit{{Entity}}({{entity}}.id)">EDIT</button>
-      <button @:click="remove{{Entity}}({{entity}}.id)">REMOVE</button>
+      <button @click="show{{Entity}}({{entity}}.id)">SHOW</button>
+      <button @click="edit{{Entity}}({{entity}}.id)">EDIT</button>
+      <button @click="remove{{Entity}}({{entity}}.id)">REMOVE</button>
     </li>
     <hr />
   </ul>
@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { bus } from "@/main";
 
 export default Vue.extend({
   name: "{{Entity}}ListTable",
@@ -42,6 +43,7 @@ export default Vue.extend({
   },
   created() {
     this.refresh{{Entities}}();
+    bus.$on("refresh", () => this.refresh{{Entities}}());
   },
   methods: {
     async refresh{{Entities}}() {
@@ -75,5 +77,8 @@ export default Vue.extend({
 ul {
   list-style: none;
   padding: 0;
+}
+.error {
+  color: red;
 }
 </style>
