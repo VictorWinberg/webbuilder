@@ -4,18 +4,18 @@ export default [
     component: () => import("./{{entity}}-index.vue"),
     children: [
       {
-        name: "{{entity}}-list",
+        name: "{{Entity}}List",
         path: "",
         component: () => import("./{{entity}}-list.vue")
       },
       {
-        name: "{{entity}}-show",
+        name: "{{Entity}}Show",
         path: ":id",
         component: () => import("./{{entity}}-show.vue"),
         props: true
       },
       {
-        name: "{{entity}}-edit",
+        name: "{{Entity}}Edit",
         path: ":id/edit",
         component: () => import("./{{entity}}-edit.vue"),
         props: true

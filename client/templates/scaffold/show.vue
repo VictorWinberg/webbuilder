@@ -1,9 +1,26 @@
 <template>
   <div>
-    <h1>\{{ {{entity}}.title }}</h1>
-    <p>\{{ {{entity}}.content }}</p>
-    <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="edit{{Entity}}(id)">EDIT</button>
+    {{#fields}}
+    {{#switch type}}
+    {{#case 'string'}}
+    <h1>\{{ {{@root.entity}}.{{name}} }}</h1>
+    {{/case}}
+    {{#case 'text'}}
+    \{{ {{@root.entity}}.{{name}} }}
+    {{/case}}
+    {{#case 'boolean'}}
+    \{{ {{@root.entity}}.{{name}} }}
+    {{/case}}
+    {{#default ''}}
+    <span
+      class="error"
+    >Missing type: {{type}}</span>
+    {{/default}}
+    {{/switch}}
+    <br />
+    {{/fields}}
+    <button @:click="back()">GO BACK</button>
+    <button @:click="edit{{Entity}}(id)">EDIT</button>
   </div>
 </template>
 
@@ -11,38 +28,34 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "{{entity}}-show",
+  name: "{{Entity}}Show",
   props: {
     id: { type: String, required: true }
   },
   data() {
     return {
+      {{entity}}: {},
       loading: false
     };
   },
-  computed: {
-    {{entity}}() {
-      return this.$store.state.{{entity}}.current;
-    }
+  created() {
+    this.refresh{{Entity}}();
   },
   methods: {
     async refresh{{Entity}}() {
       this.loading = true;
-      await this.$store.dispatch("{{entity}}/read", this.id);
+      this.{{entity}} = await this.$store.dispatch("{{entity}}/read", [this.id]);
       this.loading = false;
     },
     edit{{Entity}}(id: string) {
       this.$router.push({
-        name: "{{entity}}-edit",
+        name: "{{Entity}}Edit",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "{{entity}}-list" });
+      this.$router.push({ name: "{{Entity}}List" });
     }
-  },
-  created() {
-    this.refresh{{Entity}}();
   }
 });
 </script>

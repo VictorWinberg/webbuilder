@@ -1,21 +1,11 @@
 export default {
   {{entity}}: {
     namespaced: true,
-    state: {
-      current: {},
-      all: []
-    },
-    mutations: {
-      set{{Entity}}: (state: any, current: any) => {
-        state.current = current;
-      },
-      set{{Entities}}: (state: any, all: []) => {
-        state.all = all;
-      }
-    },
+    state: {},
+    mutations: {},
     actions: {
       async create(_: any, payload: any) {
-        const res = await fetch("/api/{{entities}}>", {
+        const res = await fetch("/api/{{entities}}", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -32,16 +22,18 @@ export default {
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        commit("set{{Entities}}", await res.json());
+        const json = await res.json();
+        return json;
       },
-      async read({ commit }: any, id: string) {
+      async read({ commit }: any, [id]: [string]) {
         const res = await fetch(`/api/{{entities}}/${id}`);
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        commit("set{{Entity}}", await res.json());
+        const json = await res.json();
+        return json;
       },
-      async update({ commit }: any, { id = null, ...payload }) {
+      async update({ commit }: any, [id, payload]: [string, any]) {
         const res = await fetch(`/api/{{entities}}/${id}`, {
           method: "PUT",
           headers: {
@@ -52,9 +44,10 @@ export default {
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        commit("set{{Entity}}", await res.json());
+        const json = await res.json();
+        return json;
       },
-      async remove({ commit }: any, id: string) {
+      async remove({ commit }: any, [id]: [string]) {
         const res = await fetch(`/api/{{entities}}/${id}`, {
           method: "DELETE"
         });
@@ -65,6 +58,3 @@ export default {
     }
   }
 };
-
-
-

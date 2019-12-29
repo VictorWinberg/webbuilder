@@ -1,7 +1,7 @@
 <template>
   <div>
-    <{{entity}}-new></{{entity}}-new>
-    <{{entity}}-list-table></{{entity}}-list-table>
+    <{{Entity}}New></{{Entity}}New>
+    <{{Entity}}ListTable></{{Entity}}ListTable>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import {{Entity}}New from "./{{entity}}-new.vue";
 import {{Entity}}ListTable from "./{{entity}}-list-table.vue";
 
 export default {
-  name: "{{entity}}-list",
+  name: "{{Entity}}List",
   components: {
     {{Entity}}New,
     {{Entity}}ListTable

@@ -1,14 +1,29 @@
 <template>
   <ul>
-    <li v-for="{{entity}} in {{entities}}" v-bind:key="{{entity}}.id">
+    <li v-for="{{entity}} in {{entities}}" :key="{{entity}}.id">
       <hr />
-      <b>\{{ {{entity}}.title }}</b>
+      {{#fields}}
+      {{#switch type}}
+      {{#case 'string'}}
+      <b>\{{ {{@root.entity}}.{{name}} }}</b>
+      {{/case}}
+      {{#case 'text'}}
+      \{{ {{@root.entity}}.{{name}} }}
+      {{/case}}
+      {{#case 'boolean'}}
+      \{{ {{@root.entity}}.{{name}} }}
+      {{/case}}
+      {{#default ''}}
+      <span
+        class="error"
+      >Missing type: {{type}}</span>
+      {{/default}}
+      {{/switch}}
       <br />
-      \{{ {{entity}}.content }}
-      <br />
-      <button v-on:click="show{{Entity}}({{entity}}.id)">SHOW</button>
-      <button v-on:click="edit{{Entity}}({{entity}}.id)">EDIT</button>
-      <button v-on:click="remove{{Entity}}({{entity}}.id)">REMOVE</button>
+      {{/fields}}
+      <button @:click="show{{Entity}}({{entity}}.id)">SHOW</button>
+      <button @:click="edit{{Entity}}({{entity}}.id)">EDIT</button>
+      <button @:click="remove{{Entity}}({{entity}}.id)">REMOVE</button>
     </li>
     <hr />
   </ul>
@@ -18,44 +33,40 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "{{entity}}-list-table",
+  name: "{{Entity}}ListTable",
   data() {
     return {
+      {{entities}}: [],
       loading: false
     };
   },
-  computed: {
-    {{entities}}() {
-      return this.$store.state.{{entity}}.all;
-    }
+  created() {
+    this.refresh{{Entities}}();
   },
   methods: {
     async refresh{{Entities}}() {
       this.loading = true;
-      await this.$store.dispatch("{{entity}}/list");
+      this.{{entities}} = await this.$store.dispatch("{{entity}}/list");
       this.loading = false;
     },
     show{{Entity}}(id: string) {
       this.$router.push({
-        name: "{{entity}}-show",
+        name: "{{Entity}}Show",
         params: { id }
       });
     },
     edit{{Entity}}(id: string) {
       this.$router.push({
-        name: "{{entity}}-edit",
+        name: "{{Entity}}Edit",
         params: { id }
       });
     },
     async remove{{Entity}}(id: string) {
       this.loading = true;
-      await this.$store.dispatch("{{entity}}/remove", id);
+      await this.$store.dispatch("{{entity}}/remove", [id]);
       await this.refresh{{Entities}}();
       this.loading = false;
     }
-  },
-  created() {
-    this.refresh{{Entities}}();
   }
 });
 </script>

@@ -1,13 +1,34 @@
 <template>
   <div>
-    <span>Title</span>
-    <input type="text" v-model="{{entity}}.title" />
+    {{#fields}}
+    <label for="{{name}}">{{Name}}</label>
+    {{#switch type}}
+    {{#case 'string'}}
+    <input
+      id="{{name}}"
+      v-model="{{@root.entity}}.{{name}}"
+      type="text"
+    />
+    {{/case}}
+    {{#case 'text'}}
+    <textarea id="{{name}}" v-model="{{@root.entity}}.{{name}}" />
+    {{/case}}
+    {{#case 'boolean'}}
+    <input
+      id="{{name}}"
+      v-model="{{@root.entity}}.{{name}}"
+      type="checkbox"
+    />
+    {{/case}}
+    {{#default ''}}
+    <span class="error">Missing type: {{type}}</span>
+    {{/default}}
+    {{/switch}}
     <br />
-    <textarea v-model="{{entity}}.content" />
-    <br />
-    <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="show{{Entity}}(id)">SHOW</button>
-    <button v-on:click="edit{{Entity}}(id)">SAVE</button>
+    {{/fields}}
+    <button @:click="back()">GO BACK</button>
+    <button @:click="show{{Entity}}(id)">SHOW</button>
+    <button @:click="edit{{Entity}}(id)">SAVE</button>
   </div>
 </template>
 
@@ -15,52 +36,45 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "{{entity}}-edit",
+  name: "{{Entity}}Edit",
   props: {
-    id: { required: true }
+    id: { type: String, required: true }
   },
   data() {
     return {
+      {{entity}}: {},
       loading: false
     };
   },
-  computed: {
-    {{entity}}() {
-      return this.$store.state.{{entity}}.current;
-    }
+  created() {
+    this.refresh{{Entity}}();
   },
   methods: {
     async refresh{{Entity}}() {
       this.loading = true;
-      await this.$store.dispatch("{{entity}}/read", this.id);
+      this.{{entity}} = await this.$store.dispatch("{{entity}}/read", [this.id]);
       this.loading = false;
     },
     async edit{{Entity}}(id: string) {
       if (this.valid()) {
-        await this.$store.dispatch("{{entity}}/update", {
-          id,
-          title: this.{{entity}}.title,
-          content: this.{{entity}}.content
-        });
+        this.{{entity}} = await this.$store.dispatch("{{entity}}/update", [id, this.{{entity}}]);
 
+        // TODO: Some check?
         this.back();
       }
     },
     valid(): boolean {
-      return this.{{entity}}.title !== "" && this.{{entity}}.content !== "";
+      return true;
     },
     show{{Entity}}(id: string) {
       this.$router.push({
-        name: "{{entity}}-show",
+        name: "{{Entity}}Show",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "{{entity}}-list" });
+      this.$router.push({ name: "{{Entity}}List" });
     }
-  },
-  created() {
-    this.refresh{{Entity}}();
   }
 });
 </script>

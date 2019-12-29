@@ -4,13 +4,21 @@
     <label for="{{name}}">{{Name}}</label>
     {{#switch type}}
     {{#case 'string'}}
-    <input type="text" v-model="{{name}}" />
+    <input
+      id="{{name}}"
+      v-model="{{@root.entity}}.{{name}}"
+      type="text"
+    />
     {{/case}}
     {{#case 'text'}}
-    <textarea v-model="{{name}}" />
+    <textarea id="{{name}}" v-model="{{@root.entity}}.{{name}}" />
     {{/case}}
     {{#case 'boolean'}}
-    <input type="checkbox" name="{{name}}" />
+    <input
+      id="{{name}}"
+      v-model="{{@root.entity}}.{{name}}"
+      type="checkbox"
+    />
     {{/case}}
     {{#default ''}}
     <span class="error">Missing type: {{type}}</span>
@@ -18,7 +26,7 @@
     {{/switch}}
     <br />
     {{/fields}}
-    <button v-on:click="add{{Entity}}()">CREATE</button>
+    <button @:click="add{{Entity}}()">CREATE</button>
   </div>
 </template>
 
@@ -26,28 +34,23 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "{{entity}}-new",
+  name: "{{Entity}}New",
   data() {
     return {
-      title: "",
-      content: ""
+      {{entity}}: {}
     };
   },
   methods: {
     async add{{Entity}}() {
       if (this.valid()) {
-        await this.$store.dispatch("{{entity}}/create", {
-          title: this.title,
-          content: this.content
-        });
+        await this.$store.dispatch("{{entity}}/create", this.{{entity}});
 
-        this.title = "";
-        this.content = "";
+        this.{{entity}} = {};
         await this.$store.dispatch("{{entity}}/list");
       }
     },
     valid(): boolean {
-      return this.title !== "" && this.content !== "";
+      return true;
     }
   }
 });
