@@ -5,10 +5,15 @@ const {
   writeFile,
   mkdir,
   readdirRec,
-  templating
+  templating,
+  ENTITIES_JSON
 } = require("../utils").default;
 
-const build = async (entities: [{ entity: string; fields: any }]) => {
+type Entities = [{ entity: string; fields: any }];
+
+const build = async () => {
+  const contents = await readFile(ENTITIES_JSON, "utf8");
+  const entities: Entities = JSON.parse(contents);
   entities.forEach(async obj => {
     await buildTemplate("client", "scaffold", "src/app", obj);
     await buildTemplate("server", "route", "routes", obj, {
@@ -18,6 +23,7 @@ const build = async (entities: [{ entity: string; fields: any }]) => {
       withFolder: false
     });
   });
+  return entities;
 };
 
 const buildTemplate = async (
