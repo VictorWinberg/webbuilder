@@ -1,10 +1,23 @@
 <template>
   <div>
-    <span>Title</span>
-    <input type="text" v-model="title" />
+    {{#fields}}
+    <label for="{{name}}">{{Name}}</label>
+    {{#switch type}}
+    {{#case 'string'}}
+    <input type="text" v-model="{{name}}" />
+    {{/case}}
+    {{#case 'text'}}
+    <textarea v-model="{{name}}" />
+    {{/case}}
+    {{#case 'boolean'}}
+    <input type="checkbox" name="{{name}}" />
+    {{/case}}
+    {{#default ''}}
+    <span class="error">Missing type: {{type}}</span>
+    {{/default}}
+    {{/switch}}
     <br />
-    <textarea v-model="content" />
-    <br />
+    {{/fields}}
     <button v-on:click="add{{Entity}}()">CREATE</button>
   </div>
 </template>
@@ -40,4 +53,8 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.error {
+  color: red;
+}
+</style>

@@ -15,9 +15,9 @@ handlebars.registerHelper("case", function(this: any, value, options) {
   }
 });
 
-handlebars.registerHelper("default", function(this: any, value, options) {
+handlebars.registerHelper("default", function(this: any, _, options) {
   if (this.switch_break == false) {
-    return value;
+    return options.fn(this);
   }
 });
 
@@ -25,9 +25,6 @@ function mustachify(obj: any) {
   function iteratee(result: any, value: any, key: string) {
     if (typeof value === "object") {
       result[key] = mustachify(value);
-      if (typeof key === "string") {
-        result[`has${capitalize(key)}`] = !isEmpty(value);
-      }
     } else if (typeof value === "string") {
       result[key] = value;
       result[capitalize(key)] = capitalize(value);
