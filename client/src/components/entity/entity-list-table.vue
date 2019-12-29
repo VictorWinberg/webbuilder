@@ -1,18 +1,38 @@
 <template>
     <div class="list-table">
-        <div class="entity" v-for="entity in entities" v-bind:key="entity.id">
+        <div
+            class="entity"
+            v-for="(entity, index) in entities"
+            v-bind:key="index"
+        >
             <div class="entity-header">
                 <h2>{{ entity.name }}</h2>
                 <div class="buttons">
-                    <v-btn class="ma-2" fab dark x-small v-on:click="editEntity(entity.id)">
+                    <v-btn
+                        class="ma-2"
+                        fab
+                        dark
+                        x-small
+                        v-on:click="editEntity(index)"
+                    >
                         <v-icon>fa-edit</v-icon>
                     </v-btn>
-                    <v-btn class="ma-2" fab dark x-small v-on:click="removeEntity(entity.id)">
+                    <v-btn
+                        class="ma-2"
+                        fab
+                        dark
+                        x-small
+                        v-on:click="removeEntity(entity.name)"
+                    >
                         <v-icon>fa-trash</v-icon>
                     </v-btn>
                 </div>
             </div>
-            <div class="entity-data" v-for="field in entity.fields" v-bind:key="field.name">
+            <div
+                class="entity-data"
+                v-for="field in entity.fields"
+                v-bind:key="field.name"
+            >
                 <div class="entity-field">
                     <h3>Name:</h3>
                     <p>{{ field.name }}</p>
@@ -20,7 +40,10 @@
                 <div class="entity-field">
                     <h3>Validation:</h3>
                     <div v-if="field.validations.length > 0">
-                        <div v-for="validation in field.validations" v-bind:key="validation.key">
+                        <div
+                            v-for="validation in field.validations"
+                            v-bind:key="validation.key"
+                        >
                             <div class="validation-field">
                                 <h4>Key:</h4>
                                 <p>{{ validation.key }}</p>
@@ -31,9 +54,14 @@
                             </div>
                         </div>
                     </div>
-                    <div v-else>
-                        <p class="faded-light">No validation</p>
-                    </div>
+                    <p v-else class="faded-light">No validation</p>
+                </div>
+                <div class="entity-field">
+                    <h3>Relation</h3>
+                    <p v-if="field.relation.entity">
+                        {{ field.relation.entity }}
+                    </p>
+                    <p v-else class="faded-light">No relation</p>
                 </div>
                 <div class="entity-field">
                     <h3>Type:</h3>
@@ -65,21 +93,16 @@ export default Vue.extend({
             await this.$store.dispatch('entity/list');
             this.loading = false;
         },
-        showEntity(id: string) {
-            this.$router.push({
-                name: 'entity-show',
-                params: { id }
-            });
-        },
-        editEntity(id: string) {
+        async editEntity(index: number) {
+            await this.$store.commit('entity/setEntity', this.entities[index]);
             this.$router.push({
                 name: 'entity-edit',
-                params: { id }
+                params: { name: this.entities[index].name }
             });
         },
-        async removeEntity(id: string) {
+        async removeEntity(name: string) {
             this.loading = true;
-            await this.$store.dispatch('entity/remove', id);
+            await this.$store.dispatch('entity/remove', name);
             await this.refreshEntities();
             this.loading = false;
         }
@@ -159,7 +182,7 @@ p {
     display: inline-block;
 
     &.faded-light {
-        color: #888;
+        color: #999;
     }
 }
 </style>
