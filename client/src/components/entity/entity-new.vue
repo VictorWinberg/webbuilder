@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="entity-new">
         <el-aside>Hello</el-aside>
         <el-container>
             <div>
@@ -52,4 +52,17 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.entity-new {
+    display: flex;
+}
+.el-aside {
+    background-color: aquamarine;
+    flex: 1;
+}
+.el-container {
+    background-color: lavender;
+    flex: 3;
+    display: inline;
+}
+</style>
