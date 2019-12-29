@@ -1,5 +1,6 @@
-import { capitalize, toUpper, isEmpty, transform, merge } from "lodash";
+import { capitalize, toUpper, transform } from "lodash";
 import handlebars from "handlebars";
+import { format } from "prettier";
 import pluralize from "pluralize";
 
 handlebars.registerHelper("switch", function(this: any, value, options) {
@@ -39,7 +40,7 @@ function mustachify(obj: any) {
   return transform(obj, iteratee);
 }
 
-const templating = (template: string, entity: any) =>
-  handlebars.compile(template)(mustachify(entity));
+const templating = (template: string, filepath: string, entity: any) =>
+  format(handlebars.compile(template)(mustachify(entity)), { filepath });
 
 export default { templating };

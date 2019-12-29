@@ -32,7 +32,7 @@ const buildTemplate = async (
     path.join("..", root, "templates")
   );
   templateFiles.forEach(async ({ filePath, fileContents }: any) => {
-    const contents = templating(fileContents, obj);
+    const contents = templating(fileContents, filePath, obj);
     const entityPath = path.join(
       "..",
       root,

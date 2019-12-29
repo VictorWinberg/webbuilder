@@ -30,6 +30,7 @@
     "@types/lodash": "4.14.149",
     "@types/mustache": "0.8.32",
     "@types/node": "12.12.22",
+    "@types/prettier": "^1.19.0",
     "@types/pluralize": "0.0.29",
     "@types/sequelize": "4.28.8",
     "@types/supertest": "2.0.8",
