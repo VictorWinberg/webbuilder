@@ -11,12 +11,12 @@ const {
 const build = async (entities: [{ entity: string; fields: any }]) => {
   entities.forEach(async obj => {
     await buildTemplate("client", "scaffold", "src/app", obj);
-    // await buildTemplate("server", "route", "routes", obj, {
-    //   withFolder: false
-    // });
-    // await buildTemplate("server", "model", "models", obj, {
-    //   withFolder: false
-    // });
+    await buildTemplate("server", "route", "routes", obj, {
+      withFolder: false
+    });
+    await buildTemplate("server", "model", "models", obj, {
+      withFolder: false
+    });
   });
 };
 
