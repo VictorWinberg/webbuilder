@@ -1,10 +1,9 @@
-import fs from "fs";
 import path from "path";
 import { Sequelize } from "sequelize";
+import readdirRec from "fs-readdir-recursive";
 
 const env = process.env.NODE_ENV || "development";
-const config = require("../config/config.json")[env];
-const basename = path.basename(__filename);
+const config = require("../dbconfig.json")[env];
 
 const db: any = {};
 
@@ -15,10 +14,8 @@ var _sequelize = new Sequelize(
   config
 );
 
-fs.readdirSync(__dirname)
-  .filter(file => {
-    return file.indexOf(".") !== 0 && file !== basename;
-  })
+readdirRec(__dirname)
+  .filter(f => f.includes("-model."))
   .forEach(file => {
     var model = _sequelize["import"](path.join(__dirname, file));
     db[model.name] = model;

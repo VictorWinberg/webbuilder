@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "./app";
+import app from "../src/app";
 
 describe("Test the api paths", () => {
   test("Entities should response the GET method", async () => {

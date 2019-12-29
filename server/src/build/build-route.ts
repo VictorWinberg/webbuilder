@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 
-import { build } from "../compiler";
+import build from "./build-controller";
 
 export default (app: Express, _: any) => {
   app.get("/api/build", async (req: Request, res: Response) => {
