@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon -e ts --exec ts-node index",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "eslint": "eslint . --ignore-path .gitignore"
   },
   "author": "",
   "license": "ISC",
@@ -41,6 +42,7 @@
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "24.9.0",

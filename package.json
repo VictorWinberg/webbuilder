@@ -16,6 +16,9 @@
     "test-client": "cd client && npm test",
     "test-server": "cd server && npm test",
     "test-cypress": "start-server-and-test build-start-server http://localhost:3000 cy:run",
+    "lint": "npm-run-all -s lint-client lint-server",
+    "lint-client": "cd client && npm run lint",
+    "lint-server": "cd server && npm run eslint",
     "cypress": "start-server-and-test build-start-server http://localhost:3000 cy:open",
     "cy:run": "cypress run",
     "cy:open": "cypress open"
