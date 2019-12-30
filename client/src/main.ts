@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VNode } from "vue";
 
 import App from "./App.vue";
 import "./registerServiceWorker";
@@ -12,5 +12,5 @@ export const bus = new Vue();
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h): VNode => h(App)
 }).$mount("#app");
