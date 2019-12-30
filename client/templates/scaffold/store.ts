@@ -33,7 +33,7 @@ export default {
         const json = await res.json();
         return json;
       },
-      async update(_: {}, [id, payload]: [string, {}]): Promise<{}> {
+      async update(_: {}, [id, payload]: [string, {}]): Promise<void> {
         const res = await fetch(`/api/{{entities}}/${id}`, {
           method: "PUT",
           headers: {
@@ -44,8 +44,6 @@ export default {
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        const json = await res.json();
-        return json;
       },
       async remove(_: {}, [id]: [string]): Promise<void> {
         const res = await fetch(`/api/{{entities}}/${id}`, {

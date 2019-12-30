@@ -57,7 +57,7 @@ export default Vue.extend({
     },
     async edit{{Entity}}(id: string) {
       if (this.valid()) {
-        this.{{entity}} = await this.$store.dispatch("{{entity}}/update", [id, this.{{entity}}]);
+        await this.$store.dispatch("{{entity}}/update", [id, this.{{entity}}]);
 
         // TODO: Some check if success?
         this.back();

@@ -7,7 +7,9 @@ import routes from "./routes";
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, "..", "..", "client", "dist")));
+const clientDist = path.resolve(__dirname, "..", "..", "client", "dist");
+
+app.use(express.static(clientDist));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/static"));
 
@@ -18,7 +20,7 @@ app.get("/api/*", (_, res) => {
 });
 
 app.get("*", (_, res) => {
-  res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html"));
+  res.sendFile(path.resolve(clientDist, "index.html"));
 });
 
 export default app;
