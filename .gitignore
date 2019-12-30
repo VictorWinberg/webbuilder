@@ -21,7 +21,7 @@ node_modules/
 .DS_Store
 
 # Project specific ignores
-entities.json
+/entities.json
 
 # Cypress
 cypress/videos/

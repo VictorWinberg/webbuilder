@@ -1,0 +1,76 @@
+[
+  {
+    "entity": "customer",
+    "fields": [
+      {
+        "name": "name",
+        "relation": {},
+        "validations": [
+          {
+            "key": "required",
+            "value": true
+          }
+        ],
+        "type": "string"
+      },
+      {
+        "name": "info",
+        "relation": {},
+        "validations": [],
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "entity": "product",
+    "fields": [
+      {
+        "name": "name",
+        "relation": {},
+        "validations": [],
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "entity": "order",
+    "fields": [
+      {
+        "name": "customer",
+        "relation": {
+          "entity": "customer"
+        },
+        "validations": [
+          {
+            "key": "required",
+            "value": true
+          }
+        ],
+        "type": "belongsTo"
+      },
+      {
+        "name": "products",
+        "relation": {
+          "entity": "product"
+        },
+        "validations": [
+          {
+            "key": "required",
+            "value": true
+          },
+          {
+            "key": "min",
+            "value": 1
+          }
+        ],
+        "type": "hasMany"
+      },
+      {
+        "name": "delivered",
+        "relation": {},
+        "validations": [],
+        "type": "boolean"
+      }
+    ]
+  }
+]
