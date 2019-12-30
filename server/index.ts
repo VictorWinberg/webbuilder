@@ -1,5 +1,5 @@
-import app from "./app";
-import db from "./models";
+import app from "./src/app";
+import db from "./src/models";
 
 /*
  * Alters tables to fit models
