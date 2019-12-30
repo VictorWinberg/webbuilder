@@ -16,12 +16,7 @@ const build = async () => {
   const entities: Entities = JSON.parse(contents);
   entities.forEach(async obj => {
     await buildTemplate("client", "scaffold", "src/app", obj);
-    await buildTemplate("server", "route", "routes", obj, {
-      withFolder: false
-    });
-    await buildTemplate("server", "model", "models", obj, {
-      withFolder: false
-    });
+    await buildTemplate("server", "scaffold", "src/app", obj);
   });
   return entities;
 };
