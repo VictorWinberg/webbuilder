@@ -2,53 +2,66 @@
     <div>
         <span>Hello {{ name }}</span>
         <br />
-        <v-data-table
-            :headers="headers"
-            :items="items"
-            hide-default-footer
-            item-key="name"
-            class="elevation-1"
+        <b-table
+            ref="table"
+            :data="items"
+            detailed
+            detail-key="name"
+            :show-detail-icon="false"
         >
-            <template v-slot:item.name="{ item }">
-                <div>
-                    <v-text-field required v-model="item.name" />
-                </div>
-            </template>
-            <template v-slot:item.relation="{ item }">
-                <v-row>
-                    <v-select :items="[item.name]" v-model="item.name" />
-                </v-row>
-                <!-- <v-row /> -->
-            </template>
-            <template v-slot:item.validations="{ item }">
-                <div
-                    v-for="(val, index) in item.validations"
-                    v-bind:key="index"
-                >
-                    <div>
-                        <v-select
-                            label="key"
-                            :items="[item.validations[index].key]"
-                            v-model="item.validations[index].key"
+            <template slot-scope="props">
+                <b-table-column field="name" label="Name">
+                    {{ props.row.name }}
+                </b-table-column>
+                <b-table-column field="relation" label="Relation">
+                    {{ props.row.relation.entity }}
+                </b-table-column>
+                <b-table-column field="type" label="Type">
+                    {{ props.row.type }}
+                </b-table-column>
+                <b-table-column field="validations" label="Validations">
+                    <span
+                        class="toggle"
+                        @click="toggle(props.row)"
+                        v-if="props.row.validations.length > 0"
+                    >
+                        {{ props.row.validations.length }} Validations
+                        <b-icon
+                            class="icon"
+                            pack="fas"
+                            icon="chevron-down"
+                            size="is-small"
                         />
+                    </span>
+                    <span v-else>
+                        No Validations
+                    </span>
+                </b-table-column>
+                <b-table-column field="actions" label="Actions">
+                    <div class="buttons">
+                        <b-button type="is-primary">
+                            <b-icon pack="fas" icon="edit" size="is-small" />
+                        </b-button>
+                        <b-button type="is-danger">
+                            <b-icon pack="fas" icon="trash" size="is-small" />
+                        </b-button>
                     </div>
-                    <div>
-                        <v-select
-                            label="value"
-                            :items="[item.validations[index].value]"
-                            v-model="item.validations[index].value"
-                        />
-                    </div>
-                </div>
-                <!-- <v-row /> -->
+                </b-table-column>
             </template>
-            <template v-slot:item.type="{ item }">
-                <v-row>
-                    <v-select :items="[item.type]" v-model="item.type" />
-                </v-row>
-                <!-- <v-row /> -->
+            <template slot="detail" slot-scope="props">
+                <div class="validation-title">Validations</div>
+                <b-table :data="props.row.validations">
+                    <template slot-scope="props">
+                        <b-table-column field="key" label="Key">
+                            {{ props.row.key }}
+                        </b-table-column>
+                        <b-table-column field="value" label="Value">
+                            {{ props.row.value }}
+                        </b-table-column>
+                    </template>
+                </b-table>
             </template>
-        </v-data-table>
+        </b-table>
     </div>
 </template>
 
@@ -69,7 +82,7 @@ export default Vue.extend({
         entity() {
             return this.$store.state.entity.current;
         },
-        headers() {
+        columns() {
             const keys = Object.keys(this.entity.fields[0]);
             return keys.map(obj => ({
                 text: obj,
@@ -81,6 +94,10 @@ export default Vue.extend({
         }
     },
     methods: {
+        toggle(row) {
+            console.log(row);
+            this.$refs.table.toggleDetails(row);
+        },
         async refreshEntity() {
             this.loading = true;
             await this.$store.dispatch('entity/read', this.name);
@@ -116,4 +133,15 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.toggle .icon {
+    vertical-align: middle;
+    padding: 1rem;
+}
+
+.validation-title {
+    font-weight: 600;
+    font-size: 1em;
+    margin-bottom: 1rem;
+}
+</style>

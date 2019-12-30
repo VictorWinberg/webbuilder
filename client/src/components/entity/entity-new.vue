@@ -1,18 +1,16 @@
 <template>
     <div class="entity-new">
-        <el-aside>Hello</el-aside>
-        <el-container>
-            <div>
-                <span>Title</span>
-                <input type="text" v-model="title" />
-                <el-input placeholder="Pick a date" suffix-icon="el-icon-edit" v-model="title"> </el-input>
-                <br />
-                <textarea v-model="content" />
-                <br />
-                <button v-on:click="addPost()">CREATE</button>
-            </div>
-            <el-button type="success" v-on:click="addPost()">CREATE</el-button>
-        </el-container>
+        <div>
+            <b-field>
+                <template slot="label" class="label">TitleX</template>
+                <b-input placeholder="Pick a title" v-model="title" />
+            </b-field>
+            <b-field>
+                <template slot="label" class="label">ContentX</template>
+                <b-input placeholder="Pick content" v-model="content" />
+            </b-field>
+            <b-button type="success" v-on:click="addPost()">CREATE</b-button>
+        </div>
     </div>
 </template>
 
@@ -56,13 +54,16 @@ export default Vue.extend({
 .entity-new {
     display: flex;
 }
-.el-aside {
-    background-color: aquamarine;
-    flex: 1;
-}
-.el-container {
-    background-color: lavender;
-    flex: 3;
-    display: inline;
+.field {
+    display: flex;
+
+    .label {
+        flex: 1 !important;
+        text-align: right;
+        color: red;
+    }
+    div {
+        flex: 3;
+    }
 }
 </style>

@@ -8,24 +8,15 @@
             <div class="entity-header">
                 <h2>{{ entity.name }}</h2>
                 <div class="buttons">
-                    <v-btn
-                        class="ma-2"
-                        fab
-                        dark
-                        x-small
-                        v-on:click="editEntity(index)"
-                    >
-                        <v-icon>fa-edit</v-icon>
-                    </v-btn>
-                    <v-btn
-                        class="ma-2"
-                        fab
-                        dark
-                        x-small
+                    <b-button type="is-primary" v-on:click="editEntity(index)">
+                        <b-icon pack="fas" icon="edit" size="is-small" />
+                    </b-button>
+                    <b-button
+                        type="is-danger"
                         v-on:click="removeEntity(entity.name)"
                     >
-                        <v-icon>fa-trash</v-icon>
-                    </v-btn>
+                        <b-icon pack="fas" icon="trash" size="is-small" />
+                    </b-button>
                 </div>
             </div>
             <div
@@ -126,10 +117,6 @@ export default Vue.extend({
     float: right;
 }
 
-button {
-    margin-left: 1rem;
-}
-
 .entity {
     background: white;
     border-radius: 10px;
@@ -138,6 +125,7 @@ button {
 .entity-header {
     border-bottom: solid aliceblue 5px;
     padding: 0.5rem 1rem;
+    display: flow-root;
 }
 
 .entity-data {
@@ -162,6 +150,7 @@ button {
 }
 
 h2 {
+    size: 150%;
     margin: 0;
     display: inline-block;
 }
