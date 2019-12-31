@@ -83,22 +83,22 @@ export default Vue.extend({
       return this.$store.state.entity.current;
     },
     columns() {
-      const keys = Object.keys(this.entity.fields[0]);
+      const keys = Object.keys(this.$store.state.entity.current.fields[0]);
       return keys.map(obj => ({
         text: obj,
         value: obj
       }));
     },
     items() {
-      return this.entity.fields;
+      return this.$store.state.entity.current.fields;
     }
   },
   created() {
     this.refreshEntity();
   },
   methods: {
-    toggle(row) {
-      this.$refs.table.toggleDetails(row);
+    toggle(row: {}) {
+      (this.$refs.table as HTMLFormElement).toggleDetails(row);
     },
     async refreshEntity() {
       this.loading = true;
