@@ -1,21 +1,22 @@
 export default [
   {
     path: "/entities",
+    meta: "Entities",
     component: () => import("./entity-index.vue"),
     children: [
       {
-        name: "entity-list",
+        name: "EntityList",
         path: "",
         component: () => import("./entity-list.vue")
       },
       {
-        name: "entity-show",
+        name: "EntityShow",
         path: ":name",
         component: () => import("./entity-show.vue"),
         props: true
       },
       {
-        name: "entity-edit",
+        name: "EntityEdit",
         path: ":name/edit",
         component: () => import("./entity-edit.vue"),
         props: true
