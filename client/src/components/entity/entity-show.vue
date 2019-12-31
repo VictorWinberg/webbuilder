@@ -3,7 +3,7 @@
     <h1>{{ entity.title }}</h1>
     <p>{{ entity.content }}</p>
     <button @click="back()">GO BACK</button>
-    <button @click="editEntity(id)">EDIT</button>
+    <button @click="editEntity(name)">EDIT</button>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import Vue from "vue";
 export default Vue.extend({
   name: "EntityShow",
   props: {
-    id: { type: String, required: true }
+    name: { type: String, required: true }
   },
   data() {
     return {
@@ -31,13 +31,13 @@ export default Vue.extend({
   methods: {
     async refreshEntity() {
       this.loading = true;
-      await this.$store.dispatch("entity/read", this.id);
+      await this.$store.dispatch("entity/read", this.name);
       this.loading = false;
     },
-    editEntity(id: string) {
+    editEntity(name: string) {
       this.$router.push({
         name: "EntityEdit",
-        params: { id }
+        params: { name }
       });
     },
     back() {

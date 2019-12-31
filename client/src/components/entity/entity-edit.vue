@@ -51,12 +51,12 @@
       <template slot="detail" slot-scope="props">
         <div class="validation-title">Validations</div>
         <b-table :data="props.row.validations">
-          <template slot-scope="props">
+          <template slot-scope="innerProps">
             <b-table-column field="key" label="Key">
-              {{ props.row.key }}
+              {{ innerProps.row.key }}
             </b-table-column>
             <b-table-column field="value" label="Value">
-              {{ props.row.value }}
+              {{ innerProps.row.value }}
             </b-table-column>
           </template>
         </b-table>
@@ -71,7 +71,7 @@ import Vue from "vue";
 export default Vue.extend({
   name: "EntityEdit",
   props: {
-    name: { required: true }
+    name: { type: String, required: true }
   },
   data() {
     return {
@@ -98,7 +98,6 @@ export default Vue.extend({
   },
   methods: {
     toggle(row) {
-      console.log(row);
       this.$refs.table.toggleDetails(row);
     },
     async refreshEntity() {
@@ -120,10 +119,10 @@ export default Vue.extend({
     valid(): boolean {
       return this.entity.title !== "" && this.entity.content !== "";
     },
-    showEntity(id: string) {
+    showEntity(name: string) {
       this.$router.push({
         name: "EntityShow",
-        params: { id }
+        params: { name }
       });
     },
     back() {
