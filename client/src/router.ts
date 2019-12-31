@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 
 import Home from "@/components/Home.vue";
 import NotFound from "@/components/NotFound.vue";
+import EntityRoutes from "@/components/entity/entity-routes";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,7 @@ const defaultRoutes: RouteConfig[] = [
     meta: "Home",
     component: Home
   },
+  ...EntityRoutes,
   // {
   //   path: '/about',
   //   name: 'about',
