@@ -1,7 +1,7 @@
 <template>
   <div>
-    <{{Entity}}New></{{Entity}}New>
-    <{{Entity}}ListTable></{{Entity}}ListTable>
+    <{{entity}}-new></{{entity}}-new>
+    <{{entity}}-list-table></{{entity}}-list-table>
   </div>
 </template>
 
