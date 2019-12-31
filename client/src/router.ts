@@ -6,8 +6,8 @@ import entityRoutes from '@/components/entity/entity-routes';
 
 Vue.use(VueRouter);
 
-const req = require.context('./app', true, /routes\.ts$/);
-const routes = req.keys().flatMap(filename => req(filename).default);
+const req = require.context("./app", true, /routes\.ts$/);
+const routes = req.keys().flatMap((filename): [] => req(filename).default);
 
 const defaultRoutes: RouteConfig[] = [
     {

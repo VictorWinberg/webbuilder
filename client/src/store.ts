@@ -6,9 +6,8 @@ import entityStore from '@/components/entity/entity-store';
 
 Vue.use(Vuex);
 
-const req = require.context('./app', true, /store\.ts$/);
-const stores = req.keys().flatMap(filename => req(filename).default);
-stores.push(entityStore);
+const req = require.context("./app", true, /store\.ts$/);
+const stores = req.keys().flatMap((filename): {} => req(filename).default);
 
 export default new Vuex.Store({
     state: {},
