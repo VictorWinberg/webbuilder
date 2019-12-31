@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
 import Home from "@/components/Home.vue";
+import NotFound from "@/components/NotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -11,9 +12,10 @@ const routes = req.keys().flatMap((filename): [] => req(filename).default);
 const defaultRoutes: RouteConfig[] = [
   {
     path: "/",
-    name: "home",
+    name: "Home",
+    meta: "Home",
     component: Home
-  }
+  },
   // {
   //   path: '/about',
   //   name: 'about',
@@ -22,6 +24,10 @@ const defaultRoutes: RouteConfig[] = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   // },
+  {
+    path: "*",
+    component: NotFound
+  }
 ];
 
 const router = new VueRouter({
