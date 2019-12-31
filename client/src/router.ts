@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
 import Home from "@/components/Home.vue";
+import entityRoutes from "@/components/entity/entity-routes";
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,8 @@ const defaultRoutes: RouteConfig[] = [
     path: "/",
     name: "home",
     component: Home
-  }
+  },
+  ...entityRoutes
   // {
   //   path: '/about',
   //   name: 'about',
