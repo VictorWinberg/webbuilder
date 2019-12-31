@@ -2,8 +2,8 @@
   <div>
     <h1>{{ entity.title }}</h1>
     <p>{{ entity.content }}</p>
-    <button v-on:click="back()">GO BACK</button>
-    <button v-on:click="editEntity(id)">EDIT</button>
+    <button @click="back()">GO BACK</button>
+    <button @click="editEntity(id)">EDIT</button>
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "entity-show",
+  name: "EntityShow",
   props: {
     id: { type: String, required: true }
   },
@@ -24,6 +24,9 @@ export default Vue.extend({
     entity() {
       return this.$store.state.entity.current;
     }
+  },
+  created() {
+    this.refreshEntity();
   },
   methods: {
     async refreshEntity() {
@@ -40,9 +43,6 @@ export default Vue.extend({
     back() {
       this.$router.push({ name: "entity-list" });
     }
-  },
-  created() {
-    this.refreshEntity();
   }
 });
 </script>

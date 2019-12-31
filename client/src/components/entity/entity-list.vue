@@ -10,7 +10,7 @@ import EntityNew from "./entity-new.vue";
 import EntityListTable from "./entity-list-table.vue";
 
 export default {
-  name: "entity-list",
+  name: "EntityList",
   components: {
     EntityNew,
     EntityListTable
