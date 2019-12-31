@@ -1,9 +1,9 @@
 <template>
     <div>
-        <span>Hello {{ name }}</span>
-        <br />
+        <h1>{{ name }}</h1>
         <b-table
             ref="table"
+            class="all-table"
             :data="items"
             detailed
             detail-key="name"
@@ -137,6 +137,11 @@ export default Vue.extend({
 .toggle .icon {
     vertical-align: middle;
     padding: 1rem;
+}
+
+.all-table {
+    border-radius: 10px;
+    margin: 1rem;
 }
 
 .validation-title {

@@ -1,5 +1,6 @@
 <template>
     <div class="list-table">
+        <h1>Entities</h1>
         <div
             class="entity"
             v-for="(entity, index) in entities"
@@ -106,7 +107,7 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 .list-table {
-    max-width: 400px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 1rem;
     text-align: left;
@@ -147,23 +148,6 @@ export default Vue.extend({
 
 .entity:last-of-type .entity-data:last-of-type {
     margin-bottom: 0;
-}
-
-h2 {
-    size: 150%;
-    margin: 0;
-    display: inline-block;
-}
-
-h3 {
-    margin: 0;
-    padding: 0 0.5rem 0 0;
-    display: inline-block;
-}
-h4 {
-    margin: 0;
-    padding: 0 0.5rem 0 0;
-    display: inline-block;
 }
 
 p {

@@ -1,18 +1,35 @@
 <template>
     <div>
-        <h1>Entities</h1>
         <router-view />
     </div>
 </template>
 
 <script lang="ts">
 export default {
-    name: "entity"
+    name: 'entity'
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 h1 {
+    font-size: 200%;
+    text-align: center;
+}
+
+h2 {
+    font-size: 150%;
     margin: 0;
+    display: inline-block;
+}
+
+h3 {
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    display: inline-block;
+}
+h4 {
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    display: inline-block;
 }
 </style>
