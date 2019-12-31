@@ -1,6 +1,7 @@
 export default [
   {
     path: "/{{entities}}",
+    meta: "{{Entities}}",
     component: (): Promise<{}> => import("./{{entity}}-index.vue"),
     children: [
       {

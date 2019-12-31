@@ -1,13 +1,19 @@
 <template>
   <div class="home">
-    <h1>Webbuilder</h1>
+    <h3>Welcome to Your Webpage</h3>
+    <p>
+      For a guidance and help on how to customize this project <br />
+      check out the documentation, <u>to be defined</u>.
+    </p>
   </div>
 </template>
 
 <script lang="ts">
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "Home"
-};
+});
 </script>
 
 <style scoped lang="scss">
