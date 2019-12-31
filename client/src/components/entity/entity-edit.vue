@@ -106,7 +106,7 @@ export default Vue.extend({
       await this.$store.dispatch("entity/read", this.name);
       this.loading = false;
     },
-    async editEntity(id: string) {
+    async editEntity(name: string) {
       if (this.valid()) {
         await this.$store.dispatch("entity/update", {
           name,
@@ -122,12 +122,12 @@ export default Vue.extend({
     },
     showEntity(id: string) {
       this.$router.push({
-        name: "entity-show",
+        name: "EntityShow",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "entity-list" });
+      this.$router.push({ name: "EntityList" });
     }
   }
 });

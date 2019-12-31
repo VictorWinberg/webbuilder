@@ -36,12 +36,12 @@ export default Vue.extend({
     },
     editEntity(id: string) {
       this.$router.push({
-        name: "entity-edit",
+        name: "EntityEdit",
         params: { id }
       });
     },
     back() {
-      this.$router.push({ name: "entity-list" });
+      this.$router.push({ name: "EntityList" });
     }
   }
 });

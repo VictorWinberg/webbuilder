@@ -77,7 +77,7 @@ export default Vue.extend({
     async editEntity(index: number) {
       await this.$store.commit("entity/setEntity", this.entities[index]);
       this.$router.push({
-        name: "entity-edit",
+        name: "EntityEdit",
         params: { name: this.entities[index].name }
       });
     },
