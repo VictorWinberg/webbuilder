@@ -8,6 +8,7 @@ Vue.use(Vuex);
 
 const req = require.context("./app", true, /store\.ts$/);
 const stores = req.keys().flatMap((filename): {} => req(filename).default);
+stores.push(entityStore);
 
 export default new Vuex.Store({
   state: {},
