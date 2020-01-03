@@ -17,10 +17,6 @@
       {
         "name": "update",
         "features": []
-      },
-      {
-        "name": "delete",
-        "features": []
       }
     ]
   },
@@ -42,10 +38,6 @@
       {
         "name": "update",
         "features": []
-      },
-      {
-        "name": "delete",
-        "features": []
       }
     ]
   },
@@ -63,9 +55,6 @@
       },
       {
         "name": "update"
-      },
-      {
-        "name": "delete"
       }
     ]
   }
