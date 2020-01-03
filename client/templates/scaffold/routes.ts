@@ -10,6 +10,12 @@ export default [
         component: (): Promise<{}> => import("./list/{{entity}}-list.vue")
       },
       {
+        name: "{{Entity}}New",
+        path: "new",
+        component: (): Promise<{}> => import("./new/{{entity}}-new.vue"),
+        props: true
+      },
+      {
         name: "{{Entity}}Show",
         path: ":id",
         component: (): Promise<{}> => import("./show/{{entity}}-show.vue"),

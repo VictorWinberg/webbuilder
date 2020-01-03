@@ -1,25 +1,33 @@
-import { capitalize, toUpper, transform } from "lodash";
-import handlebars from "handlebars";
+import { capitalize, toUpper, transform, kebabCase } from "lodash";
+import Handlebars from "handlebars";
 import { format } from "prettier";
 import pluralize from "pluralize";
 
-handlebars.registerHelper("switch", function(this: any, value, options) {
+Handlebars.registerHelper("switch", function(this: any, value, options) {
   this.switch_value = value;
   this.switch_break = false;
   return options.fn(this);
 });
 
-handlebars.registerHelper("case", function(this: any, value, options) {
+Handlebars.registerHelper("case", function(this: any, value, options) {
   if (value == this.switch_value) {
     this.switch_break = true;
     return options.fn(this);
   }
 });
 
-handlebars.registerHelper("default", function(this: any, _, options) {
+Handlebars.registerHelper("default", function(this: any, _, options) {
   if (this.switch_break == false) {
     return options.fn(this);
   }
+});
+
+Handlebars.registerHelper("kebab", function(str) {
+  return kebabCase(str);
+});
+
+Handlebars.registerHelper("json", function(context) {
+  return JSON.stringify(context);
 });
 
 function mustachify(obj: any) {
@@ -41,6 +49,6 @@ function mustachify(obj: any) {
 }
 
 const templating = (template: string, filepath: string, entity: any) =>
-  format(handlebars.compile(template)(mustachify(entity)), { filepath });
+  format(Handlebars.compile(template)(mustachify(entity)), { filepath });
 
 export default { templating };

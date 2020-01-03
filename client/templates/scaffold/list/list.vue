@@ -1,19 +1,22 @@
 <template>
   <div>
-    <{{entity}}-new></{{entity}}-new>
-    <{{entity}}-list-table></{{entity}}-list-table>
+    {{#views.list}}
+    <{{@root.entity}}-{{kebab feature}}></{{@root.entity}}-{{kebab feature}}>
+    {{/views.list}}
   </div>
 </template>
 
 <script lang="ts">
-import {{Entity}}New from "@/app/{{entity}}/new/{{entity}}-new.vue";
-import {{Entity}}ListTable from "@/app/{{entity}}/list/{{entity}}-list-table.vue";
+{{#views.list}}
+import {{@root.Entity}}{{feature}} from "@/app/{{@root.entity}}/{{module}}/{{@root.entity}}-{{kebab feature}}.vue";
+{{/views.list}}
 
 export default {
   name: "{{Entity}}List",
   components: {
-    {{Entity}}New,
-    {{Entity}}ListTable
+    {{#views.list}}
+    {{@root.Entity}}{{feature}},
+    {{/views.list}}
   }
 };
 </script>
