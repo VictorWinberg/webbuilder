@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-import {{Entity}}New from "./{{entity}}-new.vue";
-import {{Entity}}ListTable from "./{{entity}}-list-table.vue";
+import {{Entity}}New from "@/app/{{entity}}/new/{{entity}}-new.vue";
+import {{Entity}}ListTable from "@/app/{{entity}}/list/{{entity}}-list-table.vue";
 
 export default {
   name: "{{Entity}}List",
