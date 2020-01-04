@@ -1,4 +1,4 @@
-import { capitalize, toUpper, transform, kebabCase } from "lodash";
+import { capitalize, toUpper, transform } from "lodash";
 import Handlebars from "handlebars";
 import { format } from "prettier";
 import pluralize from "pluralize";
@@ -20,14 +20,6 @@ Handlebars.registerHelper("default", function(this: any, _, options) {
   if (this.switch_break == false) {
     return options.fn(this);
   }
-});
-
-Handlebars.registerHelper("kebab", function(str) {
-  return kebabCase(str);
-});
-
-Handlebars.registerHelper("json", function(context) {
-  return JSON.stringify(context);
 });
 
 function mustachify(obj: any) {
