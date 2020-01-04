@@ -20,6 +20,7 @@ export default {
     },
     mounted() {
         window.addEventListener("resize", this.handleResize);
+        this.handleResize();
     },
     beforeDestroy: function() {
         window.removeEventListener("resize", this.handleResize);
