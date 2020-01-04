@@ -1,5 +1,5 @@
 <template>
-    <div class="menu">
+    <div>
         <b-button
             class="is-pulled-left menu-toggle open"
             size="is-medium"
@@ -83,7 +83,6 @@ export default Vue.extend({
 
 <style lang="scss">
 .menu {
-    text-align: left;
     height: 100%;
 
     .menu-list {

@@ -63,6 +63,8 @@ textarea {
     width: 300px;
     margin: 0 !important;
     height: 100%;
+    z-index: 1;
+    text-align: left;
 }
 
 input {
