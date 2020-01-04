@@ -11,11 +11,11 @@
     {{#case 'boolean'}}
     \{{ {{@root.entity}}.{{name}} }}
     {{/case}}
-    {{#default ''}}
+    {{#otherwise ''}}
     <span
       class="error"
     >Missing type: {{type}}</span>
-    {{/default}}
+    {{/otherwise}}
     {{/switch}}
     <br />
     {{/fields}}

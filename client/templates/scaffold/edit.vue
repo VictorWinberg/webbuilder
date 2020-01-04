@@ -26,9 +26,9 @@
       entity="{{name}}"
     ></entity-selector>
     {{/case}}
-    {{#default ''}}
+    {{#otherwise ''}}
     <span class="error">Missing type: {{type}}</span>
-    {{/default}}
+    {{/otherwise}}
     {{/switch}}
     <br />
     {{/fields}}

@@ -4,6 +4,8 @@ import helpers from "handlebars-helpers";
 import { format } from "prettier";
 import pluralize from "pluralize";
 
+handlebars.registerHelper(helpers());
+
 handlebars.registerHelper("switch", function(this: any, value, options) {
   this.switch_value = value;
   this.switch_break = false;
@@ -17,13 +19,11 @@ handlebars.registerHelper("case", function(this: any, value, options) {
   }
 });
 
-handlebars.registerHelper("default", function(this: any, _, options) {
+handlebars.registerHelper("otherwise", function(this: any, _, options) {
   if (this.switch_break == false) {
     return options.fn(this);
   }
 });
-
-handlebars.registerHelper(helpers());
 
 function mustachify(obj: any) {
   function iteratee(result: any, value: any, key: string) {
