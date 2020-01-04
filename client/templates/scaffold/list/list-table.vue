@@ -5,18 +5,19 @@
       {{#fields}}
       {{#switch type}}
       {{#case 'string'}}
-      <b>\{{ {{@root.entity}}.{{name}} }}</b>
+      <b>\{{ {{@root.entity}}.{{ name }} }}</b>
       {{/case}}
       {{#case 'text'}}
-      \{{ {{@root.entity}}.{{name}} }}
+      \{{ {{@root.entity}}.{{ name }} }}
       {{/case}}
       {{#case 'boolean'}}
-      {{Name}}: \{{ {{@root.entity}}.{{name}} }}
+      {{ Name }}: \{{ {{@root.entity}}.{{ name }} ? "True" : "False" }}
+      {{/case}}
+      {{#case 'belongsTo'}}
+      {{ Name }}: \{{ {{@root.entity}}.{{ Name }}Id }}
       {{/case}}
       {{#otherwise ''}}
-      <span
-        class="error"
-      >Missing type: {{type}}</span>
+      <span class="error">Missing type: {{ type }}</span>
       {{/otherwise}}
       {{/switch}}
       <br />
