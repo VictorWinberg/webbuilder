@@ -19,13 +19,7 @@
         "validations": [],
         "type": "text"
       }
-    ],
-    "views": {
-      "list": [
-        { "feature": "New", "module": "new" },
-        { "feature": "ListTable", "module": "list" }
-      ]
-    }
+    ]
   },
   {
     "entity": "product",
@@ -36,13 +30,7 @@
         "validations": [],
         "type": "string"
       }
-    ],
-    "views": {
-      "list": [
-        { "feature": "New", "module": "new" },
-        { "feature": "ListTable", "module": "list" }
-      ]
-    }
+    ]
   },
   {
     "entity": "order",
@@ -83,12 +71,6 @@
         "validations": [],
         "type": "boolean"
       }
-    ],
-    "views": {
-      "list": [
-        { "feature": "New", "module": "new" },
-        { "feature": "ListTable", "module": "list" }
-      ]
-    }
+    ]
   }
 ]

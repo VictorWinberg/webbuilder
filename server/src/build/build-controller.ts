@@ -9,7 +9,7 @@ const {
   ENTITIES_JSON
 } = require("../utils").default;
 
-type Entities = [{ entity: string; fields: []; views: [] }];
+type Entities = [{ entity: string; fields: [] }];
 
 const build = async () => {
   const contents = await readFile(ENTITIES_JSON, "utf8");
