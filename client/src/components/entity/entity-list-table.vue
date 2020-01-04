@@ -3,7 +3,7 @@
         <h1>Entities</h1>
         <div v-for="(entity, index) in entities" :key="index" class="entity">
             <div class="entity-header">
-                <h2>{{ entity.name }}</h2>
+                <h2>{{ entity.entity }}</h2>
                 <div class="buttons">
                     <b-button type="is-primary" @click="editEntity(index)">
                         <b-icon pack="fas" icon="edit" size="is-small" />
@@ -102,6 +102,10 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
+h2 {
+    text-transform: capitalize;
+}
+
 .list-table {
     max-width: 800px;
     margin: 0 auto;
