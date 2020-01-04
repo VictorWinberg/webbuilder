@@ -1,5 +1,6 @@
 import { capitalize, toUpper, transform } from "lodash";
 import Handlebars from "handlebars";
+import helpers from "handlebars-helpers";
 import { format } from "prettier";
 import pluralize from "pluralize";
 
@@ -21,6 +22,8 @@ Handlebars.registerHelper("default", function(this: any, _, options) {
     return options.fn(this);
   }
 });
+
+Handlebars.registerHelper(helpers());
 
 function mustachify(obj: any) {
   function iteratee(result: any, value: any, key: string) {
