@@ -2,8 +2,12 @@
   <div>
     <b>Webbuilder</b>
     <ul>
-      <li v-for="route in routes" :key="route.path">
-        <router-link :to="route.path">{{ route.meta }}</router-link>
+      <li v-for="route in staticRoutes" :key="route.path">
+        <router-link :to="route.path">{{ route.meta.name }}</router-link>
+      </li>
+      <li></li>
+      <li v-for="route in dynamicRoutes" :key="route.path">
+        <router-link :to="route.path">{{ route.meta.name }}</router-link>
       </li>
     </ul>
   </div>
@@ -17,12 +21,19 @@ export default Vue.extend({
   name: "Navbar",
   data() {
     return {
-      routes: []
+      staticRoutes: [],
+      dynamicRoutes: []
     };
   },
   created() {
     // @ts-ignore: options is private variable
-    this.routes = sortBy("path")(filter("meta", this.$router.options.routes));
+    const { routes } = this.$router.options;
+    this.staticRoutes = sortBy("path")(
+      filter(["meta.static", true], routes)
+    ) as [];
+    this.dynamicRoutes = sortBy("path")(
+      filter(["meta.static", false], routes)
+    ) as [];
   }
 });
 </script>

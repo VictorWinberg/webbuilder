@@ -1,7 +1,7 @@
 export default [
   {
     path: "/entities",
-    meta: "Entities",
+    meta: { name: "Entities", static: true },
     component: () => import("./entity-index.vue"),
     children: [
       {
