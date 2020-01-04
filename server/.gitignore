@@ -16,10 +16,3 @@ database.sqlite3
 # Generated folders
 dist
 /src/app/
-
-# dotenv environment variables file
-.env
-.env.test
-
-# Mac OS metadata
-.DS_Store

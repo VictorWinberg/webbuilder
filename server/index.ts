@@ -1,10 +1,5 @@
-import { resolve } from "path";
-import { config } from "dotenv";
-
 import app from "./src/app";
 import db from "./src/models";
-
-config({ path: resolve(__dirname, "../.env") });
 
 /*
  * Alters tables to fit models
@@ -13,7 +8,7 @@ config({ path: resolve(__dirname, "../.env") });
  */
 db.sequelize.sync({ alter: true });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(3000, () => {
   // tslint:disable-next-line:no-console
-  console.log("Server is up on port " + (process.env.PORT || 3000));
+  console.log("Server is up on port 3000");
 });
