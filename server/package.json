@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e ts --exec ts-node index",
+    "start": "nodemon -e ts --exec ts-node --ignore 'src/app/' index",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "eslint": "eslint . --ignore-path .gitignore"
