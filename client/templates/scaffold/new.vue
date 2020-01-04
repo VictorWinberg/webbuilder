@@ -39,12 +39,16 @@
 <script lang="ts">
 import Vue from "vue";
 import { bus } from "@/main";
+{{#contains (pluck fields 'type') 'belongsTo'}}
 import EntitySelector from "@/components/EntitySelector.vue";
+{{/contains}}
 
 export default Vue.extend({
   name: "{{Entity}}New",
   components: {
+    {{#contains (pluck fields 'type') 'belongsTo'}}
     EntitySelector
+    {{/contains}}
   },
   data() {
     return {

@@ -40,15 +40,19 @@
 
 <script lang="ts">
 import Vue from "vue";
+{{#contains (pluck fields 'type') 'belongsTo'}}
 import EntitySelector from "@/components/EntitySelector.vue";
+{{/contains}}
 
 export default Vue.extend({
   name: "{{Entity}}Edit",
+  components: {
+    {{#contains (pluck fields 'type') 'belongsTo'}}
+    EntitySelector
+    {{/contains}}
+  },
   props: {
     id: { type: String, required: true }
-  },
-  components: {
-    EntitySelector
   },
   data() {
     return {
