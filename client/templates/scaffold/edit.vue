@@ -20,6 +20,12 @@
       type="checkbox"
     />
     {{/case}}
+    {{#case 'belongsTo'}}
+    <entity-selector
+      v-model="{{@root.entity}}.{{Name}}Id"
+      entity="{{name}}"
+    ></entity-selector>
+    {{/case}}
     {{#default ''}}
     <span class="error">Missing type: {{type}}</span>
     {{/default}}
@@ -34,11 +40,15 @@
 
 <script lang="ts">
 import Vue from "vue";
+import EntitySelector from "@/components/EntitySelector.vue";
 
 export default Vue.extend({
   name: "{{Entity}}Edit",
   props: {
     id: { type: String, required: true }
+  },
+  components: {
+    EntitySelector
   },
   data() {
     return {
