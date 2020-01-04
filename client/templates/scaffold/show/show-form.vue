@@ -3,24 +3,20 @@
     {{#fields}}
     {{#switch type}}
     {{#case 'string'}}
-    <h1>\{{ {{@root.entity}}.{{name}} }}</h1>
+    <h1>\{{ {{@root.entity}}.{{ name }} }}</h1>
     {{/case}}
     {{#case 'text'}}
-    \{{ {{@root.entity}}.{{name}} }}
+    \{{ {{@root.entity}}.{{ name }} }}
     {{/case}}
     {{#case 'boolean'}}
-    \{{ {{@root.entity}}.{{name}} }}
+    \{{ {{@root.entity}}.{{ name }} }}
     {{/case}}
     {{#otherwise ''}}
-    <span
-      class="error"
-    >Missing type: {{type}}</span>
+    <span class="error">Missing type: {{ type }}</span>
     {{/otherwise}}
     {{/switch}}
     <br />
     {{/fields}}
-    <button @click="back()">GO BACK</button>
-    <button @click="edit{{Entity}}(id)">EDIT</button>
   </div>
 </template>
 
@@ -28,7 +24,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "{{Entity}}Show",
+  name: "{{Entity}}ShowForm",
   props: {
     id: { type: String, required: true }
   },
@@ -46,15 +42,6 @@ export default Vue.extend({
       this.loading = true;
       this.{{entity}} = await this.$store.dispatch("{{entity}}/read", [this.id]);
       this.loading = false;
-    },
-    edit{{Entity}}(id: string) {
-      this.$router.push({
-        name: "{{Entity}}Edit",
-        params: { id }
-      });
-    },
-    back() {
-      this.$router.push({ name: "{{Entity}}List" });
     }
   }
 });

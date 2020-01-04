@@ -1,24 +1,16 @@
 <template>
   <div>
     {{#fields}}
-    <label for="{{name}}">{{Name}}</label>
+    <label for="{{name}}">{{ Name }}</label>
     {{#switch type}}
     {{#case 'string'}}
-    <input
-      id="{{name}}"
-      v-model="{{@root.entity}}.{{name}}"
-      type="text"
-    />
+    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="text" />
     {{/case}}
     {{#case 'text'}}
     <textarea id="{{name}}" v-model="{{@root.entity}}.{{name}}" />
     {{/case}}
     {{#case 'boolean'}}
-    <input
-      id="{{name}}"
-      v-model="{{@root.entity}}.{{name}}"
-      type="checkbox"
-    />
+    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="checkbox" />
     {{/case}}
     {{#case 'belongsTo'}}
     <entity-selector
@@ -27,7 +19,7 @@
     ></entity-selector>
     {{/case}}
     {{#otherwise ''}}
-    <span class="error">Missing type: {{type}}</span>
+    <span class="error">Missing type: {{ type }}</span>
     {{/otherwise}}
     {{/switch}}
     <br />
@@ -44,7 +36,7 @@ import EntitySelector from "@/components/EntitySelector.vue";
 {{/contains}}
 
 export default Vue.extend({
-  name: "{{Entity}}New",
+  name: "{{Entity}}NewForm",
   components: {
     {{#contains (pluck fields 'type') 'belongsTo'}}
     EntitySelector
