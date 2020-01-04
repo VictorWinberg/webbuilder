@@ -26,6 +26,9 @@ export default (app: Express, db: any) => {
     const { id } = req.params;
     try {
       const result = await db.{{Entity}}.findByPk(id, { include: [{ all: true }] });
+      if (result == null) {
+        return res.status(404).send("{{Entity}} Not Found");
+      }
       return res.send(result);
     } catch (err) {
       console.error("Error querying {{entities}}", JSON.stringify(err));
@@ -37,6 +40,9 @@ export default (app: Express, db: any) => {
     const { id } = req.params;
     try {
       const result = await db.{{Entity}}.findByPk(id);
+      if (result == null) {
+        return res.status(404).send("{{Entity}} Not Found");
+      }
       await result.update(omit("id", req.body));
       return res.send(result);
     } catch (err) {
@@ -49,6 +55,9 @@ export default (app: Express, db: any) => {
     const { id } = req.params;
     try {
       const result = await db.{{Entity}}.findByPk(id);
+      if (result == null) {
+        return res.status(404).send("{{Entity}} Not Found");
+      }
       await result.destroy({ force: true });
       return res.send({ id });
     } catch (err) {

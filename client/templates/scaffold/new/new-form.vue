@@ -1,27 +1,19 @@
 <template>
   <div>
     {{#fields}}
-    <label for="{{name}}">{{Name}}</label>
+    <label for="{{name}}">{{ Name }}</label>
     {{#switch type}}
     {{#case 'string'}}
-    <input
-      id="{{name}}"
-      v-model="{{@root.entity}}.{{name}}"
-      type="text"
-    />
+    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="text" />
     {{/case}}
     {{#case 'text'}}
     <textarea id="{{name}}" v-model="{{@root.entity}}.{{name}}" />
     {{/case}}
     {{#case 'boolean'}}
-    <input
-      id="{{name}}"
-      v-model="{{@root.entity}}.{{name}}"
-      type="checkbox"
-    />
+    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="checkbox" />
     {{/case}}
     {{#default ''}}
-    <span class="error">Missing type: {{type}}</span>
+    <span class="error">Missing type: {{ type }}</span>
     {{/default}}
     {{/switch}}
     <br />
@@ -35,7 +27,7 @@ import Vue from "vue";
 import { bus } from "@/main";
 
 export default Vue.extend({
-  name: "{{Entity}}New",
+  name: "{{Entity}}NewForm",
   data() {
     return {
       {{entity}}: {}
