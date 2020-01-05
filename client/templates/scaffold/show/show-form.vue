@@ -11,6 +11,9 @@
     {{#case 'boolean'}}
     \{{ {{@root.entity}}.{{ name }} }}
     {{/case}}
+    {{#case 'belongsTo'}}
+    {{ Name }} \{{ {{@root.entity}}.{{ Name }} }}
+    {{/case}}
     {{#otherwise ''}}
     <span class="error">Missing type: {{ type }}</span>
     {{/otherwise}}
