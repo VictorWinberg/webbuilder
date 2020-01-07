@@ -9,7 +9,7 @@
             v-if="!menuOpen"
         >
         </b-button>
-        <b-menu class="box" v-if="menuOpen || !isMobile">
+        <b-menu class="box" :class="menuOpen || !isMobile ? 'show' : 'hide'">
             <b-button
                 class="is-pulled-right menu-toggle close"
                 size="is-medium"
@@ -82,8 +82,24 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+.menu-toggle {
+    &.open {
+        position: absolute !important;
+    }
+}
 .menu {
     height: 100%;
+
+    &.show {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.2s ease-in;
+    }
+    &.hide {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease-in;
+    }
 
     .menu-list {
         .icon {
