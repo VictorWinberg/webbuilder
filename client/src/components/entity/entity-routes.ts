@@ -2,23 +2,23 @@ export default [
   {
     path: "/entities",
     meta: "Entities",
-    component: () => import("./entity-index.vue"),
+    component: (): Promise<{}> => import("./entity-index.vue"),
     children: [
       {
         name: "EntityList",
         path: "",
-        component: () => import("./entity-list.vue")
+        component: (): Promise<{}> => import("./entity-list.vue")
       },
       {
         name: "EntityShow",
         path: ":name",
-        component: () => import("./entity-show.vue"),
+        component: (): Promise<{}> => import("./entity-show.vue"),
         props: true
       },
       {
         name: "EntityEdit",
         path: ":name/edit",
-        component: () => import("./entity-edit.vue"),
+        component: (): Promise<{}> => import("./entity-edit.vue"),
         props: true
       }
     ]
