@@ -12,9 +12,15 @@
     {{#case 'boolean'}}
     <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="checkbox" />
     {{/case}}
-    {{#default ''}}
+    {{#case 'belongsTo'}}
+    <entity-selector
+      v-model="{{@root.entity}}.{{Name}}Id"
+      entity="{{name}}"
+    ></entity-selector>
+    {{/case}}
+    {{#otherwise ''}}
     <span class="error">Missing type: {{ type }}</span>
-    {{/default}}
+    {{/otherwise}}
     {{/switch}}
     <br />
     {{/fields}}
@@ -25,9 +31,17 @@
 <script lang="ts">
 import Vue from "vue";
 import { bus } from "@/main";
+{{#contains (pluck fields 'type') 'belongsTo'}}
+import EntitySelector from "@/components/EntitySelector.vue";
+{{/contains}}
 
 export default Vue.extend({
   name: "{{Entity}}EditForm",
+  components: {
+    {{#contains (pluck fields 'type') 'belongsTo'}}
+    EntitySelector
+    {{/contains}}
+  },
   props: {
     id: { type: String, required: true }
   },
@@ -64,4 +78,3 @@ export default Vue.extend({
   color: red;
 }
 </style>
-

@@ -11,9 +11,12 @@
     {{#case 'boolean'}}
     \{{ {{@root.entity}}.{{ name }} }}
     {{/case}}
-    {{#default ''}}
+    {{#case 'belongsTo'}}
+    {{ Name }} \{{ {{@root.entity}}.{{ Name }} }}
+    {{/case}}
+    {{#otherwise ''}}
     <span class="error">Missing type: {{ type }}</span>
-    {{/default}}
+    {{/otherwise}}
     {{/switch}}
     <br />
     {{/fields}}
@@ -24,7 +27,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "{{Entity}}Show",
+  name: "{{Entity}}ShowForm",
   props: {
     id: { type: String, required: true }
   },
