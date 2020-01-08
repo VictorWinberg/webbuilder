@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 
 import db from "./models";
 import routes from "./routes";
+import swagger from "./swagger";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + "/static"));
 
 routes(app, db);
+swagger(app);
 
 app.get("/api/*", (_, res) => {
   res.status(400).send("Not Found");
