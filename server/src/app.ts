@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Request, Response} from "express";
 import path from "path";
 import bodyParser from "body-parser";
 
@@ -17,11 +17,11 @@ app.use(express.static(__dirname + "/static"));
 routes(app, db);
 swagger(app);
 
-app.get("/api/*", (_, res) => {
-  res.status(400).send("Not Found");
+app.get("/api*", (req: Request, res: Response) => {
+  res.status(400).send(`<h1>No route found for: <pre>${req.path}</pre></h1><button onclick="window.location.href = '/api/docs';">API Docs</button>`);
 });
 
-app.get("*", (_, res) => {
+app.get("*", (_, res: Response) => {
   res.sendFile(path.resolve(clientDist, "index.html"));
 });
 
