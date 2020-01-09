@@ -1,11 +1,15 @@
 import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
+import { ApolloServer } from "apollo-server-express";
 
 import db from "./models";
 import routes from "./routes";
+import { typeDefs, resolvers } from "./graphql";
 
 const app = express();
+const apollo = new ApolloServer({ typeDefs, resolvers, context: { db } });
+apollo.applyMiddleware({ app, path: "/api/graphql" });
 
 const clientDist = path.resolve(__dirname, "..", "..", "client", "dist");
 
