@@ -11,8 +11,19 @@ const stores = req.keys().flatMap((filename): {} => req(filename).default);
 stores.push(entityStore);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    width: 0
+  },
+  getters: {
+    isMobile(state): boolean {
+      return state.width < 600;
+    }
+  },
+  mutations: {
+    setWidth(state, newWidth): void {
+      state.width = newWidth;
+    }
+  },
   actions: {},
   modules: mergeAll(stores)
 });
