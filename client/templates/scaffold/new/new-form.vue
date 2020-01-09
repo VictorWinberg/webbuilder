@@ -1,28 +1,26 @@
 <template>
   <div>
     {{#fields}}
-    <label for="{{name}}">{{Name}}</label>
+    <label for="{{name}}">{{ Name }}</label>
     {{#switch type}}
     {{#case 'string'}}
-    <input
-      id="{{name}}"
-      v-model="{{@root.entity}}.{{name}}"
-      type="text"
-    />
+    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="text" />
     {{/case}}
     {{#case 'text'}}
     <textarea id="{{name}}" v-model="{{@root.entity}}.{{name}}" />
     {{/case}}
     {{#case 'boolean'}}
-    <input
-      id="{{name}}"
-      v-model="{{@root.entity}}.{{name}}"
-      type="checkbox"
-    />
+    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="checkbox" />
     {{/case}}
-    {{#default ''}}
-    <span class="error">Missing type: {{type}}</span>
-    {{/default}}
+    {{#case 'belongsTo'}}
+    <entity-selector
+      v-model="{{@root.entity}}.{{Name}}Id"
+      entity="{{name}}"
+    ></entity-selector>
+    {{/case}}
+    {{#otherwise ''}}
+    <span class="error">Missing type: {{ type }}</span>
+    {{/otherwise}}
     {{/switch}}
     <br />
     {{/fields}}
@@ -33,9 +31,17 @@
 <script lang="ts">
 import Vue from "vue";
 import { bus } from "@/main";
+{{#contains (pluck fields 'type') 'belongsTo'}}
+import EntitySelector from "@/components/EntitySelector.vue";
+{{/contains}}
 
 export default Vue.extend({
-  name: "{{Entity}}New",
+  name: "{{Entity}}NewForm",
+  components: {
+    {{#contains (pluck fields 'type') 'belongsTo'}}
+    EntitySelector
+    {{/contains}}
+  },
   data() {
     return {
       {{entity}}: {}
