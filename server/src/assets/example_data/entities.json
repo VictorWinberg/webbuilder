@@ -18,6 +18,15 @@
         "relation": {},
         "validations": [],
         "type": "text"
+      },
+      {
+        "name": "orders",
+        "relation": {
+          "entity": "order"
+        },
+        "validations": [
+        ],
+        "type": "hasMany"
       }
     ]
   },
@@ -29,6 +38,14 @@
         "relation": {},
         "validations": [],
         "type": "string"
+      },
+      {
+        "name": "orders",
+        "relation": {
+          "entity": "order"
+        },
+        "validations": [],
+        "type": "belongsToMany"
       }
     ]
   },
@@ -63,7 +80,7 @@
             "value": 1
           }
         ],
-        "type": "hasMany"
+        "type": "belongsToMany"
       },
       {
         "name": "delivered",
