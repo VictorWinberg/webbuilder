@@ -17,7 +17,7 @@ var _sequelize = new Sequelize(
 readdirRec(__dirname)
   .filter(f => f.includes("-model."))
   .forEach(file => {
-    var model = _sequelize["import"](path.join(__dirname, file));
+    var model = _sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
 

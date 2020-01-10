@@ -1,22 +1,30 @@
-/* eslint-disable */
 import { gql } from "apollo-server-express";
 import readdirRec from "fs-readdir-recursive";
-
-import Customers from "./app/customer/customer-graphql";
-import Orders from "./app/order/order-graphql";
 
 const typeDef = gql`
   type Query
   type Mutation
 `;
 
-readdirRec(__dirname)
-  .filter(f => f.includes("-graphql."))
-  .forEach(file => {
-    console.log(file);
-    console.log(require("./" + file).default);
+export const typeDefs = [
+  typeDef,
+  ...readdirRec(__dirname)
+    .filter(f => f.includes("-model.") || f.includes("-resolver."))
+    .map(file => {
+      const typeDef = require("./" + file).typeDefs;
+      if (!typeDef) {
+        throw new Error("Missing GraphQL typeDef for: " + file);
+      }
+      return typeDef;
+    })
+];
+
+export const resolvers = readdirRec(__dirname)
+  .filter(f => f.includes("-resolver."))
+  .map(file => {
+    const resolver = require("./" + file).default;
+    if (!resolver) {
+      throw new Error("Missing GraphQL resolver for: " + file);
+    }
+    return resolver;
   });
-
-export const typeDefs = [typeDef, Customers.typeDefs, Orders.typeDefs];
-
-export const resolvers = [Customers.resolvers, Orders.resolvers];
