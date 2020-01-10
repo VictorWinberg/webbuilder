@@ -1,4 +1,24 @@
 import { DataTypes } from "sequelize";
+import { gql } from "apollo-server-express";
+
+export const typeDefs = gql`
+  type {{Entity}} {
+    id: ID!
+    {{#fields}}
+    {{#switch type}}
+    {{#case 'hasMany'}}
+    {{Name}}: [{{relation.Entity}}]!
+    {{/case}}
+    {{#case 'belongsTo'}}
+    {{Name}}: {{relation.Entity}}
+    {{/case}}
+    {{#otherwise ''}}
+    {{name}}: {{Type}}
+    {{/otherwise}}
+    {{/switch}}
+    {{/fields}}
+  }
+`;
 
 export default (sequelize: any) => {
   const {{Entity}} = sequelize.define(
@@ -10,7 +30,7 @@ export default (sequelize: any) => {
         defaultValue: DataTypes.UUIDV4
       },
       {{#fields}}
-      {{#unless relation.Entity}}
+      {{#unless relation.entity}}
       {{name}}: DataTypes.{{TYPE}},
       {{/unless}}
       {{/fields}}
@@ -19,7 +39,7 @@ export default (sequelize: any) => {
   );
   {{Entity}}.associate = function(models: any) {
     {{#fields}}
-    {{#if relation.Entity}}
+    {{#if relation.entity}}
     {{@root.Entity}}.{{type}}(models.{{relation.Entity}}, {});
     {{/if}}
     {{/fields}}

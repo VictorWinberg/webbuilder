@@ -3,9 +3,10 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   type Order {
-    id: String!
-    delivered: Boolean
+    id: ID!
     Customer: Customer
+    Products: [Product]!
+    delivered: Boolean
   }
 `;
 

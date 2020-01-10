@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { omit } from "lodash/fp";
 import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
@@ -26,13 +27,22 @@ export default {
       });
     }
   },
+  Customer: {
+    // @ts-ignore
+    Orders: customer => customer.getOrders()
+  },
   Mutation: {
     // @ts-ignore
-    async createCustomer(root, { name, info }, { db }) {
-      return db.Customer.create({
-        name,
-        info
-      });
+    async createCustomer(root, fields, { db }) {
+      return db.Customer.create(omit("id", fields));
     }
+    // // @ts-ignore
+    // async updateCustomer(root, fields, { db }) {
+    //   return db.Customer.update(omit("id", fields));
+    // },
+    // // @ts-ignore
+    // async removeCustomer(root, fields, { db }) {
+    //   return db.Customer.remove(omit("id", fields));
+    // }
   }
 };

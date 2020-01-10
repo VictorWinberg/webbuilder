@@ -3,8 +3,8 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   type Product {
-    id: String!
-    name: String!
+    id: ID!
+    name: String
   }
 `;
 

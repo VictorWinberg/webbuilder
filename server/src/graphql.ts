@@ -2,6 +2,8 @@ import { gql } from "apollo-server-express";
 import readdirRec from "fs-readdir-recursive";
 
 const typeDef = gql`
+  scalar Text
+
   type Query
   type Mutation
 `;

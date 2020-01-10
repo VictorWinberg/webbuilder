@@ -3,10 +3,10 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   type Customer {
-    id: String!
-    name: String!
-    info: String!
-    Orders: [Order]
+    id: ID!
+    name: String
+    info: Text
+    Orders: [Order]!
   }
 `;
 
