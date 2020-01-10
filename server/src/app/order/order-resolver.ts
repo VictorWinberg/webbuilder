@@ -2,11 +2,6 @@
 import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
-  type Order {
-    id: String!
-    delivered: Boolean
-    Customer: Customer
-  }
   extend type Query {
     Order(id: String!): Order
   }
@@ -15,12 +10,12 @@ export const typeDefs = gql`
   }
 `;
 
-export const resolvers = {
+export default {
   Query: {
     // @ts-ignore
     async Order(root, { id }, { db }) {
       return db.Order.findByPk(id, {
-        include: [{ all: true }]
+        include: [{ all: true, nested: true }]
       });
     }
   },
@@ -31,6 +26,3 @@ export const resolvers = {
     }
   }
 };
-
-
-export default {typeDefs, resolvers}

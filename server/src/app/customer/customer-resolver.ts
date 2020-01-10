@@ -1,13 +1,7 @@
 /* eslint-disable */
 import { gql } from "apollo-server-express";
 
- const typeDefs = gql`
-  type Customer {
-    id: String!
-    name: String!
-    info: String!
-    Orders: [Order]
-  }
+export const typeDefs = gql`
   extend type Query {
     Customer(id: String!): Customer
     Customers: [Customer!]!
@@ -17,7 +11,7 @@ import { gql } from "apollo-server-express";
   }
 `;
 
- const resolvers = {
+export default {
   Query: {
     // @ts-ignore
     async Customer(root, { id }, { db }) {
@@ -30,7 +24,7 @@ import { gql } from "apollo-server-express";
       return db.Customer.findAll({
         include: [{ all: true, nested: true }]
       });
-    },
+    }
   },
   Mutation: {
     // @ts-ignore
@@ -39,8 +33,6 @@ import { gql } from "apollo-server-express";
         name,
         info
       });
-    },
+    }
   }
 };
-
-export default {typeDefs, resolvers}
