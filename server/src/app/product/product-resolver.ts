@@ -4,11 +4,13 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   extend type Query {
-    Product(id: String!): Product
+    Product(id: ID!): Product
     Products: [Product!]!
   }
   extend type Mutation {
-    createProduct(name: String!, info: String!): Product!
+    createProduct(name: String): Product
+    updateProduct(id: ID!, name: String): Product
+    removeProduct(id: ID!): Product
   }
 `;
 
@@ -32,14 +34,22 @@ export default {
     // @ts-ignore
     async createProduct(root, fields, { db }) {
       return db.Product.create(omit("id", fields));
+    },
+    // @ts-ignore
+    async updateProduct(root, { id, ...fields }, { db }) {
+      const product = await db.Product.findByPk(id);
+      if (product == null) {
+        return null;
+      }
+      return product.update(fields);
+    },
+    // @ts-ignore
+    async removeProduct(root, { id, ...fields }, { db }) {
+      const product = await db.Product.findByPk(id);
+      if (product == null) {
+        return null;
+      }
+      return product.destroy();
     }
-    // // @ts-ignore
-    // async updateProduct(root, fields, { db }) {
-    //   return db.Product.update(omit("id", fields));
-    // },
-    // // @ts-ignore
-    // async removeProduct(root, fields, { db }) {
-    //   return db.Product.remove(omit("id", fields));
-    // }
   }
 };

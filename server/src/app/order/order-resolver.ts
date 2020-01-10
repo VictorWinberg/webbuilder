@@ -4,11 +4,13 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   extend type Query {
-    Order(id: String!): Order
+    Order(id: ID!): Order
     Orders: [Order!]!
   }
   extend type Mutation {
-    createOrder(name: String!, info: String!): Order!
+    createOrder(delivered: Boolean): Order
+    updateOrder(id: ID!, delivered: Boolean): Order
+    removeOrder(id: ID!): Order
   }
 `;
 
@@ -37,14 +39,22 @@ export default {
     // @ts-ignore
     async createOrder(root, fields, { db }) {
       return db.Order.create(omit("id", fields));
+    },
+    // @ts-ignore
+    async updateOrder(root, { id, ...fields }, { db }) {
+      const order = await db.Order.findByPk(id);
+      if (order == null) {
+        return null;
+      }
+      return order.update(fields);
+    },
+    // @ts-ignore
+    async removeOrder(root, { id, ...fields }, { db }) {
+      const order = await db.Order.findByPk(id);
+      if (order == null) {
+        return null;
+      }
+      return order.destroy();
     }
-    // // @ts-ignore
-    // async updateOrder(root, fields, { db }) {
-    //   return db.Order.update(omit("id", fields));
-    // },
-    // // @ts-ignore
-    // async removeOrder(root, fields, { db }) {
-    //   return db.Order.remove(omit("id", fields));
-    // }
   }
 };

@@ -4,11 +4,26 @@ import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
   extend type Query {
-    {{Entity}}(id: String!): {{Entity}}
+    {{Entity}}(id: ID!): {{Entity}}
     {{Entities}}: [{{Entity}}!]!
   }
   extend type Mutation {
-    create{{Entity}}(name: String!, info: String!): {{Entity}}!
+    create{{Entity}}(
+      {{#fields}}
+      {{#unless relation.entity}}
+      {{name}}: {{Type}},
+      {{/unless}}
+      {{/fields}}
+    ): {{Entity}}
+    update{{Entity}}(
+      id: ID!,
+      {{#fields}}
+      {{#unless relation.entity}}
+      {{name}}: {{Type}},
+      {{/unless}}
+      {{/fields}}
+    ): {{Entity}}
+    remove{{Entity}}(id: ID!): {{Entity}}
   }
 `;
 
@@ -46,13 +61,21 @@ export default {
     async create{{Entity}}(root, fields, { db }) {
       return db.{{Entity}}.create(omit("id", fields));
     },
-    // // @ts-ignore
-    // async update{{Entity}}(root, fields, { db }) {
-    //   return db.{{Entity}}.update(omit("id", fields));
-    // },
-    // // @ts-ignore
-    // async remove{{Entity}}(root, fields, { db }) {
-    //   return db.{{Entity}}.remove(omit("id", fields));
-    // }
+    // @ts-ignore
+    async update{{Entity}}(root, { id, ...fields }, { db }) {
+      const {{entity}} = await db.{{Entity}}.findByPk(id);
+      if ({{entity}} == null) {
+        return null;
+      }
+      return {{entity}}.update(fields);
+    },
+    // @ts-ignore
+    async remove{{Entity}}(root, { id, ...fields }, { db }) {
+      const {{entity}} = await db.{{Entity}}.findByPk(id);
+      if ({{entity}} == null) {
+        return null;
+      }
+      return {{entity}}.destroy();
+    }
   }
 };

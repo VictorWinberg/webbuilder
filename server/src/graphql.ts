@@ -1,5 +1,6 @@
 import { gql } from "apollo-server-express";
 import readdirRec from "fs-readdir-recursive";
+import { GraphQLString } from "graphql";
 
 const typeDef = gql`
   scalar Text
@@ -7,6 +8,10 @@ const typeDef = gql`
   type Query
   type Mutation
 `;
+
+const resolver = {
+  Text: GraphQLString
+};
 
 export const typeDefs = [
   typeDef,
@@ -21,12 +26,15 @@ export const typeDefs = [
     })
 ];
 
-export const resolvers = readdirRec(__dirname)
-  .filter(f => f.includes("-resolver."))
-  .map(file => {
-    const resolver = require("./" + file).default;
-    if (!resolver) {
-      throw new Error("Missing GraphQL resolver for: " + file);
-    }
-    return resolver;
-  });
+export const resolvers = [
+  resolver,
+  ...readdirRec(__dirname)
+    .filter(f => f.includes("-resolver."))
+    .map(file => {
+      const resolver = require("./" + file).default;
+      if (!resolver) {
+        throw new Error("Missing GraphQL resolver for: " + file);
+      }
+      return resolver;
+    })
+];
