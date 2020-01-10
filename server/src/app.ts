@@ -9,7 +9,7 @@ import { typeDefs, resolvers } from "./graphql";
 
 const app = express();
 const apollo = new ApolloServer({ typeDefs, resolvers, context: { db } });
-apollo.applyMiddleware({ app, path: "/api/graphql" });
+apollo.applyMiddleware({ app });
 
 const clientDist = path.resolve(__dirname, "..", "..", "client", "dist");
 
