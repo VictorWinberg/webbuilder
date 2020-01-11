@@ -43,7 +43,6 @@ function mustachify(obj: any): {} {
   return transform(obj, iteratee);
 }
 
-const templating = (template: string, filepath: string, entity: any): {} =>
-  format(Handlebars.compile(template)(mustachify(entity)), { filepath });
-
-export default { templating };
+export default function(template: string, filepath: string, entity: any): {} {
+  return format(Handlebars.compile(template)(mustachify(entity)), { filepath });
+}

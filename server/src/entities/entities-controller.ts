@@ -1,17 +1,14 @@
-const {
-  readFile,
-  writeFile,
-  exists,
-  ENTITIES_JSON,
-  EXAMPLE_ENTITIES_JSON
-} = require("../utils").default;
+import { existsSync } from "fs";
+
+import { readFile, writeFile } from "../utils/file";
+import { ENTITIES_JSON, EXAMPLE_ENTITIES_JSON } from "../utils/paths";
 
 export async function readEntitiesOrExample(): Promise<[]> {
-  if (!exists(ENTITIES_JSON)) {
+  if (!existsSync(ENTITIES_JSON)) {
     const exampleData = await readFile(EXAMPLE_ENTITIES_JSON);
     await writeFile(ENTITIES_JSON, exampleData);
   }
-  const entities = await readFile(ENTITIES_JSON, "utf8");
+  const entities = await readFile(ENTITIES_JSON);
   return JSON.parse(entities);
 }
 
@@ -21,5 +18,5 @@ export async function writeEntities(entities: []): Promise<void> {
     throw new Error("Request should be of type Array");
   }
 
-  await writeFile(ENTITIES_JSON, JSON.stringify(entities), "utf8");
+  await writeFile(ENTITIES_JSON, JSON.stringify(entities));
 }

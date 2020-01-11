@@ -1,13 +1,10 @@
 import path from "path";
+import mkdirp from "mkdirp";
+import readdirRec from "fs-readdir-recursive";
 
-const {
-  readFile,
-  writeFile,
-  mkdir,
-  readdirRec,
-  templating,
-  ENTITIES_JSON
-} = require("../utils").default;
+import { readFile, writeFile } from "../utils/file";
+import { ENTITIES_JSON } from "../utils/paths";
+import templating from "../utils/templating";
 
 type Entities = [{ entity: string; fields: [] }];
 
@@ -50,7 +47,9 @@ const buildTemplate = async (
           `${obj.entity}-${path.basename(filePath)}`
         );
 
-        await mkdir(path.dirname(entityPath), { recursive: true }, () => {});
+        mkdirp(path.dirname(entityPath), err => {
+          if (err) throw err;
+        });
         await writeFile(entityPath, contents);
       }
     )
@@ -58,7 +57,7 @@ const buildTemplate = async (
 };
 
 const build = async (): Promise<Entities> => {
-  const contents = await readFile(ENTITIES_JSON, "utf8");
+  const contents = await readFile(ENTITIES_JSON);
   const entities: Entities = JSON.parse(contents);
   await Promise.all(
     entities.map(
