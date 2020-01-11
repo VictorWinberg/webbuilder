@@ -20,7 +20,7 @@ export const typeDefs = gql`
   }
 `;
 
-export default (sequelize: any) => {
+export default (sequelize: any): {} => {
   const {{Entity}} = sequelize.define(
     "{{Entity}}",
     {
@@ -37,12 +37,13 @@ export default (sequelize: any) => {
     },
     {}
   );
-  {{Entity}}.associate = function(models: any) {
+  {{Entity}}.associate = function(models: any): void {
     {{#fields}}
     {{#if relation.entity}}
     {{@root.Entity}}.{{type}}(models.{{relation.Entity}}, {});
     {{/if}}
     {{/fields}}
+    return;
   };
   return {{Entity}};
 };

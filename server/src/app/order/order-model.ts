@@ -10,7 +10,7 @@ export const typeDefs = gql`
   }
 `;
 
-export default (sequelize: any) => {
+export default (sequelize: any): {} => {
   const Order = sequelize.define(
     "Order",
     {
@@ -23,9 +23,10 @@ export default (sequelize: any) => {
     },
     {}
   );
-  Order.associate = function(models: any) {
+  Order.associate = function(models: any): void {
     Order.belongsTo(models.Customer, {});
     Order.hasMany(models.Product, {});
+    return;
   };
   return Order;
 };

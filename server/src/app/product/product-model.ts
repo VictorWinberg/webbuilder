@@ -8,7 +8,7 @@ export const typeDefs = gql`
   }
 `;
 
-export default (sequelize: any) => {
+export default (sequelize: any): {} => {
   const Product = sequelize.define(
     "Product",
     {
@@ -21,6 +21,8 @@ export default (sequelize: any) => {
     },
     {}
   );
-  Product.associate = function(models: any) {};
+  Product.associate = function(models: any): void {
+    return;
+  };
   return Product;
 };

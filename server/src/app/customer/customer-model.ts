@@ -10,7 +10,7 @@ export const typeDefs = gql`
   }
 `;
 
-export default (sequelize: any) => {
+export default (sequelize: any): {} => {
   const Customer = sequelize.define(
     "Customer",
     {
@@ -24,8 +24,9 @@ export default (sequelize: any) => {
     },
     {}
   );
-  Customer.associate = function(models: any) {
+  Customer.associate = function(models: any): void {
     Customer.hasMany(models.Order, {});
+    return;
   };
   return Customer;
 };

@@ -11,19 +11,20 @@ const {
 
 type Entities = [{ entity: string; fields: [] }];
 
-const build = async () => {
-  const contents = await readFile(ENTITIES_JSON, "utf8");
-  const entities: Entities = JSON.parse(contents);
+const readTemplates = async (
+  template: string,
+  templatePath: string
+): Promise<any> =>
   await Promise.all(
-    entities.map(
-      async (obj): Promise<void> => {
-        await buildTemplate("client", "scaffold", "src/app", obj);
-        await buildTemplate("server", "scaffold", "src/app", obj);
+    readdirRec(path.join(templatePath, template)).map(
+      async (filePath: string): Promise<{}> => {
+        const fileContents = await readFile(
+          path.join(templatePath, template, filePath)
+        );
+        return { filePath, fileContents };
       }
     )
   );
-  return entities;
-};
 
 const buildTemplate = async (
   root: string,
@@ -31,7 +32,7 @@ const buildTemplate = async (
   dest: string,
   obj: { entity: string; fields: [] },
   options = { withFolder: true }
-) => {
+): Promise<void> => {
   const templateFiles = await readTemplates(
     template,
     path.join("..", root, "templates")
@@ -56,16 +57,18 @@ const buildTemplate = async (
   );
 };
 
-const readTemplates = async (template: string, templatePath: string) =>
+const build = async (): Promise<Entities> => {
+  const contents = await readFile(ENTITIES_JSON, "utf8");
+  const entities: Entities = JSON.parse(contents);
   await Promise.all(
-    readdirRec(path.join(templatePath, template)).map(
-      async (filePath: string): Promise<{}> => {
-        const fileContents = await readFile(
-          path.join(templatePath, template, filePath)
-        );
-        return { filePath, fileContents };
+    entities.map(
+      async (obj): Promise<void> => {
+        await buildTemplate("client", "scaffold", "src/app", obj);
+        await buildTemplate("server", "scaffold", "src/app", obj);
       }
     )
   );
+  return entities;
+};
 
 export default build;
