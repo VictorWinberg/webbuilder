@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { omit } from "lodash/fp";
 import { gql } from "apollo-server-express";
 
@@ -27,16 +26,22 @@ export const typeDefs = gql`
   }
 `;
 
+type Context = {
+  db: any;
+};
+
+type Args = {
+  id: string;
+};
+
 export default {
   Query: {
-    // @ts-ignore
-    async {{Entity}}(root, { id }, { db }) {
+    async {{Entity}}(_root: {}, { id }: Args, { db }: Context): Promise<{} | null> {
       return db.{{Entity}}.findByPk(id, {
         include: [{ all: true, nested: true }]
       });
     },
-    // @ts-ignore
-    async {{Entities}}(root, args, { db }) {
+    async {{Entities}}(_root: {}, _args: Args, { db }: Context): Promise<[]> {
       return db.{{Entity}}.findAll({
         include: [{ all: true, nested: true }]
       });
@@ -46,31 +51,26 @@ export default {
     {{#fields}}
     {{#switch type}}
     {{#case 'hasMany'}}
-    // @ts-ignore
-    {{Name}}: {{@root.entity}} => {{@root.entity}}.get{{relation.Entities}}(),
+    {{Name}}: ({{@root.entity}}: any): Promise<[]> => {{@root.entity}}.get{{relation.Entities}}(),
     {{/case}}
     {{#case 'belongsTo'}}
-    // @ts-ignore
-    {{Name}}: {{@root.entity}} => {{@root.entity}}.get{{relation.Entity}}(),
+    {{Name}}: ({{@root.entity}}: any): Promise<{} | null> => {{@root.entity}}.get{{relation.Entity}}(),
     {{/case}}
     {{/switch}}
     {{/fields}}
   },
   Mutation: {
-    // @ts-ignore
-    async create{{Entity}}(root, fields, { db }) {
-      return db.{{Entity}}.create(omit("id", fields));
+    async create{{Entity}}(_root: {}, args: Args, { db }: Context): Promise<{} | null> {
+      return db.{{Entity}}.create(omit("id", args));
     },
-    // @ts-ignore
-    async update{{Entity}}(root, { id, ...fields }, { db }) {
+    async update{{Entity}}(_root: {}, { id, ...args }: Args, { db }: Context): Promise<{} | null> {
       const {{entity}} = await db.{{Entity}}.findByPk(id);
       if ({{entity}} == null) {
         return null;
       }
-      return {{entity}}.update(fields);
+      return {{entity}}.update(args);
     },
-    // @ts-ignore
-    async remove{{Entity}}(root, { id, ...fields }, { db }) {
+    async remove{{Entity}}(_root: {}, { id }: Args, { db }: Context): Promise<{} | null> {
       const {{entity}} = await db.{{Entity}}.findByPk(id);
       if ({{entity}} == null) {
         return null;

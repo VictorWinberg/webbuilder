@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { omit } from "lodash/fp";
 import { gql } from "apollo-server-express";
 
@@ -14,16 +13,26 @@ export const typeDefs = gql`
   }
 `;
 
+type Context = {
+  db: any;
+};
+
+type Args = {
+  id: string;
+};
+
 export default {
   Query: {
-    // @ts-ignore
-    async Product(root, { id }, { db }) {
+    async Product(
+      _root: {},
+      { id }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       return db.Product.findByPk(id, {
         include: [{ all: true, nested: true }]
       });
     },
-    // @ts-ignore
-    async Products(root, args, { db }) {
+    async Products(_root: {}, _args: Args, { db }: Context): Promise<[]> {
       return db.Product.findAll({
         include: [{ all: true, nested: true }]
       });
@@ -31,20 +40,29 @@ export default {
   },
   Product: {},
   Mutation: {
-    // @ts-ignore
-    async createProduct(root, fields, { db }) {
-      return db.Product.create(omit("id", fields));
+    async createProduct(
+      _root: {},
+      args: Args,
+      { db }: Context
+    ): Promise<{} | null> {
+      return db.Product.create(omit("id", args));
     },
-    // @ts-ignore
-    async updateProduct(root, { id, ...fields }, { db }) {
+    async updateProduct(
+      _root: {},
+      { id, ...args }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       const product = await db.Product.findByPk(id);
       if (product == null) {
         return null;
       }
-      return product.update(fields);
+      return product.update(args);
     },
-    // @ts-ignore
-    async removeProduct(root, { id, ...fields }, { db }) {
+    async removeProduct(
+      _root: {},
+      { id }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       const product = await db.Product.findByPk(id);
       if (product == null) {
         return null;

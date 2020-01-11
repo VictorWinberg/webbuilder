@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { omit } from "lodash/fp";
 import { gql } from "apollo-server-express";
 
@@ -14,42 +13,55 @@ export const typeDefs = gql`
   }
 `;
 
+type Context = {
+  db: any;
+};
+
+type Args = {
+  id: string;
+};
+
 export default {
   Query: {
-    // @ts-ignore
-    async Order(root, { id }, { db }) {
+    async Order(_root: {}, { id }: Args, { db }: Context): Promise<{} | null> {
       return db.Order.findByPk(id, {
         include: [{ all: true, nested: true }]
       });
     },
-    // @ts-ignore
-    async Orders(root, args, { db }) {
+    async Orders(_root: {}, _args: Args, { db }: Context): Promise<[]> {
       return db.Order.findAll({
         include: [{ all: true, nested: true }]
       });
     }
   },
   Order: {
-    // @ts-ignore
-    Customer: order => order.getCustomer(),
-    // @ts-ignore
-    Products: order => order.getProducts()
+    Customer: (order: any): Promise<{} | null> => order.getCustomer(),
+    Products: (order: any): Promise<[]> => order.getProducts()
   },
   Mutation: {
-    // @ts-ignore
-    async createOrder(root, fields, { db }) {
-      return db.Order.create(omit("id", fields));
+    async createOrder(
+      _root: {},
+      args: Args,
+      { db }: Context
+    ): Promise<{} | null> {
+      return db.Order.create(omit("id", args));
     },
-    // @ts-ignore
-    async updateOrder(root, { id, ...fields }, { db }) {
+    async updateOrder(
+      _root: {},
+      { id, ...args }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       const order = await db.Order.findByPk(id);
       if (order == null) {
         return null;
       }
-      return order.update(fields);
+      return order.update(args);
     },
-    // @ts-ignore
-    async removeOrder(root, { id, ...fields }, { db }) {
+    async removeOrder(
+      _root: {},
+      { id }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       const order = await db.Order.findByPk(id);
       if (order == null) {
         return null;

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { omit } from "lodash/fp";
 import { gql } from "apollo-server-express";
 
@@ -14,40 +13,58 @@ export const typeDefs = gql`
   }
 `;
 
+type Context = {
+  db: any;
+};
+
+type Args = {
+  id: string;
+};
+
 export default {
   Query: {
-    // @ts-ignore
-    async Customer(root, { id }, { db }) {
+    async Customer(
+      _root: {},
+      { id }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       return db.Customer.findByPk(id, {
         include: [{ all: true, nested: true }]
       });
     },
-    // @ts-ignore
-    async Customers(root, args, { db }) {
+    async Customers(_root: {}, _args: Args, { db }: Context): Promise<[]> {
       return db.Customer.findAll({
         include: [{ all: true, nested: true }]
       });
     }
   },
   Customer: {
-    // @ts-ignore
-    Orders: customer => customer.getOrders()
+    Orders: (customer: any): Promise<[]> => customer.getOrders()
   },
   Mutation: {
-    // @ts-ignore
-    async createCustomer(root, fields, { db }) {
-      return db.Customer.create(omit("id", fields));
+    async createCustomer(
+      _root: {},
+      args: Args,
+      { db }: Context
+    ): Promise<{} | null> {
+      return db.Customer.create(omit("id", args));
     },
-    // @ts-ignore
-    async updateCustomer(root, { id, ...fields }, { db }) {
+    async updateCustomer(
+      _root: {},
+      { id, ...args }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       const customer = await db.Customer.findByPk(id);
       if (customer == null) {
         return null;
       }
-      return customer.update(fields);
+      return customer.update(args);
     },
-    // @ts-ignore
-    async removeCustomer(root, { id, ...fields }, { db }) {
+    async removeCustomer(
+      _root: {},
+      { id }: Args,
+      { db }: Context
+    ): Promise<{} | null> {
       const customer = await db.Customer.findByPk(id);
       if (customer == null) {
         return null;
