@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="{{entity}} in {{entities}}" :key="{{entity}}.id">
+    <li v-for="{{entity}} in {{Entities}}" :key="{{entity}}.id">
       <hr />
       {{#fields}}
       {{#switch type}}
@@ -32,26 +32,24 @@
 
 <script lang="ts">
 import Vue from "vue";
+import gql from "graphql-tag";
 import { bus } from "@/main";
 
 export default Vue.extend({
   name: "{{Entity}}ListTable",
   data() {
     return {
-      {{entities}}: [],
-      loading: false
+      {{Entities}}: [],
     };
   },
   created() {
-    this.refresh{{Entities}}();
-    bus.$on("refresh", () => this.refresh{{Entities}}());
+    this.listener();
+    bus.$on("refetch", this.listener);
+  },
+  beforeDestroy() {
+    bus.$off("refetch", this.listener);
   },
   methods: {
-    async refresh{{Entities}}() {
-      this.loading = true;
-      this.{{entities}} = await this.$store.dispatch("{{entity}}/list");
-      this.loading = false;
-    },
     show{{Entity}}(id: string) {
       this.$router.push({
         name: "{{Entity}}Show",
@@ -65,12 +63,27 @@ export default Vue.extend({
       });
     },
     async remove{{Entity}}(id: string) {
-      this.loading = true;
       await this.$store.dispatch("{{entity}}/remove", [id]);
-      await this.refresh{{Entities}}();
-      this.loading = false;
+      bus.$emit("refetch");
+    },
+    listener() {
+      this.$apollo.queries.{{Entities}}.refetch();
     }
-  }
+  },
+  apollo: {
+    {{Entities}}: gql`
+      query run {
+        {{Entities}} {
+          id
+          {{#fields}}
+          {{#unless relation.entity}}
+          {{name}}
+          {{/unless}}
+          {{/fields}}
+        }
+      }
+    `
+  },
 });
 </script>
 

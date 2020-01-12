@@ -3,16 +3,16 @@
     {{#fields}}
     {{#switch type}}
     {{#case 'string'}}
-    <h1>\{{ {{@root.entity}}.{{ name }} }}</h1>
+    <h1>\{{ {{@root.Entity}}.{{ name }} }}</h1>
     {{/case}}
     {{#case 'text'}}
-    \{{ {{@root.entity}}.{{ name }} }}
+    \{{ {{@root.Entity}}.{{ name }} }}
     {{/case}}
     {{#case 'boolean'}}
-    \{{ {{@root.entity}}.{{ name }} }}
+    \{{ {{@root.Entity}}.{{ name }} }}
     {{/case}}
     {{#case 'belongsTo'}}
-    {{ Name }} \{{ {{@root.entity}}.{{ Name }} }}
+    {{ Name }} \{{ {{@root.Entity}}.{{ Name }} }}
     {{/case}}
     {{#otherwise ''}}
     <span class="error">Missing type: {{ type }}</span>
@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import gql from "graphql-tag";
 
 export default Vue.extend({
   name: "{{Entity}}ShowForm",
@@ -33,18 +34,28 @@ export default Vue.extend({
   },
   data() {
     return {
-      {{entity}}: {},
-      loading: false
+      {{Entity}}: {},
     };
   },
-  created() {
-    this.refresh{{Entity}}();
-  },
-  methods: {
-    async refresh{{Entity}}() {
-      this.loading = true;
-      this.{{entity}} = await this.$store.dispatch("{{entity}}/read", [this.id]);
-      this.loading = false;
+  apollo: {
+    {{Entity}}: {
+      query: gql`
+        query run($id: ID!) {
+          {{Entity}} (id: $id) {
+            id
+            {{#fields}}
+            {{#unless relation.entity}}
+            {{name}}
+            {{/unless}}
+            {{/fields}}
+          }
+        }
+      `,
+      variables() {
+        return {
+          id: this.id
+        };
+      }
     }
   }
 });

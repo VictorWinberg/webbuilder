@@ -4,17 +4,17 @@
     <label for="{{name}}">{{ Name }}</label>
     {{#switch type}}
     {{#case 'string'}}
-    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="text" />
+    <input id="{{name}}" v-model="{{@root.Entity}}.{{name}}" type="text" />
     {{/case}}
     {{#case 'text'}}
-    <textarea id="{{name}}" v-model="{{@root.entity}}.{{name}}" />
+    <textarea id="{{name}}" v-model="{{@root.Entity}}.{{name}}" />
     {{/case}}
     {{#case 'boolean'}}
-    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="checkbox" />
+    <input id="{{name}}" v-model="{{@root.Entity}}.{{name}}" type="checkbox" />
     {{/case}}
     {{#case 'belongsTo'}}
     <entity-selector
-      v-model="{{@root.entity}}.{{Name}}Id"
+      v-model="{{@root.Entity}}.{{Name}}Id"
       entity="{{name}}"
     ></entity-selector>
     {{/case}}
@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import gql from "graphql-tag";
 import { bus } from "@/main";
 {{#contains (pluck fields 'type') 'belongsTo'}}
 import EntitySelector from "@/components/EntitySelector.vue";
@@ -47,27 +48,39 @@ export default Vue.extend({
   },
   data() {
     return {
-      {{entity}}: {},
-      loading: false
+      {{Entity}}: {},
     };
   },
-  created() {
-    this.refresh{{Entity}}();
-  },
   methods: {
-    async refresh{{Entity}}() {
-      this.loading = true;
-      this.{{entity}} = await this.$store.dispatch("{{entity}}/read", [this.id]);
-      this.loading = false;
-    },
     async edit{{Entity}}(id: string) {
       if (this.valid()) {
-        await this.$store.dispatch("{{entity}}/update", [id, this.{{entity}}]);
-        bus.$emit("refresh");
+        await this.$store.dispatch("{{entity}}/update", [id, this.{{Entity}}]);
+        bus.$emit("refetch");
       }
     },
     valid(): boolean {
       return true;
+    }
+  },
+  apollo: {
+    {{Entity}}: {
+      query: gql`
+        query run($id: ID!) {
+          {{Entity}} (id: $id) {
+            id
+            {{#fields}}
+            {{#unless relation.entity}}
+            {{name}}
+            {{/unless}}
+            {{/fields}}
+          }
+        }
+      `,
+      variables(): {} {
+        return {
+          id: this.id
+        };
+      }
     }
   }
 });

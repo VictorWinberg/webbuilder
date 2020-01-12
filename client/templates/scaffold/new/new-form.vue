@@ -4,17 +4,17 @@
     <label for="{{name}}">{{ Name }}</label>
     {{#switch type}}
     {{#case 'string'}}
-    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="text" />
+    <input id="{{name}}" v-model="{{@root.Entity}}.{{name}}" type="text" />
     {{/case}}
     {{#case 'text'}}
-    <textarea id="{{name}}" v-model="{{@root.entity}}.{{name}}" />
+    <textarea id="{{name}}" v-model="{{@root.Entity}}.{{name}}" />
     {{/case}}
     {{#case 'boolean'}}
-    <input id="{{name}}" v-model="{{@root.entity}}.{{name}}" type="checkbox" />
+    <input id="{{name}}" v-model="{{@root.Entity}}.{{name}}" type="checkbox" />
     {{/case}}
     {{#case 'belongsTo'}}
     <entity-selector
-      v-model="{{@root.entity}}.{{Name}}Id"
+      v-model="{{@root.Entity}}.{{Name}}Id"
       entity="{{name}}"
     ></entity-selector>
     {{/case}}
@@ -44,16 +44,16 @@ export default Vue.extend({
   },
   data() {
     return {
-      {{entity}}: {}
+      {{Entity}}: {}
     };
   },
   methods: {
     async add{{Entity}}() {
       if (this.valid()) {
-        await this.$store.dispatch("{{entity}}/create", this.{{entity}});
+        await this.$store.dispatch("{{entity}}/create", this.{{Entity}});
 
-        this.{{entity}} = {};
-        bus.$emit("refresh");
+        this.{{Entity}} = {};
+        bus.$emit("refetch");
       }
     },
     valid(): boolean {
