@@ -1,9 +1,9 @@
 import path from "path";
+import mkdirp from "mkdirp";
 
 const {
   readFile,
   writeFile,
-  mkdir,
   readdirRec,
   templating,
   ENTITIES_JSON
@@ -49,7 +49,7 @@ const buildTemplate = async (
           `${obj.entity}-${path.basename(filePath)}`
         );
 
-        await mkdir(path.dirname(entityPath), { recursive: true }, () => {});
+        mkdirp.sync(path.dirname(entityPath));
         await writeFile(entityPath, contents);
       }
     )
