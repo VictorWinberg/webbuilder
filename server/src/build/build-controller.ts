@@ -47,9 +47,7 @@ const buildTemplate = async (
           `${obj.entity}-${path.basename(filePath)}`
         );
 
-        mkdirp(path.dirname(entityPath), err => {
-          if (err) throw err;
-        });
+        mkdirp.sync(path.dirname(entityPath));
         await writeFile(entityPath, contents);
       }
     )
