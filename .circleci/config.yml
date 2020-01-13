@@ -24,6 +24,9 @@ jobs: # a collection of steps
           paths:
             - ~/.npm
             - ~/.cache
+      - run: # run build
+          name: Build
+          command: npm run build
       - run: # run lint
           name: Lint
           command: npm run lint
