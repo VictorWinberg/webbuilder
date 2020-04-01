@@ -38,7 +38,7 @@
     "@types/mustache": "0.8.32",
     "@types/node": "12.12.26",
     "@types/pluralize": "0.0.29",
-    "@types/prettier": "1.19.0",
+    "@types/prettier": "1.19.1",
     "@types/sequelize": "4.28.8",
     "@types/supertest": "2.0.8",
     "@typescript-eslint/eslint-plugin": "2.13.0",
