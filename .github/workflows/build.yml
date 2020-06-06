@@ -17,27 +17,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: install and cache dependencies
+      - name: Install and cache dependencies
         uses: cypress-io/github-action@v1
         with:
           runTests: false
 
-      - name: build
+      - name: Build
         run: npm run build
 
-      - name: lint
+      - name: Lint
         run: npm run lint
 
-      - name: test
+      - name: Test
         run: npm test
 
-      - name: codecov
+      - name: Upload coverage to Codecov
         run: bash <(curl -s https://codecov.io/bash)
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
