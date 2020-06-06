@@ -22,13 +22,10 @@ jobs:
         with:
           runTests: false
 
-      - name: install
-        run: npm install
-
       - name: lint and unit test
         run: |
           npm run lint
-          npm test
+          # npm test
 
       - name: Run E2E tests
         uses: cypress-io/github-action@v1
