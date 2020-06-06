@@ -22,6 +22,12 @@ jobs:
         with:
           runTests: false
 
+      - name: install
+        run: |
+          npm install
+        env:
+          CI: true
+
       - name: lint and unit test
         run: |
           npm run lint
