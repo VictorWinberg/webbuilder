@@ -23,17 +23,12 @@ jobs:
           runTests: false
 
       - name: install
-        run: |
-          npm install
-        env:
-          CI: true
+        run: npm install
 
       - name: lint and unit test
         run: |
           npm run lint
           npm test
-        env:
-          CI: true
 
       - name: Run E2E tests
         uses: cypress-io/github-action@v1
