@@ -25,15 +25,16 @@ jobs:
       - name: build
         run: npm run build
 
-      - name: lint and unit test
-        run: |
-          npm run lint
-          # npm test
+      - name: lint
+        run: npm run lint
 
-      - name: Run E2E tests
-        uses: cypress-io/github-action@v1
+      - name: test
+        run: npm test
+
+      - name: codecov
+        run: bash <(curl -s https://codecov.io/bash)
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
         with:
-          install: false
-          build: npm run build
-          start: npm run serve
-          wait-on: "http://localhost:4000"
+          token: ${{ secrets.CODECOV_TOKEN }}
