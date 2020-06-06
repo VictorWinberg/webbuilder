@@ -9,7 +9,7 @@
     "test": "vue-cli-service test:unit --coverage"
   },
   "dependencies": {
-    "buefy": "0.8.15",
+    "buefy": "0.8.20",
     "element-ui": "2.13.0",
     "core-js": "3.6.5",
     "lodash": "4.17.15",
