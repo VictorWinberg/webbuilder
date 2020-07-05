@@ -36,7 +36,7 @@
     "@types/lodash": "4.14.157",
     "@types/mkdirp": "0.5.2",
     "@types/mustache": "0.8.32",
-    "@types/node": "12.12.44",
+    "@types/node": "12.12.47",
     "@types/pluralize": "0.0.29",
     "@types/prettier": "1.19.1",
     "@types/sequelize": "4.28.9",
