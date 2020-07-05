@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     {{#fields}}
     <label for="{{name}}">{{ Name }}</label>
     {{#switch type}}
@@ -16,6 +16,7 @@
     <entity-selector
       v-model="{{@root.entity}}.{{Name}}Id"
       entity="{{name}}"
+      option-name="{{default relation.name 'id'}}"
     ></entity-selector>
     {{/case}}
     {{#otherwise ''}}
@@ -48,7 +49,7 @@ export default Vue.extend({
   data() {
     return {
       {{entity}}: {},
-      loading: false
+      loading: true
     };
   },
   created() {

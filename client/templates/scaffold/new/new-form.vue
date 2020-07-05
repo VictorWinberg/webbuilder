@@ -16,6 +16,7 @@
     <entity-selector
       v-model="{{@root.entity}}.{{Name}}Id"
       entity="{{name}}"
+      option-name="{{default relation.name 'id'}}"
     ></entity-selector>
     {{/case}}
     {{#otherwise ''}}

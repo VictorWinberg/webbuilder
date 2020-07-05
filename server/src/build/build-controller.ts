@@ -2,8 +2,6 @@
 import path from "path";
 import mkdirp from "mkdirp";
 
-import db from "../models";
-
 const {
   readFile,
   writeFile,
@@ -25,9 +23,6 @@ const build = async (): Promise<Entities> => {
       }
     )
   );
-
-  // Sync database
-  await db.sequelize.sync({ alter: true });
 
   return entities;
 };
