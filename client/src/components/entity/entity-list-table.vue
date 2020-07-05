@@ -1,6 +1,5 @@
 <template>
   <div class="list-table">
-    <h1>Entities</h1>
     <div v-for="(entity, index) in entities" :key="index" class="entity">
       <div class="entity-header">
         <h2>{{ entity.entity }}</h2>

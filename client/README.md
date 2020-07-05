@@ -1,4 +1,4 @@
-# boilerplate-client
+# client
 
 ## Project setup
 ```

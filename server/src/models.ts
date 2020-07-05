@@ -7,7 +7,7 @@ const config = require("../dbconfig.json")[env];
 
 const db: any = {};
 
-var _sequelize = new Sequelize(
+const _sequelize = new Sequelize(
   config.database,
   config.username,
   config.password,
@@ -17,7 +17,7 @@ var _sequelize = new Sequelize(
 readdirRec(__dirname)
   .filter(f => f.includes("-model."))
   .forEach(file => {
-    var model = _sequelize["import"](path.join(__dirname, file));
+    const model = _sequelize["import"](path.join(__dirname, file));
     db[model.name] = model;
   });
 
