@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul v-if="!loading">
     <li v-for="{{entity}} in {{entities}}" :key="{{entity}}.id">
       <hr />
       {{#fields}}
@@ -39,7 +39,7 @@ export default Vue.extend({
   data() {
     return {
       {{entities}}: [],
-      loading: false
+      loading: true
     };
   },
   created() {

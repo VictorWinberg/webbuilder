@@ -1,7 +1,7 @@
 <template>
   <select v-model="localValue">
     <option v-for="option in entities" :key="option.id" :value="option.id">
-      {{ option.name }}
+      {{ option[optionName] }}
     </option>
   </select>
 </template>
@@ -13,7 +13,8 @@ import { bus } from "@/main";
 export default Vue.extend({
   name: "EntitySelector",
   props: {
-    value: { type: String, required: true, default: "" },
+    optionName: { type: String, default: "id" },
+    value: { type: String, default: "" },
     entity: { type: String, required: true }
   },
   data() {
