@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { capitalize, toUpper, transform } from "lodash";
 import Handlebars from "handlebars";
 import helpers from "handlebars-helpers";
@@ -25,8 +26,8 @@ Handlebars.registerHelper("otherwise", function(this: any, _, options) {
   }
 });
 
-function mustachify(obj: any) {
-  function iteratee(result: any, value: any, key: string) {
+function mustachify(obj: any): any {
+  function iteratee(result: any, value: any, key: string): void {
     if (typeof value === "object") {
       result[key] = mustachify(value);
     } else if (typeof value === "string") {
@@ -43,7 +44,7 @@ function mustachify(obj: any) {
   return transform(obj, iteratee);
 }
 
-const templating = (template: string, filepath: string, entity: any) =>
+const templating = (template: string, filepath: string, entity: any): string =>
   format(Handlebars.compile(template)(mustachify(entity)), { filepath });
 
 export default { templating };

@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import path from "path";
 import mkdirp from "mkdirp";
+
+import db from "../models";
 
 const {
   readFile,
@@ -11,7 +14,7 @@ const {
 
 type Entities = [{ entity: string; fields: [] }];
 
-const build = async () => {
+const build = async (): Promise<Entities> => {
   const contents = await readFile(ENTITIES_JSON, "utf8");
   const entities: Entities = JSON.parse(contents);
   await Promise.all(
@@ -22,6 +25,10 @@ const build = async () => {
       }
     )
   );
+
+  // Sync database
+  await db.sequelize.sync({ alter: true });
+
   return entities;
 };
 
@@ -31,14 +38,14 @@ const buildTemplate = async (
   dest: string,
   obj: { entity: string; fields: [] },
   options = { withFolder: true }
-) => {
+): Promise<void> => {
   const templateFiles = await readTemplates(
     template,
     path.join("..", root, "templates")
   );
   await Promise.all(
     templateFiles.map(
-      async ({ filePath, fileContents }: any): Promise<void> => {
+      async ({ filePath, fileContents }): Promise<void> => {
         const contents = templating(fileContents, filePath, obj);
         const entityPath = path.join(
           "..",
@@ -56,7 +63,10 @@ const buildTemplate = async (
   );
 };
 
-const readTemplates = async (template: string, templatePath: string) =>
+const readTemplates = async (
+  template: string,
+  templatePath: string
+): Promise<{ filePath: string; fileContents: string }[]> =>
   await Promise.all(
     readdirRec(path.join(templatePath, template)).map(
       async (filePath: string): Promise<{}> => {
