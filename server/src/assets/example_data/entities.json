@@ -38,7 +38,8 @@
       {
         "name": "customer",
         "relation": {
-          "entity": "customer"
+          "entity": "customer",
+          "name": "name"
         },
         "validations": [
           {

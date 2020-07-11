@@ -4,7 +4,24 @@ import { omit } from "lodash/fp";
 export default (app: Express, db: any) => {
   app.get("/api/{{entities}}", async (req: Request, res: Response) => {
     try {
-      const results = await db.{{Entity}}.findAll();
+      const results = await db.{{Entity}}.findAll({
+        attributes: { exclude: [
+          {{#fields}}
+          {{#eq type "belongsTo"}}
+          "{{relation.Entity}}Id",
+          {{/eq}}
+          {{/fields}}
+        ]},
+        include: [
+          {{#fields}}
+          {{#eq type "belongsTo"}}
+          { model: db.{{relation.Entity}}, attributes: [
+            "id",
+            {{#if relation.name}} "{{relation.name}}" {{/if}}] },
+          {{/eq}}
+          {{/fields}}
+        ]
+      });
       return res.send(results);
     } catch (err) {
       console.error("Error querying {{entities}}", JSON.stringify(err));
@@ -25,7 +42,16 @@ export default (app: Express, db: any) => {
   app.get("/api/{{entities}}/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const result = await db.{{Entity}}.findByPk(id, { include: [{ all: true }] });
+      const result = await db.{{Entity}}.findByPk(id, {
+        attributes: { exclude: [
+          {{#fields}}
+          {{#eq type "belongsTo"}}
+          "{{relation.Entity}}Id",
+          {{/eq}}
+          {{/fields}}
+        ]},
+        include: [{ all: true }]
+      });
       if (result == null) {
         return res.status(404).send("{{Entity}} Not Found");
       }

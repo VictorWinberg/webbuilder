@@ -1,7 +1,6 @@
 <template>
   <div>
     <{{entity}}-new-form></{{entity}}-new-form>
-    <button @click="back()">GO BACK</button>
   </div>
 </template>
 
@@ -13,11 +12,6 @@ export default Vue.extend({
   name: "{{Entity}}New",
   components: {
     {{Entity}}NewForm
-  },
-  methods: {
-    back() {
-      this.$router.push({ name: "{{Entity}}List" });
-    }
   }
 });
 </script>
