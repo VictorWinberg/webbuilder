@@ -14,7 +14,13 @@
       {{ Name }}: \{{ {{@root.entity}}.{{ name }} ? "True" : "False" }}
       {{/case}}
       {{#case 'belongsTo'}}
-      {{ Name }}: \{{ {{@root.entity}}.{{ Name }}Id }}
+      {{ Name }}: \{{
+      {{#if relation.name}}
+      $_.get("{{ Name }}.{{default relation.name 'id'}}", {{@root.entity}})
+      {{else}}
+      {{@root.entity}}.{{ Name }}Id
+      {{/if}}
+      }}
       {{/case}}
       {{#otherwise ''}}
       <span class="error">Missing type: {{ type }}</span>
@@ -74,7 +80,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 ul {
   list-style: none;
   padding: 0;

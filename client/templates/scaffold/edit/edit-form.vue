@@ -74,7 +74,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .error {
   color: red;
 }

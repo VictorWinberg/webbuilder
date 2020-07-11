@@ -132,7 +132,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .toggle .icon {
   vertical-align: middle;
   padding: 1rem;

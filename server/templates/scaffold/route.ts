@@ -4,7 +4,15 @@ import { omit } from "lodash/fp";
 export default (app: Express, db: any) => {
   app.get("/api/{{entities}}", async (req: Request, res: Response) => {
     try {
-      const results = await db.{{Entity}}.findAll();
+      const results = await db.{{Entity}}.findAll({
+        include: [
+          {{#fields}}
+          {{#if relation.name}}
+          { model: db.{{relation.Entity}}, attributes: ["{{relation.name}}"] },
+          {{/if}}
+          {{/fields}}
+        ]
+      });
       return res.send(results);
     } catch (err) {
       console.error("Error querying {{entities}}", JSON.stringify(err));
