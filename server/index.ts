@@ -1,7 +1,7 @@
-import { resolve } from "path";
-import { config } from "dotenv";
+import path from "path";
+import dotenv from "dotenv";
 
-config({ path: resolve(__dirname, "../.env") });
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 import app from "./src/app";
 
