@@ -20,7 +20,7 @@
       </b-button>
       <b-menu-list label="Static">
         <b-menu-item
-          v-for="route in filter(['meta.static', true], routes)"
+          v-for="route in $_.filter(['meta.static', true], routes)"
           :key="route.path"
           :label="route.meta.name"
           tag="router-link"
@@ -32,7 +32,7 @@
       </b-menu-list>
       <b-menu-list label="Dynamic">
         <b-menu-item
-          v-for="route in filter(['meta.static', false], routes)"
+          v-for="route in $_.filter(['meta.static', false], routes)"
           :key="route.path"
           icon-pack="fas"
           icon="dot-circle"
@@ -45,7 +45,7 @@
             />
           </template>
           <b-menu-item
-            v-for="child in filter(['meta.static', false], route.children)"
+            v-for="child in $_.filter(['meta.static', false], route.children)"
             :key="child.path"
             :label="child.meta.name"
             tag="router-link"
@@ -59,7 +59,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { filter } from "lodash/fp";
 
 export default Vue.extend({
   name: "Navbar",
@@ -76,7 +75,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    filter,
     toggleMenu(boolean: boolean) {
       this.menuOpen = boolean;
     }
