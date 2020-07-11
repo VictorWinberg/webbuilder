@@ -1,0 +1,42 @@
+/**
+ *    ____  _    _ _      __  __
+ *   |  _ \| |  | | |    |  \/  |   /\
+ *   | |_) | |  | | |    | \  / |  /  \
+ *   |  _ <| |  | | |    | |\/| | / /\ \
+ *   | |_) | |__| | |____| |  | |/ ____ \
+ *   |____/ \____/|______|_|  |_/_/    \_\
+ *
+ **/
+
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+@import "variables";
+
+$linkedin: #0077b5;
+$linkedin-invert: findColorInvert($linkedin);
+$twitter: #55acee;
+$twitter-invert: findColorInvert($twitter);
+$github: #333;
+$github-invert: findColorInvert($github);
+
+@import "~bulma/sass/utilities/derived-variables";
+
+$addColors: (
+  "twitter": (
+    $twitter,
+    $twitter-invert
+  ),
+  "linkedin": (
+    $linkedin,
+    $linkedin-invert
+  ),
+  "github": (
+    $github,
+    $github-invert
+  )
+);
+$colors: map-merge($colors, $addColors);
+
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
