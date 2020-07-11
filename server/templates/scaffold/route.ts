@@ -33,16 +33,7 @@ export default (app: Express, db: any) => {
   app.get("/api/{{entities}}/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const result = await db.{{Entity}}.findByPk(id, {
-        attributes: { exclude: [
-          {{#fields}}
-          {{#eq type "belongsTo"}}
-          "{{relation.Entity}}Id",
-          {{/eq}}
-          {{/fields}}
-        ]},
-        include: [{ all: true }]
-      });
+      const result = await db.{{Entity}}.findByPk(id, { include: [{ all: true }] });
       if (result == null) {
         return res.status(404).send("{{Entity}} Not Found");
       }
