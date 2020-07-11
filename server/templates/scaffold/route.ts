@@ -5,20 +5,11 @@ export default (app: Express, db: any) => {
   app.get("/api/{{entities}}", async (req: Request, res: Response) => {
     try {
       const results = await db.{{Entity}}.findAll({
-        attributes: { exclude: [
-          {{#fields}}
-          {{#eq type "belongsTo"}}
-          "{{relation.Entity}}Id",
-          {{/eq}}
-          {{/fields}}
-        ]},
         include: [
           {{#fields}}
-          {{#eq type "belongsTo"}}
-          { model: db.{{relation.Entity}}, attributes: [
-            "id",
-            {{#if relation.name}} "{{relation.name}}" {{/if}}] },
-          {{/eq}}
+          {{#if relation.name}}
+          { model: db.{{relation.Entity}}, attributes: ["{{relation.name}}"] },
+          {{/if}}
           {{/fields}}
         ]
       });
