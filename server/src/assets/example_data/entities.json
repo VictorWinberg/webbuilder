@@ -67,7 +67,7 @@
         "type": "hasMany"
       },
       {
-        "name": "delivered",
+        "name": "isDelivered",
         "relation": {},
         "validations": [],
         "type": "boolean"
