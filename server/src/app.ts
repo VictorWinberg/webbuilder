@@ -28,7 +28,7 @@ app.get("/api/sync", (_, res) => {
 });
 
 app.get("/api/*", (_, res) => {
-  res.status(400).send("Not Found");
+  res.status(405).send("Method Not Allowed");
 });
 
 app.get("*", (_, res) => {
