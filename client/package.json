@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "bootstrap": "4.5.2",
-    "bootstrap-vue": "2.16.0",
+    "bootstrap-vue": "2.18.1",
     "buefy": "0.9.3",
     "core-js": "3.6.5",
     "element-ui": "2.13.2",
