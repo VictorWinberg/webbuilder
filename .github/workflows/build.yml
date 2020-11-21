@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install and cache dependencies
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v2
         with:
           runTests: false
 
