@@ -2,7 +2,6 @@
   "name": "webbuilder",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "postinstall": "npm-run-all -p install-client install-server",
     "install-client": "cd client && npm install",
