@@ -1,20 +1,17 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import path from "path";
 import mkdirp from "mkdirp";
+import { readEntitiesOrExample, Entity } from "../entities/entities-controller";
 
 const {
   readFile,
   writeFile,
   readdirRec,
-  templating,
-  ENTITIES_JSON
+  templating
 } = require("../utils").default;
 
-type Entities = [{ entity: string; fields: [] }];
-
-const build = async (): Promise<Entities> => {
-  const contents = await readFile(ENTITIES_JSON, "utf8");
-  const entities: Entities = JSON.parse(contents);
+const build = async (): Promise<Entity[]> => {
+  const entities = await readEntitiesOrExample();
   await Promise.all(
     entities.map(
       async (obj): Promise<void> => {

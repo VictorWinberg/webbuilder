@@ -2,10 +2,10 @@
   "name": "webbuilder-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "nodemon -e ts --exec ts-node --ignore 'src/app/' index",
-    "build": "ts-node -e 'require(\"./src/build/build-controller\").default()'",
+    "build": "npm run build-template && tsc",
+    "build-template": "ts-node -e 'require(\"./src/build/build-controller\").default()'",
     "eslint": "eslint . --ignore-path .gitignore",
     "test": "jest --coverage",
     "test:watch": "jest --watch"

@@ -3,18 +3,17 @@ import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 
-dotenv.config({ path: path.resolve(__dirname, "../..", ".env") });
+dotenv.config({ path: path.resolve("..", ".env") });
 
 import db from "./models";
 import routes from "./routes";
 
 const app = express();
 
-const clientDist = path.resolve(__dirname, "../..", "client", "dist");
+const clientDist = path.resolve("..", "client", "dist");
 
 app.use(express.static(clientDist));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "/static"));
 
 routes(app, db);
 
