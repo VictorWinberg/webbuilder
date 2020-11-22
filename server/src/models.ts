@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 import readdirRec from "fs-readdir-recursive";
 
 const env = process.env.NODE_ENV || "development";
-const config = require("../dbconfig.json")[env];
+const config = require(path.resolve("dbconfig.json"))[env];
 
 const db: any = {};
 

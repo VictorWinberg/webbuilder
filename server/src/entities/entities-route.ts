@@ -2,7 +2,7 @@ import { Express, Request, Response } from "express";
 
 import { readEntitiesOrExample, writeEntities } from "./entities-controller";
 
-export default (app: Express, _: any) => {
+export default (app: Express, _: any): void => {
   app.get("/api/entities", async (req: Request, res: Response) => {
     try {
       const entities = await readEntitiesOrExample();
