@@ -34,6 +34,9 @@
     "type": "git",
     "url": "git+https://github.com/VictorWinberg/webbuilder.git"
   },
+  "engines": {
+    "node": ">=12.x"
+  },
   "author": "VictorWinberg, AnnieLeonia",
   "license": "ISC"
 }
