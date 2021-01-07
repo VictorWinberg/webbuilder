@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     {{#fields}}
     {{#switch type}}
     {{#case 'string'}}
@@ -12,7 +12,8 @@
     \{{ {{@root.entity}}.{{ name }} }}
     {{/case}}
     {{#case 'belongsTo'}}
-    {{ Name }} \{{ {{@root.entity}}.{{ Name }} }}
+    {{ Name }}: \{{ {{@root.entity}}.{{ Name }}.{{default relation.name "id"}}
+    }}
     {{/case}}
     {{#otherwise ''}}
     <span class="error">Missing type: {{ type }}</span>
@@ -34,7 +35,7 @@ export default Vue.extend({
   data() {
     return {
       {{entity}}: {},
-      loading: false
+      loading: true
     };
   },
   created() {
