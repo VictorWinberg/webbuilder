@@ -6,7 +6,9 @@ const {
   EXAMPLE_ENTITIES_JSON
 } = require("../utils").default;
 
-export async function readEntitiesOrExample(): Promise<[]> {
+export type Entity = { entity: string; fields: [] };
+
+export async function readEntitiesOrExample(): Promise<Entity[]> {
   if (!exists(ENTITIES_JSON)) {
     const exampleData = await readFile(EXAMPLE_ENTITIES_JSON);
     await writeFile(ENTITIES_JSON, exampleData);
@@ -15,7 +17,7 @@ export async function readEntitiesOrExample(): Promise<[]> {
   return JSON.parse(entities);
 }
 
-export async function writeEntities(entities: []): Promise<void> {
+export async function writeEntities(entities: Entity[]): Promise<void> {
   // TODO: Add better typecheck and error message
   if (!Array.isArray(entities)) {
     throw new Error("Request should be of type Array");

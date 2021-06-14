@@ -1,17 +1,19 @@
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
 import express from "express";
 import path from "path";
-import bodyParser from "body-parser";
+
+dotenv.config({ path: path.resolve("..", ".env") });
 
 import db from "./models";
 import routes from "./routes";
 
 const app = express();
 
-const clientDist = path.resolve(__dirname, "..", "..", "client", "dist");
+const clientDist = path.resolve("..", "client", "dist");
 
 app.use(express.static(clientDist));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "/static"));
 
 routes(app, db);
 
@@ -25,7 +27,7 @@ app.get("/api/sync", (_, res) => {
 });
 
 app.get("/api/*", (_, res) => {
-  res.status(400).send("Not Found");
+  res.status(405).send("Method Not Allowed");
 });
 
 app.get("*", (_, res) => {

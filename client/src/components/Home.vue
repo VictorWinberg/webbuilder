@@ -5,6 +5,10 @@
       For a guidance and help on how to customize this project <br />
       check out the documentation, <u>to be defined</u>.
     </p>
+    <br />
+    <b-button size="is-small" type="is-danger" @click="alterDb">
+      Alter DB
+    </b-button>
   </div>
 </template>
 
@@ -12,12 +16,16 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "Home"
+  name: "Home",
+  methods: {
+    async alterDb() {
+      const res = await fetch("/api/sync");
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+    }
+  }
 });
 </script>
 
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-</style>
+<style lang="scss"></style>

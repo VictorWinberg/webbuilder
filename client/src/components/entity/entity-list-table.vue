@@ -90,7 +90,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 h2 {
   text-transform: capitalize;
 }

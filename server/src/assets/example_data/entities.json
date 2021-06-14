@@ -38,7 +38,8 @@
       {
         "name": "customer",
         "relation": {
-          "entity": "customer"
+          "entity": "customer",
+          "name": "name"
         },
         "validations": [
           {
@@ -66,7 +67,7 @@
         "type": "hasMany"
       },
       {
-        "name": "delivered",
+        "name": "isDelivered",
         "relation": {},
         "validations": [],
         "type": "boolean"

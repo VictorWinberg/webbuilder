@@ -2,7 +2,7 @@ import { Express, Request, Response } from "express";
 
 import build from "./build-controller";
 
-export default (app: Express, _: any) => {
+export default (app: Express, _: any): void => {
   app.get("/api/build", async (req: Request, res: Response) => {
     try {
       const entities = await build();

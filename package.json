@@ -2,7 +2,6 @@
   "name": "webbuilder",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "postinstall": "npm-run-all -p install-client install-server",
     "install-client": "cd client && npm install",
@@ -29,11 +28,14 @@
   },
   "devDependencies": {
     "cypress": "3.8.3",
-    "start-server-and-test": "1.10.6"
+    "start-server-and-test": "1.12.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VictorWinberg/webbuilder.git"
+  },
+  "engines": {
+    "node": ">=12.x"
   },
   "author": "VictorWinberg, AnnieLeonia",
   "license": "ISC"
