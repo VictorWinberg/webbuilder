@@ -9,6 +9,11 @@
     <b-button size="is-small" type="is-danger" @click="alterDb">
       Alter DB
     </b-button>
+    <br />
+    <br />
+    <b-button size="is-small" type="is-danger" @click="build">
+      Build
+    </b-button>
   </div>
 </template>
 
@@ -23,7 +28,13 @@ export default Vue.extend({
       if (!res.ok) {
         throw new Error(res.statusText);
       }
-    }
+    },
+    async build() {
+      const res = await fetch("/api/build");
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+    },
   }
 });
 </script>
