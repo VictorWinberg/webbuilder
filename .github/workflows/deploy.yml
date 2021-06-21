@@ -20,18 +20,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install and cache client dependencies
+      - name: Install and cache dependencies
         uses: bahmutov/npm-install@v1
-        with:
-          working-directory: client
 
-      - name: Build client
+      - name: Build
         run: npm run build
-        working-directory: client
 
       - uses: actions/upload-artifact@v2
         with:
-          name: dist
+          name: dists
           path: "*/dist"
   deploy:
     needs: build
@@ -46,7 +43,7 @@ jobs:
           ref: "master"
       - uses: actions/download-artifact@v2
         with:
-          name: dist
+          name: dists
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
