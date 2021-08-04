@@ -1,7 +1,7 @@
 name: Test Environment - Deploy
 on:
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [ labeled ]
     branches:
       - master
 
