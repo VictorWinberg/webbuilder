@@ -1,8 +1,16 @@
-name-template: 'v$NEXT_MINOR_VERSION'
-tag-template: 'v$NEXT_MINOR_VERSION'
-
+name-template: 'v$NEXT_PATCH_VERSION'
+tag-template: 'v$NEXT_PATCH_VERSION'
+categories:
+  - title: '🚀 Features'
+    label: 'Type: Feature'
+  - title: '🐛 Bug Fixes'
+    label: 'Type: Bug'
+  - title: ':octocat: Github Actions'
+    label: 'Type: Action'
+  - title: '📚 Dependencies'
+    label: 'Type: Dependencies'
 template: |
-  ## Changelog
+  **Changelog**
 
   $CHANGES
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
